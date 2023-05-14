@@ -8,10 +8,15 @@ import moon from '../assets/moon.svg'
 export default {
   data() {
     return {
-      moon
+      moon,
+      dnsServers: [],
+      userIp: null
     }
-  }
+  },
+  
 }
+
+
 </script>
 
 
@@ -20,7 +25,7 @@ export default {
   <main class="font-['inter']">
     <img :src="moon" class="absolute right-0 p-4 w-18"/>
 
-    <section class="mx-4 h-auto md:h-screen relative grid grid-cols-1 gap-1">
+    <section class="mx-4 h-auto md:h-screen min-h-[800px] relative grid grid-cols-1 gap-1">
       <!-- Titre -->
       <div>
         <div class="flex flex-wrap w-fit max-w-sm sm:max-w-full m-auto mt-24">
