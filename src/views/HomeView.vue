@@ -28,6 +28,12 @@ export default {
     }
   },
 
+  watch: {
+    light_theme(newTheme) {
+      console.log('Nouveau thème :', newTheme);
+    }
+  },
+
   methods: {
     startDns() {
       this.loading = true
@@ -90,8 +96,28 @@ export default {
             En cliquant sur le bouton, vous pourrez vérifier votre DNS et savoir si vous êtes soumis à la censure d'internet.
           </p>
           <div class="lds-facebook mx-auto relative" v-if="loading"><div></div><div></div><div></div></div>
+          
+          <div v-show="dns_user && !loading">
+            <div class="flex flex-nowrap max-w-xl mx-auto">
+                <div class="mx-auto">
+                    <p class="text-[#1E1E1E] text-center text-2xl font-bold" :class="{ 'text-white': !light_theme}">Fournisseur</p>
+                    <p class="text-[#686868] text-center text-xl font-medium overflow-hidden truncate max-w-[200px]" :class="{ 'text-[#9A9A9A]': !light_theme }">{{ dns_user ? dns_user.name : '' }}</p>
+                </div>
+                <div class="mx-auto">
+                    <p class="text-[#1E1E1E] text-center text-2xl font-bold" :class="{ 'text-white': !light_theme }">Serveur DNS</p>
+                    <p class="text-[#686868] text-center text-xl font-medium overflow-hidden truncate max-w-[200px]" :class="{ 'text-[#9A9A9A]': !light_theme }">{{ dns_user ? dns_user.ip : ''  }}</p>
+                </div>
+            </div>
+            
+            <p class="text-[#EC0000] text-center text-2xl max-w-2xl mx-auto font-medium mt-4" :class="{ 'text-[#F55C5C]': !light_theme }" v-if="dns_user && dns_user.name in ['Bouygtel']">
+                Vulnérable.
+            </p>
+            <p class="text-[#21FF1D] text-center text-2xl max-w-2xl mx-auto font-medium mt-4" :class="{ 'text-[#85FC82]': !light_theme }" v-else>
+                Non Vulnérable
+            </p>
+            
+          </div>
 
-          <Status :data="dns_user" :theme="true" v-if="dns_user && !loading"/>
         </div>
       </div>
 
