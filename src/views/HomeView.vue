@@ -86,7 +86,7 @@ export default {
       <div>
         <div class="w-fit mx-auto mt-14">
           <button type="button" class="text-white bg-[#345BC1] rounded px-4 py-3 text-2xl" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" @click="startDns">
-          Cliquez içi pour vérifier votre DNS
+          Cliquez ici pour vérifier votre DNS
           </button>
         </div>
         
