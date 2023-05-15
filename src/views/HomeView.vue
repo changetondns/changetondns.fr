@@ -1,6 +1,5 @@
 <script setup>
 import Tutorial from '../components/Tutorial.vue'
-import Status from '../components/Status.vue'
 </script>
 
 <script>
