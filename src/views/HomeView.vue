@@ -23,54 +23,69 @@ export default {
       light_theme: true,
       selectedPlatform: 'w-11',
       dns_user: null,
-      loading: false
-    }
-  },
-
-  watch: {
-    light_theme(newTheme) {
-      console.log('Nouveau thème :', newTheme);
+      loading: false,
+      error: ''
     }
   },
 
   methods: {
     startDns() {
-      this.loading = true
-      setTimeout(() => {
-        this.dns();
-      }, 1500);
+      this.error = ''
+      if (!this.loading) {
+        this.loading = true
+        setTimeout(() => {
+          this.dns(0);
+        }, 20);
+      }
     },
 
-    dns() {
+    dns(retry) {
+      if (retry == 10) {
+        this.loading = false;
+        this.dns_user = null;
+
+        this.error = 'Votre fournisseur DNS nous est inconnu :('
+        return;
+      }
+
       let id = Math.random() * 32;
 
-      axios.get(`http://${id}.edns.ip-api.com/json`).then((res) => {
-        let data = res.data
-        axios.get(`http://ip-api.com/json/${data.dns.ip}?fields=62464`).then((res) => {
-          this.dns_user = {'name': res.data.org, 'ip': res.data.query, 'geo': data.dns.geo}
-          this.loading = false
-          }).catch((err) => {
-            console.log(err)
+      axios.get(`http://${id}.edns.ip-api.com/json`)
+      .then((res) => {
+        let data = res.data;
+       
+        axios.get(`http://ip-api.com/json/${data.dns.ip}?fields=62464`)
+          .then((res) => {
+            if (!res.data.org) {
+              this.dns(retry + 1); // Relance la requête si l'information de l'organisation est manquante
+            } else {
+              this.dns_user = { 'name': res.data.org, 'ip': res.data.query, 'geo': data.dns.geo, 'reverse': res.data.reverse };
+              this.loading = false;
+            }
           })
-      }).catch((err) => {
-          console.log(err)
       })
+      .catch((err) => {
+        this.loading = false;
+        this.dns_user = null;
+
+        this.error = 'Une erreur s\'est produite :('
+      });
     }
   }
 }
 </script>
 
 <template>
-  <main :class="{ 'bg-[#161818]': !light_theme, 'bg-transition': true }">
-    <div class="flex float-right p-4 w-18 h-18" @click="light_theme = !light_theme">
-      <img class="w-8 h-8" :src="moon" v-if="light_theme"/>
-      <img class="w-8 h-8" :src="sun" v-else/>
-    </div>
+  <main class="" :class="{ 'bg-[#161818]': !light_theme, 'bg-transition': true }">
 
     <section class="mx-4 h-auto md:h-screen min-h-[800px] relative grid grid-cols-1 gap-1">
+      <div class="p-4 w-18 h-18" @click="light_theme = !light_theme">
+        <img class="w-8 h-8" :src="moon" v-if="light_theme"/>
+        <img class="w-8 h-8" :src="sun" v-else/>
+      </div>
       <!-- Titre -->
       <div>
-        <div class="flex flex-wrap w-fit max-w-sm sm:max-w-full m-auto mt-24">
+        <div class="flex flex-wrap w-fit max-w-sm sm:max-w-full m-auto">
           <p class="text-[#345BC1] text-[64px] font-semibold mx-auto sm:mx-3 text-center">Change ton</p>
           <div class="relative inline-block w-fit mx-auto">
             <p class="text-[#345BC1] text-[64px] font-semibold z-10 relative">DNS</p>
@@ -91,16 +106,20 @@ export default {
         </div>
         
         <div class="min-h-[200px] mt-8">
-          <p class="text-[#5E5E5E] text-center text-2xl max-w-2xl mx-auto" :class="{ 'text-[#F9F9F9]': !light_theme }" v-if="dns_user == null && !loading">
+          <p class="text-[#5E5E5E] text-center text-2xl max-w-2xl mx-auto" :class="{ 'text-[#F9F9F9]': !light_theme }" v-if="dns_user == null && !loading && error == ''">
             En cliquant sur le bouton, vous pourrez vérifier votre DNS et savoir si vous êtes soumis à la censure d'internet.
           </p>
           <div class="lds-facebook mx-auto relative" v-if="loading"><div></div><div></div><div></div></div>
           
-          <div v-show="dns_user && !loading">
+          <p class="text-[#5E5E5E] text-center text-2xl max-w-2xl mx-auto" :class="{ 'text-[#F9F9F9]': !light_theme }" v-if="error != ''">
+            {{ error }}
+          </p>
+
+          <div v-show="dns_user && !loading && error == ''">
             <div class="flex flex-nowrap max-w-xl mx-auto">
                 <div class="mx-auto">
                     <p class="text-[#1E1E1E] text-center text-2xl font-bold" :class="{ 'text-white': !light_theme}">Fournisseur</p>
-                    <p class="text-[#686868] text-center text-xl font-medium overflow-hidden truncate max-w-[200px]" :class="{ 'text-[#9A9A9A]': !light_theme }">{{ dns_user ? dns_user.geo : '' }}</p>
+                    <p class="text-[#686868] text-center text-xl font-medium overflow-hidden truncate max-w-[200px]" :class="{ 'text-[#9A9A9A]': !light_theme }">{{ dns_user ? dns_user.name : '' }}</p>
                 </div>
                 <div class="mx-auto">
                     <p class="text-[#1E1E1E] text-center text-2xl font-bold" :class="{ 'text-white': !light_theme }">Serveur DNS</p>
@@ -108,18 +127,17 @@ export default {
                 </div>
             </div>
             
-            <p class="text-[#EC0000] text-center text-2xl max-w-2xl mx-auto font-medium mt-4" :class="{ 'text-[#F55C5C]': !light_theme }" v-if="dns_user && ['France - Bouygues Telecom ISP'].some(str => str.includes(dns_user.geo))">
+            <p class="text-[#EC0000] text-center text-2xl max-w-2xl mx-auto font-medium mt-4" :class="{ 'text-[#F55C5C]': !light_theme }" v-if="dns_user && ['France - Bouygues Telecom ISP'].some(str => str.includes(dns_user.name))">
                 Vulnérable
             </p>
             <p class="text-[#21FF1D] text-center text-2xl max-w-2xl mx-auto font-medium mt-4" :class="{ 'text-[#85FC82]': !light_theme }" v-else>
                 Non Vulnérable
-            </p>
+            </p>  
             
           </div>
 
         </div>
       </div>
-
 
       <!-- bulle d'info-->
       <div class="max-w-3xl bg-[#2E2D39] p-4 rounded-lg mx-auto relative h-fit mt-12" :class="{ 'bg-[#8591FA]': !light_theme }">
@@ -150,36 +168,107 @@ export default {
         <Tutorial :plateforme="selectedPlatform" :theme="light_theme"/>
       </div>
 
-      <div class="w-11/12 mt-8 mx-auto rounded-lg">
-        <div class="rounded rounded bg-[#C5C5C5] p-2" :class="{ 'bg-[#4E5DE0]': !light_theme }">
-          <p class="text-lg text-[#2E2E2E]" :class="{ 'text-[#D2D2D2]': !light_theme }">Liste de serveur DNS</p>
+      <div class="w-11/12 mt-8 mx-auto">
+        <div class="rounded-t bg-[#e2e2e2] px-2 py-4 border-x border-t border-[#d0d0d0]" :class="{ 'bg-[#1C1E1E]  border-black': !light_theme }">
+          <p class="text-lg text-[#161818] font-bold px-2" :class="{ 'text-[#F1F1F1]': !light_theme }">Liste de serveur DNS</p>
         </div>
         
-        <div class="overflow-x-auto">
-          <table class="table-auto overflow-scroll w-full mt-2 min-w-[800px]">
-            <thead class="text-[#363636]" :class="{ 'text-[#D2D2D2]': !light_theme }">
+        <div class="overflow-x-auto rounded-b-lg border-b border-[#d0d0d0]" :class="{ 'border-black': !light_theme }">
+          <table class="table-auto overflow-scroll w-full min-w-[800px]">
+            <thead class="text-[#161818] bg-[#e2e2e2]" :class="{ 'text-white bg-[#1C1E1E]': !light_theme }">
               <tr>
-                <th class="text-left">Nom</th>
-                <th class="text-left">IP</th>
-                <th class="text-left">Description</th>
+                <th class="text-left pl-4 py-2 border border-[#d0d0d0]" :class="{ 'border-black': !light_theme }">Nom</th>
+                <th class="text-left pl-4 border border-[#d0d0d0]" :class="{ 'border-black': !light_theme }">Adresses IPv4</th>
+                <th class="text-left pl-4 border border-[#d0d0d0]" :class="{ 'border-black': !light_theme }">Adresses IPv6</th>
+                <th class="text-left pl-4 border border-[#d0d0d0]" :class="{ 'border-black': !light_theme }">Description</th>
               </tr>
             </thead>
-            <tbody class="text-xl text-black font-medium" :class="{ 'text-[#FFFFFF]': !light_theme }">
-              <tr>
-                <td class="pl-2 pb-4">Google DNS</td>
-                <td class="pl-2 pb-4">8.8.8.8 / 8.8.4.4</td>
-                <td class="pl-2 max-w-lg pb-4">Le DNS de Google est fiable mais peut être sujet à la censure, avec des préoccupations concernant la vie privée des utilisateurs.</td>
+            <tbody class="text-xl text-black" :class="{ 'text-[#FFFFFF]': !light_theme }">
+              <tr class="hover:bg-[#E3E3E3]" :class="{ 'hover:bg-[#1C1E1E]': !light_theme }">
+                <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]" :class="{ 'border-black': !light_theme }">
+                  Cloudflare
+                </td>
+                <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]" :class="{ 'border-black': !light_theme }">
+                  1.1.1.1<br />
+                  1.0.0.1
+                </td>
+                <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]" :class="{ 'border-black': !light_theme }">
+                  2606:4700:4700::1111<br />
+                  2606:4700:4700::1001
+                </td>
+                <td class="pl-2 max-w-lg py-4 border-x border-t border-[#d0d0d0]" :class="{ 'border-black': !light_theme }">
+                  Connue pour être un DNS très fiable, performant et respectueux de la vie privée.
+                </td>
               </tr>
-              <tr>
-                <td class="pl-2 pb-4">Google DNS</td>
-                <td class="pl-2 pb-4">8.8.8.8 / 8.8.4.4</td>
-                <td class="pl-2 max-w-lg pb-4">Le DNS de Google est fiable mais peut être sujet à la censure, avec des préoccupations concernant la vie privée des utilisateurs.</td>
+              
+              <tr class="hover:bg-[#E3E3E3]" :class="{ 'hover:bg-[#1C1E1E]': !light_theme }">
+                <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]" :class="{ 'border-black': !light_theme }">
+                  Google DNS
+                </td>
+                <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]" :class="{ 'border-black': !light_theme }">
+                  8.8.8.8<br />
+                  8.8.4.4
+                </td>
+                <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]" :class="{ 'border-black': !light_theme }">
+                  2001:4860:4860::8888<br />
+                  2001:4860:4860::8844
+                </td>
+                <td class="pl-2 max-w-lg py-4 border-t border-x border-[#d0d0d0]" :class="{ 'border-black': !light_theme }">
+                  Réputé pour sa fiabilité et ses performances, bien que le respect de la vie privée puisse être remis en question.
+                </td>
               </tr>
-              <tr>
-                <td class="pl-2 pb-4">Google DNS</td>
-                <td class="pl-2 pb-4">8.8.8.8 / 8.8.4.4</td>
-                <td class="pl-2 max-w-lg pb-4">Le DNS de Google est fiable mais peut être sujet à la censure, avec des préoccupations concernant la vie privée des utilisateurs.</td>
+              
+              <tr class="hover:bg-[#E3E3E3]" :class="{ 'hover:bg-[#1C1E1E]': !light_theme }">
+                <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]" :class="{ 'border-black': !light_theme }">
+                  Quad9
+                </td>
+                <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]" :class="{ 'border-black': !light_theme }">
+                  9.9.9.9<br />
+                  149.112.112.112
+                </td>
+                <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]" :class="{ 'border-black': !light_theme }">
+                  2620:fe::fe<br />
+                  2620:fe::9
+                </td>
+                <td class="pl-2 max-w-lg py-4 border-t border-x border-[#d0d0d0]" :class="{ 'border-black': !light_theme }">
+                  Offre un DNS fiable avec des filtres de sécurité pour éviter l'accès à des sites dangereux.
+                </td>
               </tr>
+
+              <tr class="hover:bg-[#E3E3E3]" :class="{ 'hover:bg-[#1C1E1E]': !light_theme }">
+                <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]" :class="{ 'border-black': !light_theme }">
+                  FDN
+                </td>
+                <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]" :class="{ 'border-black': !light_theme }">
+                  80.67.169.12<br />
+                  80.67.169.40
+                </td>
+                <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]" :class="{ 'border-black': !light_theme }">
+                  2001:910:800::12<br />
+                  2001:910:800::40
+                </td>
+                <td class="pl-2 max-w-lg py-4 border-t border-x border-[#d0d0d0]" :class="{ 'border-black': !light_theme }">
+                  Créé par une association française dans le but de lutter contre la censure sur internet.
+                </td>
+              </tr>
+              
+              <tr class="hover:bg-[#E3E3E3]" :class="{ 'hover:bg-[#1C1E1E]': !light_theme }">
+                <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]" :class="{ 'border-black': !light_theme }">
+                  OpenDNS
+                </td>
+                <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]" :class="{ 'border-black': !light_theme }">
+                  208.67.222.222<br />
+                  208.67.220.220
+                </td>
+                <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]" :class="{ 'border-black': !light_theme }">
+                  2620:119:35::35<br />
+                  2620:119:53::53
+                </td>
+                <td class="pl-2 max-w-lg py-4 border-t border-x border-[#d0d0d0]" :class="{ 'border-black': !light_theme }">
+                  Réputé pour sa rapidité et son absence de censure.
+                </td>
+              </tr>
+        
             </tbody>
           </table>
         </div>
@@ -201,11 +290,9 @@ export default {
 
       <p class="text-[#1C1C1C] font-bold text-2xl mt-12" :class="{ 'text-white': !light_theme }">Qu’est ce qu’un DNS menteur ?</p>
       <p class="mt-4 ml-4 max-w-4xl text-[#424242] font-medium" :class="{ 'text-[#DBDBDB]': !light_theme }">
-        Un DNS menteur, également connu sous le nom de DNS falsifié ou de DNS empoisonné, est un type d'attaque informatique dans laquelle un cybercriminel modifie intentionnellement les réponses d'un serveur DNS afin de rediriger les utilisateurs vers un site Web frauduleux ou malveillant.
+        Le DNS menteur est une pratique utilisée par les fournisseurs d'accès à Internet (FAI) pour restreindre l'accès à certains sites web. Cette technique consiste à manipuler les réponses DNS afin de rediriger vos requêtes vers une adresse IP différente de celle attendue pour accéder au site censuré. Cette redirection peut être effectuée vers une page d'erreur standard ou vers un message indiquant que le site est inaccessible ou inexistant.
         <br/><br/>
-        Cela peut se produire lorsque le cybercriminel intercepte et modifie le trafic DNS en cours de route, ou lorsqu'il prend le contrôle d'un serveur DNS et modifie les enregistrements de zone pour diffuser des informations DNS incorrectes.
-        <br/><br/>
-        Lorsqu'un utilisateur accède à un site Web à partir d'un navigateur, le navigateur envoie une requête DNS pour résoudre le nom de domaine en adresse IP. Si le DNS est falsifié, le navigateur est redirigé vers un site Web frauduleux ou malveillant, ce qui peut entraîner des pertes financières, la perte de données personnelles ou d'autres conséquences négatives pour l'utilisateur.
+        L'utilisation du DNS menteur est souvent mise en place par les FAI en réponse à des obligations légales ou des pressions gouvernementales. Dans le cas mentionné, l'État français impose cette pratique aux FAI dans le but de bloquer l'accès à certains sites web qu'il juge inappropriés, illégaux ou contraires à sa politique.
       </p>
     </section>
     
