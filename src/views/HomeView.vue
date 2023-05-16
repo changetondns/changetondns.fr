@@ -29,6 +29,21 @@ export default {
   },
 
   methods: {
+    getFai() {
+      if (this.dns_user == null) {
+        return false
+      }
+
+      let is_fai = false
+
+      if (['Bouygtel ISP Services', 'ProXad network / Free SA', 'N9uf Infra', 'PFS Orange Internet'].some(str => str.includes(this.dns_user.name))) {
+        is_fai = true
+      } else if (['bouyguesbox.fr', 'dns1.proxad.net', 'dns.sfr.net', 'dns-abo-static-a.wanadoo.fr'].some(str => str.includes(this.dns_user.reverse)) && this.dns_user.reverse != '')
+        is_fai = true
+
+      return is_fai
+    },
+
     startDns() {
       this.error = ''
       if (!this.loading) {
@@ -128,7 +143,7 @@ export default {
                 </div>
             </div>
             
-            <p class="text-[#EC0000] text-center text-2xl max-w-2xl mx-auto font-medium mt-4" :class="{ 'text-[#F55C5C]': !light_theme }" v-if="dns_user && ['France - Bouygues Telecom ISP'].some(str => str.includes(dns_user.name))">
+            <p class="text-[#EC0000] text-center text-2xl max-w-2xl mx-auto font-medium mt-4" :class="{ 'text-[#F55C5C]': !light_theme }" v-if="getFai()">
                 Vulnérable
             </p>
             <p class="text-[#21FF1D] text-center text-2xl max-w-2xl mx-auto font-medium mt-4" :class="{ 'text-[#85FC82]': !light_theme }" v-else>
