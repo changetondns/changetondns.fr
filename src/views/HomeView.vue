@@ -1,5 +1,6 @@
 <script setup>
 import Tutorial from '../components/Tutorial.vue'
+import ImageViewer from '../components/Image.vue'
 </script>
 
 <script>
@@ -24,11 +25,16 @@ export default {
             selectedPlatform: 'w-11',
             dns_user: null,
             loading: false,
-            error: ''
+            error: '',
+            image: '',
         }
     },
 
     methods: {
+        show_image(image) {
+            this.image = image
+        },
+
         genHash(longueur) {
             let caracteres = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
             let texte = '';
@@ -41,20 +47,20 @@ export default {
             return texte;
         },
 
-        getFai() {
+        getFai(retry) {
             if (this.dns_user == null) {
                 return false
             }
 
             let is_fai = false
             let searchString = this.dns_user.name.toLowerCase();
-            let keywords = ['bouygues', 'free sas', 'sfr', 'orange'];
+            let keywords = ['bouygues', 'free sas', 'sfr sa', 'orange'];
 
             for (let i = 0; i < keywords.length; i++) {
-                if (searchString.includes(keywords[i])) {
-                    is_fai = true;
-                    break;
-                }
+            if (searchString.includes(keywords[i])) {
+                is_fai = true;
+                break;
+            }
             }
 
             return is_fai
@@ -65,61 +71,47 @@ export default {
             if (!this.loading) {
                 this.loading = true
                 setTimeout(() => {
-                    this.dns();
+                    this.dns(0);
                 }, 20);
             }
         },
 
         dns() {
-            let hash = this.genHash(40)
-
+            let hash =  this.genHash(40)
+    
             axios.get(`http://${hash}-1.ipleak.net/dnsdetection/`)
                 .then((res) => {
-                    let ips = Object.keys(res.data.ip);
-                    if (ips.length === 0) {
-                        this.loading = false;
-                        this.dns_user = null;
-                        this.error = "Votre DNS est inconnu, si vous n'avez jamais changé de DNS alors vous devez être vulnérable."
-                        return
-                    }
-                    let ip = ips[ips.length - 1];
-                    axios.get(`https://ipleak.net/json/${ip}`, {timeout: 10_000})
+                let ip = Object.keys(res.data.ip)[0]
+                axios.get(`https://ipleak.net/json/${ip}`, {timeout: 10_000})
+                    .then((res) => {
+                    if ('error' in res.data) {
+                        axios.get(`http://ip-api.com/json/${ip}`, {timeout: 10_000})
                         .then((res) => {
-                            if ('error' in res.data) {
-                                axios.get(`http://ip-api.com/json/${ip}`, {timeout: 10_000})
-                                    .then((res) => {
-                                        if (res.data.ips === '') {
-                                            this.loading = false;
-                                            this.dns_user = null;
-                                            this.error = "Votre DNS est inconnu, si vous n'avez jamais changé de DNS alors vous devez être vulnérable."
-                                        } else {
-                                            if (res.data.isp.includes("SFR")) {
-                                                res.data.isp = "SFR"
-                                            }
-                                            this.dns_user = {
-                                                'name': res.data.isp,
-                                                'ip': res.data.query,
-                                            };
-                                            this.loading = false;
-                                        }
-                                    }).catch(err => console.log(err))
-                            } else {
-                                if (res.data.isp_name.includes("SFR")) {
-                                    res.data.isp_name = "SFR"
-                                }
-                                this.dns_user = {
-                                    'name': res.data.isp_name,
-                                    'ip': res.data.ip,
-                                };
-                                this.loading = false;
-                            }
-                        }).catch(err => console.log(err))
+                        if (res.data.ips == '') {
+                            this.loading = false;
+                            this.dns_user = null;
+                            this.error = 'Votre DNS est inconnu, si vous n\avez jamais changé de DNS alors vous devez être vulnérable.'
+                        } else {
+                            this.dns_user = {
+                            'name': res.data.isp,
+                            'ip': res.data.query,
+                            };
+                            this.loading = false;
+                        }
+                        })
+                    } else {
+                        this.dns_user = {
+                        'name': res.data.isp_name,
+                        'ip': res.data.ip,
+                        };
+                        this.loading = false;
+                    }
+                })
                 })
                 .catch((err) => {
                     this.loading = false;
                     this.dns_user = null;
-                    this.error = "L'api est offline ou vous n'avez plus de connexion. Veuillez retenter dans quelques secondes."
-                    console.log(err)
+                    this.error = 'L\'api est offline où vous n\avez plus de connexion. Veuillez retenter après quelques secondes.'
                 });
         }
     }
@@ -127,8 +119,9 @@ export default {
 </script>
 
 <template>
-    <main class="" :class="{ 'bg-[#161818]': !light_theme, 'bg-transition': true }">
+    <ImageViewer :theme="light_theme" :image="image" @hidden="image = ''" v-if="image != ''" />
 
+    <main class="" :class="{ 'bg-[#161818]': !light_theme, 'bg-transition': true }">
         <section class="mx-4 h-auto md:h-screen min-h-[800px] relative grid grid-cols-1 gap-1">
             <div class="p-4 w-full h-18" @click="light_theme = !light_theme">
                 <img class="w-8 h-8 ml-auto" :src="moon" v-if="light_theme"/>
@@ -145,8 +138,7 @@ export default {
                     </div>
                 </div>
 
-                <p class="text-[#5E5E5E] text-lg text-center mt-2" :class="{ 'text-[#F9F9F9]': !light_theme }">Évitons
-                    la censure !</p>
+                <p class="text-[#5E5E5E] text-lg text-center mt-2" :class="{ 'text-[#F9F9F9]': !light_theme }">Évitons la censure !</p>
 
             </div>
 
@@ -181,7 +173,7 @@ export default {
                             <div class="mx-auto">
                                 <p class="text-[#1E1E1E] text-center text-2xl font-bold"
                                    :class="{ 'text-white': !light_theme}">Fournisseur</p>
-                                <p class="text-[#686868] text-center text-xl font-medium overflow-hidden truncate max-w-[250px]"
+                                <p class="text-[#686868] text-center text-xl font-medium overflow-hidden truncate max-w-[200px]"
                                    :class="{ 'text-[#9A9A9A]': !light_theme }">{{ dns_user ? dns_user.name : '' }}</p>
                             </div>
                             <div class="mx-auto">
@@ -239,7 +231,7 @@ export default {
 
             <div class="w-full rounded rounded-lg bg-[#C8D7E0] p-4 mt-8 overflow-x-auto shadow-none shadow-[#18191A]"
                  :class="{ 'shadow-md bg-[#1F2126]': !light_theme }">
-                <Tutorial :plateforme="selectedPlatform" :theme="light_theme"/>
+                <Tutorial :plateforme="selectedPlatform" :theme="light_theme" @show_image="show_image"/>
             </div>
 
             <div class="w-11/12 mt-8 mx-auto">
