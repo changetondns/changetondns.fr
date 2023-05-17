@@ -29,75 +29,84 @@ export default {
     },
 
     methods: {
-        getFai() {
-            if (this.dns_user == null) {
-                return false
+      genHash(longueur) {
+        let caracteres = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+        let texte = '';
+
+        for (let i = 0; i < longueur; i++) {
+          let caractereAleatoire = caracteres.charAt(Math.floor(Math.random() * caracteres.length));
+          texte += caractereAleatoire;
+        }
+
+        return texte;
+      },
+
+      getFai(retry) {
+          if (this.dns_user == null) {
+              return false
+          }
+
+          let is_fai = false
+          let searchString = this.dns_user.name.toLowerCase();
+          let keywords = ['bouygues', 'free sas', 'sfr sa', 'orange'];
+
+          for (let i = 0; i < keywords.length; i++) {
+            if (searchString.includes(keywords[i])) {
+              is_fai = true;
+              break;
             }
+          }
 
-            let is_fai = false
+          return is_fai
+      },
 
-            if (['Bouygtel ISP Services', 'ProXad network / Free SA', 'N9uf Infra', 'PFS Orange Internet'].some(str => str.includes(this.dns_user.name))) {
-                is_fai = true
-            } else if (this.dns_user.reverse !== '' && ['bouyguesbox.fr', 'dns1.proxad.net', 'rev.sfr.net', 'dns-abo-static-a.wanadoo.fr'].some(str => this.dns_user.reverse.includes(str)))
-                is_fai = true
+      startDns() {
+          this.error = ''
+          if (!this.loading) {
+              this.loading = true
+              setTimeout(() => {
+                  this.dns(0);
+              }, 20);
+          }
+      },
 
-            return is_fai
-        },
-
-        startDns() {
-            this.error = ''
-            if (!this.loading) {
-                this.loading = true
-                setTimeout(() => {
-                    this.dns(0);
-                }, 20);
-            }
-        },
-
-        dns(retry) {
-            if (retry == 10) {
+      dns() {
+        let hash =  this.genHash(40)
+   
+        axios.get(`http://${hash}-1.ipleak.net/dnsdetection/`)
+            .then((res) => {
+              let ip = Object.keys(res.data.ip)[0]
+              axios.get(`https://ipleak.net/json/${ip}`, {timeout: 1000})
+                .then((res) => {
+                  if ('error' in res.data) {
+                    axios.get(`http://ip-api.com/json/${ip}`, {timeout: 1000})
+                    .then((res) => {
+                      if (res.data.ips == '') {
+                        this.loading = false;
+                        this.dns_user = null;
+                        this.error = 'Votre DNS est inconnu, si vous n\avez jamais changé de DNS alors vous devez être vulnérable.'
+                      } else {
+                        this.dns_user = {
+                          'name': res.data.isp,
+                          'ip': res.data.query,
+                        };
+                        this.loading = false;
+                      }
+                    })
+                  } else {
+                    this.dns_user = {
+                      'name': res.data.isp_name,
+                      'ip': res.data.ip,
+                    };
+                    this.loading = false;
+                  }
+              })
+            })
+            .catch((err) => {
                 this.loading = false;
                 this.dns_user = null;
-
-                this.error = 'Votre fournisseur DNS nous est inconnu :('
-                return;
-            }
-
-            let id = Math.random() * 32;
-
-            axios.get(`http://${id}.edns.ip-api.com/json`)
-                .then((res) => {
-                    let ip_data = res.data;
-                    console.log(ip_data);
-                    axios.get(`http://ip-api.com/json/${ip_data.dns.ip}?fields=62464`)
-                        .then((res) => {
-                            if (!res.data.reverse) {
-                                this.dns(retry + 1); // Relance la requête si l'information de l'organisation est manquante
-                            } else {
-                                if (!res.data.org){
-                                    res.data.org = ip_data.dns.geo;
-                                    const reverse_parts = res.data.reverse.split('.');
-                                    const len = reverse_parts.length
-                                    if (len > 4) {
-                                        res.data.org = reverse_parts[len - 2] + ' ' + reverse_parts[len - 1];
-                                    }
-                                }
-                                this.dns_user = {
-                                    'name': res.data.org,
-                                    'ip': res.data.query,
-                                    'geo': ip_data.dns.geo,
-                                    'reverse': res.data.reverse
-                                };
-                                this.loading = false;
-                            }
-                        })
-                })
-                .catch((err) => {
-                    this.loading = false;
-                    this.dns_user = null;
-
-                    this.error = 'Une erreur s\'est produite :('
-                });
+                this.error = 'Une erreur s\'est produite :('
+            });
         }
     }
 }
