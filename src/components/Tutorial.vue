@@ -16,8 +16,20 @@ export default {
 <template>
   <div>
     <section v-if="plateforme == 'w-11'">
-        <p class="text-[#1C1C1C] font-bold text-xl" :class="{ 'text-[#DBDBDB]': !theme }">Changer de DNS sur Windows 11.</p>
-        <img class="w-full border border-white" src="@/assets/window10/reseau_internet.png" @click="emitClick($event)"/>
+      <ol class="list-decimal px-4 text-[#2E2E2E]"  :class="{ 'text-[#FFFFFF]': !theme }">
+        <li>
+          Ouvrez les Paramètres Windows (touche Windows + i) et cliquez sur <span class="italic underline">Réseau et Internet</span>.
+          <img class="w-full mx-auto my-10 max-w-4xl" src="@/assets/window10/reseau_internet.png" @click="emitClick($event)"/>
+        </li>
+        <li>
+          Ouvrez les Paramètres Windows <span class="italic underline">(touche Windows + i)</span> et cliquez sur "Réseau et Internet".
+          <img class="w-full mx-auto my-4 max-w-4xl" src="@/assets/window10/reseau_internet.png" @click="emitClick($event)"/>
+        </li>
+        <li>
+          Ouvrez les Paramètres Windows <span class="italic underline">(touche Windows + i)</span> et cliquez sur "Réseau et Internet".
+          <img class="w-full mx-auto my-4 max-w-4xl" src="@/assets/window10/reseau_internet.png" @click="emitClick($event)"/>
+        </li>
+      </ol>
     </section>
     <section v-else>
         <p>lol</p>
