@@ -20,26 +20,26 @@ export default {
       <ol class="list-decimal px-4 text-[#2E2E2E] mt-12 mx-4" :class="{ 'text-[#FFFFFF]': !theme }">
         <li class="mt-10">
           Rendez vous dans les paramétres de votre systéme (touche Windows + i) puis cliquez sur <span class="italic underline">Réseau et Internet</span>.
-          <img class="w-auto mx-auto my-10 max-w-4xl" src="@/assets/window10/reseau_internet.png" @click="emitClick($event)"/>
+          <img class="w-auto mx-auto my-10 object-contain" src="@/assets/window10/reseau_internet.png" @click="emitClick($event)"/>
         </li>
         <li class="mt-10">
           Une fois que vous êtes dans l'onglet <span class="italic underline">État</span>, cliquez sur <span class="italic underline">Modifier les options d’adapteur</span>.
-          <img class="w-auto mx-auto my-10 max-w-4xl" src="@/assets/window10/adapter_settings.png" @click="emitClick($event)"/>
+          <img class="w-auto mx-auto my-10 object-contain" src="@/assets/window10/adapter_settings.png" @click="emitClick($event)"/>
         </li>
         <li class="mt-10">
           Faites un clic droit sur la carte réseau (wifi ou ethernet) dont vous souhaitez changer le DNS, puis cliquez sur <span class="italic underline">Propriétés</span>. <br />Attention vous devez être adnimistrateur de votre machine pour effectuer cette action.
-          <img class="w-auto mx-auto my-10 max-w-4xl" src="@/assets/window10/Properties.png" @click="emitClick($event)"/>
+          <img class="w-auto mx-auto my-10 object-contain" src="@/assets/window10/Properties.png" @click="emitClick($event)"/>
         </li>
         <li>
           Cliquez sur <span class="italic underline">Oui</span>.
         </li>
         <li class="mt-10">
           Dans la nouvelle fenétre, cliquez sur <span class="italic underline">Protocole Internet version 4 (TCP/IP v4)</span> puis sur <span class="italic underline">Propriétés</span>.
-          <img class="w-auto mx-auto my-10 max-w-4xl" src="@/assets/window10/IPV4.png" @click="emitClick($event)"/>
+          <img class="w-auto mx-auto my-10 object-contain" src="@/assets/window10/IPV4.png" @click="emitClick($event)"/>
         </li> 
         <li class="mt-10">
           Enfin séléctionné <span class="italic underline">Utiliser l’adresse de serveur DNS suivante</span> et entrez l'adresse IPv4 du DNS que vous souhaitez utiliser (ici les DNS IPv4 de Cloudflare soit 1.1.1.1 et 1.0.0.1).
-          <img class="w-auto mx-auto my-10 max-w-4xl" src="@/assets/window10/dns.png" @click="emitClick($event)"/>
+          <img class="w-auto mx-auto my-10 object-contain" src="@/assets/window10/dns.png" @click="emitClick($event)"/>
         </li> 
         <li class="mt-10">
           Pour terminer cliquez sur <span class="italic underline">OK</span> et fermez les dérnière fenétres. Vous venez de changer vos DNS !
