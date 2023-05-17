@@ -29,84 +29,98 @@ export default {
     },
 
     methods: {
-      genHash(longueur) {
-        let caracteres = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-        let texte = '';
+        genHash(longueur) {
+            let caracteres = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+            let texte = '';
 
-        for (let i = 0; i < longueur; i++) {
-          let caractereAleatoire = caracteres.charAt(Math.floor(Math.random() * caracteres.length));
-          texte += caractereAleatoire;
-        }
-
-        return texte;
-      },
-
-      getFai(retry) {
-          if (this.dns_user == null) {
-              return false
-          }
-
-          let is_fai = false
-          let searchString = this.dns_user.name.toLowerCase();
-          let keywords = ['bouygues', 'free sas', 'sfr sa', 'orange'];
-
-          for (let i = 0; i < keywords.length; i++) {
-            if (searchString.includes(keywords[i])) {
-              is_fai = true;
-              break;
+            for (let i = 0; i < longueur; i++) {
+                let caractereAleatoire = caracteres.charAt(Math.floor(Math.random() * caracteres.length));
+                texte += caractereAleatoire;
             }
-          }
 
-          return is_fai
-      },
+            return texte;
+        },
 
-      startDns() {
-          this.error = ''
-          if (!this.loading) {
-              this.loading = true
-              setTimeout(() => {
-                  this.dns(0);
-              }, 20);
-          }
-      },
+        getFai() {
+            if (this.dns_user == null) {
+                return false
+            }
 
-      dns() {
-        let hash =  this.genHash(40)
-   
-        axios.get(`http://${hash}-1.ipleak.net/dnsdetection/`)
-            .then((res) => {
-              let ip = Object.keys(res.data.ip)[0]
-              axios.get(`https://ipleak.net/json/${ip}`, {timeout: 10_000})
+            let is_fai = false
+            let searchString = this.dns_user.name.toLowerCase();
+            let keywords = ['bouygues', 'free sas', 'sfr', 'orange'];
+
+            for (let i = 0; i < keywords.length; i++) {
+                if (searchString.includes(keywords[i])) {
+                    is_fai = true;
+                    break;
+                }
+            }
+
+            return is_fai
+        },
+
+        startDns() {
+            this.error = ''
+            if (!this.loading) {
+                this.loading = true
+                setTimeout(() => {
+                    this.dns();
+                }, 20);
+            }
+        },
+
+        dns() {
+            let hash = this.genHash(40)
+
+            axios.get(`http://${hash}-1.ipleak.net/dnsdetection/`)
                 .then((res) => {
-                  if ('error' in res.data) {
-                    axios.get(`http://ip-api.com/json/${ip}`, {timeout: 10_000})
-                    .then((res) => {
-                      if (res.data.ips == '') {
+                    let ips = Object.keys(res.data.ip);
+                    if (ips.length === 0) {
                         this.loading = false;
                         this.dns_user = null;
-                        this.error = 'Votre DNS est inconnu, si vous n\avez jamais changé de DNS alors vous devez être vulnérable.'
-                      } else {
-                        this.dns_user = {
-                          'name': res.data.isp,
-                          'ip': res.data.query,
-                        };
-                        this.loading = false;
-                      }
-                    })
-                  } else {
-                    this.dns_user = {
-                      'name': res.data.isp_name,
-                      'ip': res.data.ip,
-                    };
+                        this.error = "Votre DNS est inconnu, si vous n'avez jamais changé de DNS alors vous devez être vulnérable."
+                        return
+                    }
+                    let ip = ips[ips.length - 1];
+                    axios.get(`https://ipleak.net/json/${ip}`, {timeout: 10_000})
+                        .then((res) => {
+                            if ('error' in res.data) {
+                                axios.get(`http://ip-api.com/json/${ip}`, {timeout: 10_000})
+                                    .then((res) => {
+                                        if (res.data.ips === '') {
+                                            this.loading = false;
+                                            this.dns_user = null;
+                                            this.error = "Votre DNS est inconnu, si vous n'avez jamais changé de DNS alors vous devez être vulnérable."
+                                        } else {
+                                            if (res.data.isp.includes("SFR")) {
+                                                res.data.isp = "SFR"
+                                            }
+                                            this.dns_user = {
+                                                'name': res.data.isp,
+                                                'ip': res.data.query,
+                                            };
+                                            this.loading = false;
+                                        }
+                                    }).catch(err => console.log(err))
+                            } else {
+                                if (res.data.isp_name.includes("SFR")) {
+                                    res.data.isp_name = "SFR"
+                                }
+                                this.dns_user = {
+                                    'name': res.data.isp_name,
+                                    'ip': res.data.ip,
+                                };
+                                this.loading = false;
+                            }
+                        }).catch(err => console.log(err))
+                })
+                .catch((err) => {
                     this.loading = false;
-                  }
-              })
-            })
-            .catch((err) => {
-                this.loading = false;
-                this.dns_user = null;
-                this.error = 'L\'api est offline où vous n\avez plus de connexion. Veuillez retenter après quelques secondes.'
-            });
+                    this.dns_user = null;
+                    this.error = "L'api est offline ou vous n'avez plus de connexion. Veuillez retenter dans quelques secondes."
+                    console.log(err)
+                });
         }
     }
 }
@@ -167,7 +181,7 @@ export default {
                             <div class="mx-auto">
                                 <p class="text-[#1E1E1E] text-center text-2xl font-bold"
                                    :class="{ 'text-white': !light_theme}">Fournisseur</p>
-                                <p class="text-[#686868] text-center text-xl font-medium overflow-hidden truncate max-w-[200px]"
+                                <p class="text-[#686868] text-center text-xl font-medium overflow-hidden truncate max-w-[250px]"
                                    :class="{ 'text-[#9A9A9A]': !light_theme }">{{ dns_user ? dns_user.name : '' }}</p>
                             </div>
                             <div class="mx-auto">
