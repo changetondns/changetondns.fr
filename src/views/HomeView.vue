@@ -76,10 +76,10 @@ export default {
         axios.get(`http://${hash}-1.ipleak.net/dnsdetection/`)
             .then((res) => {
               let ip = Object.keys(res.data.ip)[0]
-              axios.get(`https://ipleak.net/json/${ip}`, {timeout: 1000})
+              axios.get(`https://ipleak.net/json/${ip}`, {timeout: 10_000})
                 .then((res) => {
                   if ('error' in res.data) {
-                    axios.get(`http://ip-api.com/json/${ip}`, {timeout: 1000})
+                    axios.get(`http://ip-api.com/json/${ip}`, {timeout: 10_000})
                     .then((res) => {
                       if (res.data.ips == '') {
                         this.loading = false;
@@ -105,7 +105,7 @@ export default {
             .catch((err) => {
                 this.loading = false;
                 this.dns_user = null;
-                this.error = 'Une erreur s\'est produite :('
+                this.error = 'L\'api est offline où vous n\avez plus de connexion. Veuillez retenter après quelques secondes.'
             });
         }
     }
