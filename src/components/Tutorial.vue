@@ -54,7 +54,7 @@ export default {
           <img class="w-auto mx-auto my-10 object-contain" src="@/assets/window10/dnsV6.png" @click="emitClick($event)"/>
         </li> 
         <li>
-          Cliquez sur <span class="italic underline">OK</span> et fermez les dernière fenétres, vous venz de changer votre DNS !
+          Cliquez sur <span class="italic underline">OK</span> et fermez les dernière fenétres, vous venez de changer votre DNS !
         </li>
       </ol>
     </section>
@@ -102,6 +102,30 @@ export default {
         </li>
         <li class="mt-10">
           Lorsque vous avez terminé, cliquez sur <span class="italic underline">OK</span>. Vous venez de changer vos DNS !
+        </li>
+      </ol>
+    </section>
+
+    <section class="p-6" v-if="plateforme == 'ios'">
+      <p class="text-[#2E2E2E] text-4xl font-bold" :class="{ 'text-[#FFFFFF]': !theme }">Changez les DNS sur IOS</p>
+
+      <ol class="list-decimal px-4 text-[#2E2E2E] mt-12 mx-4" :class="{ 'text-[#FFFFFF]': !theme }">
+        <li class="mt-10">
+          Ouvrez l'application <span class="italic underline">Parametre</span> > <span class="italic underline">Wi-Fi</span>, si le Wi-Fi est éteint allumez le.
+        </li>
+        
+        <li class="mt-10">
+          Choisissez le résaux Wi-Fi dans lequel vous êtes connecter et appuyez sur l’icone "i" en bleue.
+          <img class="w-auto mx-auto my-10 object-contain" src="@/assets/ios/i.png" @click="emitClick($event)"/>
+        </li>
+
+        <li class="mt-10">
+          Décendez et sélectionner <span class="italic underline">Configurer un DNS</span>, enfin appuyez sur <span class="italic underline">Ajouter un serveur</span>.
+          <img class="w-auto mx-auto my-10 object-contain" src="@/assets/ios/add_server.png" @click="emitClick($event)"/>
+        </li>
+
+        <li class="mt-10">
+          Entrez les adresses DNS que vous souhaitez et cliquez sur <span class="italic underline">Save</span>. Vous venez de changer votre DNS ! 
         </li>
       </ol>
     </section>
