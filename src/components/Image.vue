@@ -5,16 +5,23 @@ export default {
     props: ['theme', 'image'],
 
     directives: {
-      clickOutside: vClickOutside.directive
+        clickOutside: vClickOutside.directive
     },
 
     methods: {
-        onClickOutside (event) {
+        onClickOutside(event) {
             this.$emit('hidden')
-             setTimeout(() => {
-                this.$emit('set_large_image')
-                }, 200);
+            console.log(this)
+            setTimeout(() => {
+                this.l()
+            }, 1);
         },
+
+        l() {
+            console.log(this)
+            this.$emit('large')
+        }
+
     }
 }
 
@@ -29,7 +36,7 @@ export default {
         <div class="absolute w-full z-50">
             <div class="flex items-center justify-center h-screen">
                 <div class="max-h-screen p-8 overflow-hidden overflow-y-auto">
-                    <img class="object-cover my-auto" :src="image" v-click-outside="onClickOutside"/>   
+                    <img class="object-cover my-auto" :src="image" v-click-outside="onClickOutside"/>
                 </div>
             </div>
         </div>

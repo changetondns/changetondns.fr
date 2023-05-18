@@ -34,6 +34,7 @@ export default {
 
     methods: {
         show_image(image) {
+            console.log(this.large_image)
             if (this.large_image){
                 this.image = '';
                 return
@@ -43,6 +44,7 @@ export default {
         },
 
         set_large_image() {
+            console.log("heyy")
             this.large_image = false;
         },
 
@@ -147,7 +149,7 @@ export default {
 </style>
 
 <template>
-    <ImageViewer :theme="light_theme" :image="image" @hidden="image = '', latest_open = Date.now();" v-if="image != '' && check_before()" />
+    <ImageViewer :theme="light_theme" :image="image" @large="set_large_image" @hidden="image = '', latest_open = Date.now();" v-if="image != '' && check_before()" />
 
     <main class="" :class="{ 'bg-[#161818]': !light_theme, 'bg-transition': true }">
         <section class="h-auto md:h-screen min-h-[800px] relative grid grid-cols-1 gap-1">
