@@ -46,7 +46,7 @@ export default {
         async hid() {
             this.image = ''
             const delay = ms => new Promise(res => setTimeout(res, ms));
-            await delay(300);
+            await delay(500);
             this.large_image = false;
         },
 
