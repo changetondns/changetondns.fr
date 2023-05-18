@@ -27,6 +27,8 @@ export default {
             loading: false,
             error: '',
             image: '',
+
+            latest_open: 0,
         }
     },
 
@@ -140,7 +142,7 @@ export default {
 </style>
 
 <template>
-    <ImageViewer :theme="light_theme" :image="image" @hidden="image = ''" v-if="image != ''" />
+    <ImageViewer :theme="light_theme" :image="image" @hidden="image = '', latest_open = new Date().getTime();" v-if="image != '' && new Date().getTime() - latest_open > 100" />
 
     <main class="" :class="{ 'bg-[#161818]': !light_theme, 'bg-transition': true }">
         <section class="h-auto md:h-screen min-h-[800px] relative grid grid-cols-1 gap-1">
