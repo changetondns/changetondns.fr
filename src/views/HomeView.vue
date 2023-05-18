@@ -267,8 +267,7 @@ export default {
                 redirection peut être effectuée vers une page d'erreur standard ou vers un message indiquant que le site
                 est inaccessible ou inexistant.
                 <br/><br/>
-                L'utilisation du DNS menteur est souvent mise en place par les FAI en réponse à des obligations légales. Dans le cas mentionné, l'État français impose cette pratique aux FAI
-                dans le but de bloquer l'accès à certains sites web qu'il juge inappropriés, illégaux.
+                L'utilisation du DNS menteur est souvent mise en place par les FAI en réponse à des obligations légales.
             </p>
         </section>
 
