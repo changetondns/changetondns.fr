@@ -42,6 +42,10 @@ export default {
             this.large_image = true
         },
 
+        set_large_image() {
+            this.large_image = false;
+        },
+
         genHash(longueur) {
             let caracteres = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
             let texte = '';
@@ -143,7 +147,7 @@ export default {
 </style>
 
 <template>
-    <ImageViewer :theme="light_theme" :image="image" :large="large_image" @hidden="image = '', latest_open = Date.now();" v-if="image != '' && check_before()" />
+    <ImageViewer :theme="light_theme" :image="image" @hidden="image = '', latest_open = Date.now();" v-if="image != '' && check_before()" />
 
     <main class="" :class="{ 'bg-[#161818]': !light_theme, 'bg-transition': true }">
         <section class="h-auto md:h-screen min-h-[800px] relative grid grid-cols-1 gap-1">
