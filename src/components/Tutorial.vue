@@ -40,7 +40,7 @@ export default {
           <img class="w-auto mx-auto my-10 object-contain" src="@/assets/window10/IPV4.png" @click="emitClick($event)"/>
         </li> 
         <li class="mt-10">
-          Sélectionné <span class="italic underline">Utiliser l’adresse de serveur DNS suivante</span> et entrez l'adresse <span class="font-bold underline">IPv4</span> du DNS que vous souhaitez utiliser
+          Sélectionnez <span class="italic underline">Utiliser l’adresse de serveur DNS suivante</span> et entrez l'adresse <span class="font-bold underline">IPv4</span> du DNS que vous souhaitez utiliser
             (par exemple pour cloudflare 1.1.1.1 et 1.0.0.1).
           <img class="w-auto mx-auto my-10 object-contain" src="@/assets/window10/dns.png" @click="emitClick($event)"/>
         </li> 
@@ -107,7 +107,7 @@ export default {
       <ol class="list-decimal px-4 text-[#2E2E2E] mt-12 mx-4" :class="{ 'text-[#FFFFFF]': !theme }">
         <li class="mt-10">
           Allez dans l'application <span class="italic underline">Paramètres</span> puis dans <span class="italic underline">Connexion & Partage</span>.<br /><br />
-          Attention : la manipulation change selon la version d'Android, vous pouvez utiliser cette application pour une manipulation universelle : https://play.google.com/store/apps/details?id=com.frostnerd.dnschanger
+          <span class="font-bold">Attention</span> : la manipulation change selon la version d'Android, vous pouvez utiliser <a href="https://play.google.com/store/apps/details?id=com.frostnerd.dnschanger" target="_blank" class="text-blue-400"> cette application pour une manipulation universelle</a>.
           <img class="w-auto mx-auto my-10 object-contain max-h-[46rem]" src="@/assets/android new/main_settings.png" @click="emitClick($event)"/>
         </li>
 
@@ -155,7 +155,7 @@ export default {
           Cliquez sur <span class="italic underline">Détails</span>.
         </li>
         <li class="mt-10">
-          Cliquez sur <span class="italic underline">DNS</span> puis sur le bouton <span class="italic underline">+</span> en bas de la liste des serveurs DNS, et saisissez les adresses IPv4 ou IPv6 du serveur DNS, ici ceux de Cloudflare.
+          Cliquez sur <span class="italic underline">DNS</span> puis sur le bouton <span class="italic font-bold">+</span> en bas de la liste des serveurs DNS, et saisissez les adresses IPv4 ou IPv6 du serveur DNS, ici ceux de Cloudflare.
           <img class="w-auto mx-auto my-10 object-contain" src="@/assets/mac/dns.png" @click="emitClick($event)"/>
         </li>
         <li class="mt-10">
@@ -169,7 +169,8 @@ export default {
 
       <ol class="list-decimal px-4 text-[#2E2E2E] mt-12 mx-4" :class="{ 'text-[#FFFFFF]': !theme }">
         <li class="mt-10">
-          Ouvrez l'application <span class="italic underline">Paramètres</span> puis cliquez sur l'onglet <span class="italic underline">Wi-Fi</span>.
+          Ouvrez l'application <span class="italic underline">Paramètres</span> puis cliquez sur l'onglet <span class="italic underline">Wi-Fi</span>.<br /><br />
+            <span class="font-bold">Attention</span>: la manipulation change selon la version d'Android, vous pouvez utiliser <a href="https://play.google.com/store/apps/details?id=com.frostnerd.dnschanger" target="_blank" class="text-blue-400"> cette application pour une manipulation universelle</a>.
         </li>
         <li class="mt-10">
           Appuyez et maintenez enfoncé le nom du réseau auquel vous êtes actuellement connecté. Sélectionnez <span class="italic underline">Modifier le réseau</span>.

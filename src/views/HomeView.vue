@@ -219,7 +219,7 @@ export default {
                    :class="{ 'border-alert-2': !light_theme }">!</p>
                 <p class="text-white text-center text-2xl">
                     En changeant vos DNS, vous pouvez contourner les blocages de sites web imposés par la police via les
-                    DNS par défaut des fournisseurs d'accès internet, et ainsi gagner en liberté sur internet.
+                    DNS par défaut fournis  par les fournisseurs d'accès internet, et ainsi gagner en liberté sur le web.
                 </p>
             </div>
 
@@ -279,7 +279,7 @@ export default {
                         <tr class="hover:bg-[#E3E3E3]" :class="{ 'hover:bg-[#1C1E1E]': !light_theme }">
                             <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
-                                Cloudflare
+                                <a href="https://developers.cloudflare.com/1.1.1.1/setup/" target="_blank" class="text-blue-400">Cloudflare</a>
                             </td>
                             <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
@@ -293,14 +293,14 @@ export default {
                             </td>
                             <td class="pl-2 max-w-lg py-4 border-x border-t border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
-                                Connue pour être un DNS très fiable, performant et respectueux de la vie privée.
+                                Connu pour être un DNS très fiable, performant et respectueux de la vie privée.
                             </td>
                         </tr>
 
                         <tr class="hover:bg-[#E3E3E3]" :class="{ 'hover:bg-[#1C1E1E]': !light_theme }">
                             <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
-                                Google DNS
+                                <a href="https://developers.google.com/speed/public-dns/docs/using?hl=fr" target="_blank" class="text-blue-400">Google DNS</a>
                             </td>
                             <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
@@ -322,7 +322,7 @@ export default {
                         <tr class="hover:bg-[#E3E3E3]" :class="{ 'hover:bg-[#1C1E1E]': !light_theme }">
                             <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
-                                Quad9
+                                <a href="https://www.quad9.net/fr/" target="_blank" class="text-blue-400">Quad9</a>
                             </td>
                             <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
@@ -344,7 +344,7 @@ export default {
                         <tr class="hover:bg-[#E3E3E3]" :class="{ 'hover:bg-[#1C1E1E]': !light_theme }">
                             <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
-                                FDN
+                                <a href="https://www.fdn.fr/actions/dns/" target="_blank" class="text-blue-400">FDN</a>
                             </td>
                             <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
@@ -365,7 +365,7 @@ export default {
                         <tr class="hover:bg-[#E3E3E3]" :class="{ 'hover:bg-[#1C1E1E]': !light_theme }">
                             <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
-                                OpenDNS
+                                <a href="https://www.opendns.com/" target="_blank" class="text-blue-400">Open DNS</a>
                             </td>
                             <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
@@ -386,7 +386,7 @@ export default {
                         <tr class="hover:bg-[#E3E3E3]" :class="{ 'hover:bg-[#1C1E1E]': !light_theme }">
                             <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
-                                AdGuard
+                                <a href="https://adguard-dns.io/fr/welcome.html" target="_blank" class="text-blue-400">AdGuard</a>
                             </td>
                             <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
@@ -410,7 +410,7 @@ export default {
             </div>
 
             <p class="text-[#1C1C1C] font-bold text-2xl mt-24" :class="{ 'text-white': !light_theme }">Qu’est ce qu’un
-                Domaine Name Server (DNS) ?</p>
+                Domain Name Server (DNS) ?</p>
             <p class="mt-4 ml-4 max-w-4xl text-[#424242] font-medium" :class="{ 'text-[#DBDBDB]': !light_theme }">
                 Un Domain Name Server (DNS) est un système informatique qui permet de traduire les noms de domaines en
                 adresses IP.
@@ -422,7 +422,7 @@ export default {
                 Web.
                 <br/>
                 <br/>
-                Sans le DNS, vous devriez entrer l'adresse IP numérique pour accéder à chaque site Web que vous voulez
+                Sans le DNS, vous auriez dû entrer l'adresse IP numérique pour accéder à chaque site Web que vous voulez
                 visiter, ce qui serait beaucoup plus difficile à mémoriser et à utiliser. En bref, le DNS est une sorte
                 de traducteur qui permet à votre navigateur de trouver les sites Web que vous cherchez en utilisant
                 leurs noms de domaines faciles à retenir.
@@ -444,8 +444,7 @@ export default {
                 <br/><br/>
                 L'utilisation du DNS menteur est souvent mise en place par les FAI en réponse à des obligations légales
                 ou des pressions gouvernementales. Dans le cas mentionné, l'État français impose cette pratique aux FAI
-                dans le but de bloquer l'accès à certains sites web qu'il juge inappropriés, illégaux ou contraires à sa
-                politique.
+                dans le but de bloquer l'accès à certains sites web qu'il juge inappropriés, illégaux.
             </p>
         </section>
 
