@@ -79,7 +79,7 @@ export default {
         dns() {
             let hash = this.genHash(40)
 
-            axios.get(`http://${hash}-1.ipleak.net/dnsdetection/`)
+            axios.get(`https://${hash}-1.ipleak.net/dnsdetection/`)
                 .then((res) => {
                     let ips = Object.keys(res.data.ip);
                     if (ips.length === 0) {
