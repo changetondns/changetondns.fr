@@ -278,7 +278,7 @@ export default {
         <section class="mx-auto w-11/12 md:w-3/4 pt-8 mt-24">
             <!-- selection de la plateforme-->
             <div class="block md:flex">
-                <p class="mr-3 text-xl text-[#2E2E2E] my-auto" :class="{ 'text-[#FFFFFF]': !light_theme }">Je veux changer de DNS sur </p>
+                <p class="mr-3 text-xl text-[#2E2E2E] my-auto" :class="{ 'text-[#FFFFFF]': !light_theme }">Je veux changer de DNS sur</p>
                 <div class="border-solid border-2 border-[#8B8B8B] px-2 py-1 rounded-md w-fit"
                      :class="{ 'border-[#CFCFCF]': !light_theme }">
                     <select class="text-[#8B8B8B] text-xl outline-none bg-transparent" id="plateform-select"
