@@ -12,6 +12,7 @@ import shema_black from '../assets/shema_black.svg'
 import shema_white from '../assets/shema_white.svg'
 import axios from 'axios'
 
+
 export default {
     data() {
         return {
@@ -43,8 +44,10 @@ export default {
             this.large_image = true
         },
 
-        set_large_image() {
-            console.log("heyy")
+        async hid() {
+            this.image = ''
+            const delay = ms => new Promise(res => setTimeout(res, ms));
+            await delay(100);
             this.large_image = false;
         },
 
@@ -87,16 +90,6 @@ export default {
                     this.dns();
                 }, 20);
             }
-        },
-
-        check_before() {
-            let allow = true
-
-            if ((Date.now() - this.latest_open) < 75) {
-                allow = false
-            }
-     
-            return allow
         },
 
         dns() {
@@ -149,7 +142,7 @@ export default {
 </style>
 
 <template>
-    <ImageViewer :theme="light_theme" :image="image" @large="set_large_image" @hidden="image = '', latest_open = Date.now();" v-if="image != '' && check_before()" />
+    <ImageViewer :theme="light_theme" :image="image" @hidden="hid" v-if="image != ''" />
 
     <main class="" :class="{ 'bg-[#161818]': !light_theme, 'bg-transition': true }">
         <section class="h-auto md:h-screen min-h-[800px] relative grid grid-cols-1 gap-1">

@@ -1,5 +1,6 @@
 <script>
 import vClickOutside from 'click-outside-vue3'
+import HomeView from "@/views/HomeView.vue";
 
 export default {
     props: ['theme', 'image'],
@@ -11,17 +12,7 @@ export default {
     methods: {
         onClickOutside(event) {
             this.$emit('hidden')
-            console.log(this)
-            setTimeout(() => {
-                this.l()
-            }, 1);
         },
-
-        l() {
-            console.log(this)
-            this.$emit('large')
-        }
-
     }
 }
 
