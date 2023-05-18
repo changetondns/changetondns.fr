@@ -236,7 +236,7 @@ export default {
                             :class="{ 'text-[#CFCFCF]': !light_theme }" v-model="selectedPlatform">
                         <option value="w-11">Windows 11</option>
                         <option value="w-10">Windows 10</option>
-                        <option value="mac">Mac</option>
+                        <option value="mac">macOS</option>
                         <option value="android">Android</option>
                         <option value="ios">IOS</option>
                     </select>

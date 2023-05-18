@@ -65,11 +65,47 @@ export default {
       <ol class="list-decimal px-4 text-[#2E2E2E] mt-12 mx-4" :class="{ 'text-[#FFFFFF]': !theme }">
         <li class="mt-10">
           Rendez vous dans les paramétres de votre systéme (touche Windows + i) puis cliquez sur <span class="italic underline">Réseau et Internet</span>.
-          <img class="w-auto mx-auto my-10 object-contain" src="@/assets/window10/reseau_internet.png" @click="emitClick($event)"/>
+          <img class="w-auto mx-auto my-10 object-contain" src="@/assets/window11/reseau_internet.png" @click="emitClick($event)"/>
+        </li>
+        <li class="mt-10">
+          Cliquez dans <span class="italic underline">Paramètres réseau avancés</span>.
+          <img class="w-auto mx-auto my-10 object-contain" src="@/assets/window11/reseau_internet.png" @click="emitClick($event)"/>
+        </li>
+        <li class="mt-10">
+          Rendez vous dans les paramétres de votre systéme (touche Windows + i) puis cliquez sur <span class="italic underline">Réseau et Internet</span>.
+          <img class="w-auto mx-auto my-10 object-contain" src="@/assets/window11/reseau_internet.png" @click="emitClick($event)"/>
         </li>
       </ol>
     </section>
     
+    <section class="p-6" v-if="plateforme == 'mac'">
+      <p class="text-[#2E2E2E] text-4xl font-bold" :class="{ 'text-[#FFFFFF]': !theme }">Changez les DNS sur macOS</p>
+
+      <ol class="list-decimal px-4 text-[#2E2E2E] mt-12 mx-4" :class="{ 'text-[#FFFFFF]': !theme }">
+        <li class="mt-10">
+          Cliquez sur le menu <span class="italic underline">Pomme</span> puis sur <span class="italic underline">Réglages Système</span>.
+        </li>
+        <li class="mt-10">
+          Cliquez sur <span class="italic underline">Réseau</span> dans la barre latérale.
+          <img class="w-auto mx-auto my-10 object-contain" src="@/assets/mac/reglage_system.jpg" @click="emitClick($event)"/>
+        </li>
+        <li class="mt-10">
+          Cliquez sur un service réseau que vous utilisez (Wi-Fi ou Ethernet) à droite.
+          <img class="w-auto mx-auto my-10 object-contain" src="@/assets/mac/select_reseaux.jpg" @click="emitClick($event)"/>
+        </li>
+        <li class="mt-10">
+          Cliquez sur <span class="italic underline">Détails</span>.
+        </li>
+        <li class="mt-10">
+          Cliquez sur <span class="italic underline">DNS</span> puis sur le bouton <span class="italic underline">+</span> en bas de la liste des serveurs DNS, et saisissez les adresses IPv4 ou IPv6 du serveur DNS, ici ceux de Cloudflare.
+          <img class="w-auto mx-auto my-10 object-contain" src="@/assets/mac/dns.png" @click="emitClick($event)"/>
+        </li>
+        <li class="mt-10">
+          Lorsque vous avez terminé, cliquez sur <span class="italic underline">OK</span>. Vous venez de changer vos DNS !
+        </li>
+      </ol>
+    </section>
+
     <p class="text-[#2E2E2E] text-xl p-6 font-medium" :class="{ 'text-[#FFFFFF]': !theme }">
       Après avoir effectué la modification de vos DNS, il est nécessaire de procéder à une déconnexion suivie d'une reconnexion à Internet pour que les changements prennent effet. Vous pouvez cliquer sur le bouton situé en haut du site afin de vérifier si vous êtes toujours exposé aux risques des DNS menteurs !
       <br />
