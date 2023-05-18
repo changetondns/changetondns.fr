@@ -71,16 +71,36 @@ export default {
           <img class="w-auto mx-auto my-10 object-contain" src="@/assets/window11/reseau_internet.png" @click="emitClick($event)"/>
         </li>
         <li class="mt-10">
-          Cliquez dans <span class="italic underline">Paramètres réseau avancés</span>.
-          <img class="w-auto mx-auto my-10 object-contain" src="@/assets/window11/reseau_internet.png" @click="emitClick($event)"/>
+            Choisissez le réseau que vous utilisez <span class="italic underline">(wifi / ethernet)</span>.
+          <img class="w-auto mx-auto my-10 object-contain" src="@/assets/window11/wifi_ethernet.png" @click="emitClick($event)"/>
         </li>
         <li class="mt-10">
-          Rendez vous dans les paramétres de votre systéme (touche Windows + i) puis cliquez sur <span class="italic underline">Réseau et Internet</span>.
-          <img class="w-auto mx-auto my-10 object-contain" src="@/assets/window11/reseau_internet.png" @click="emitClick($event)"/>
+          Cliquez sur<span class="italic underline">Propriétés du matériel</span>.
+          <img class="w-auto mx-auto my-10 object-contain" src="@/assets/window11/matériel_prop.png" @click="emitClick($event)"/>
+        </li>
+        <li class="mt-10">
+          Cliquez sur<span class="italic underline">Modifier</span> dans la partie Attribution du serveur DNS.
+          <img class="w-auto mx-auto my-10 object-contain" src="@/assets/window11/modifier_dns.png" @click="emitClick($event)"/>
+        </li>
+        <li class="mt-10">
+          Dans la nouvelle fenetre changez <span class="italic underline">Automatique par Manuel</span>.
+          <img class="w-auto mx-auto my-10 object-contain" src="@/assets/window11/Manuel.png" @click="emitClick($event)"/>
+        </li>
+        <li class="mt-10">
+            Activez le boutton <span class="italic underline">IPv4</span> Rentrez les <span class="italic underline">addresse ip</span> des DNS que vous avez choisit.
+          <img class="w-auto mx-auto my-10 object-contain" src="@/assets/window11/dns_IPv4.png" @click="emitClick($event)"/>
+        </li>
+        <li class="mt-10">
+          Faites de même pour <span class="italic underline">l’IPv6</span>  si vous le souhaitez.
+          <img class="w-auto mx-auto my-10 object-contain" src="@/assets/window11/dns_IPv6.png" @click="emitClick($event)"/>
+        </li>
+        <li>
+            Pour terminer cliquez sur <span class="italic underline">Enregistrer</span> et fermez les dérnière fenétres.
+            Vous venez de changer vos DNS!
         </li>
       </ol>
     </section>
-    
+
     <section class="p-6" v-if="plateforme === 'android-new'">
       <p class="text-[#2E2E2E] text-4xl font-bold" :class="{ 'text-[#FFFFFF]': !theme }">Changez les DNS sur Android 9.0 Pie ou +</p>
 
@@ -90,7 +110,7 @@ export default {
           Attention : La manipulation change selon la version d'Android, vous pouvez utilisez cette application pour une manipulation universel : https://play.google.com/store/apps/details?id=com.frostnerd.dnschanger
           <img class="w-auto mx-auto my-10 object-contain max-h-[46rem]" src="@/assets/android new/main_settings.png" @click="emitClick($event)"/>
         </li>
-        
+
         <li class="mt-10">
           Séléctionnez <span class="italic underline">DNS privé</span>.
           <img class="w-auto mx-auto my-10 object-contain max-h-[46rem]" src="@/assets/android new/dns_settings.png" @click="emitClick($event)"/>
