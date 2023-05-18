@@ -35,7 +35,6 @@ export default {
 
     methods: {
         show_image(image) {
-            console.log(this.large_image)
             if (this.large_image){
                 this.image = '';
                 return

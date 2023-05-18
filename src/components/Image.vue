@@ -1,6 +1,5 @@
 <script>
 import vClickOutside from 'click-outside-vue3'
-import HomeView from "@/views/HomeView.vue";
 
 export default {
     props: ['theme', 'image'],
