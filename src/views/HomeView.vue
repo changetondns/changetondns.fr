@@ -235,10 +235,50 @@ export default {
         </section>
 
         <section class="mx-auto w-11/12 md:w-3/4 pt-8 md:mt-0">
+            <p class="text-[#1C1C1C] font-bold text-2xl mt-24" :class="{ 'text-white': !light_theme }">Qu’est ce qu’un
+                Domain Name Server (DNS) ?</p>
+            <p class="mt-4 ml-4 max-w-4xl text-[#424242] font-medium" :class="{ 'text-[#DBDBDB]': !light_theme }">
+                Un Domain Name Server (DNS) est un système informatique qui permet de traduire les noms de domaines en
+                adresses IP.
+                <br/>
+                <br/>
+                Lorsque vous accédez à un site Web, vous tapez généralement son nom de domaine dans votre navigateur
+                (par exemple, www.google.com). Le DNS est responsable de prendre ce nom de domaine et de le traduire en
+                adresse IP, qui est l'adresse numérique unique qui identifie le serveur Web sur lequel se trouve le site
+                Web.
+                <br/>
+                <br/>
+                Sans le DNS, vous auriez dû entrer l'adresse IP numérique pour accéder à chaque site Web que vous voulez
+                visiter, ce qui serait beaucoup plus difficile à mémoriser et à utiliser. En bref, le DNS est une sorte
+                de traducteur qui permet à votre navigateur de trouver les sites Web que vous cherchez en utilisant
+                leurs noms de domaines faciles à retenir.
+            </p>
+
+            <img class="min-[2000px]:absolute min-[2000px]:-translate-y-2/3 relative mx-auto mt-12 right-0 w-4/6 min-w-[19rem] max-w-lg"
+                 :src="shema_black" v-if="light_theme"/>
+            <img class="min-[2000px]:absolute min-[2000px]:-translate-y-2/3 relative mx-auto mt-12 right-0 w-4/6 min-w-[19rem] max-w-lg"
+                 :src="shema_white" v-else/>
+
+            <p class="text-[#1C1C1C] font-bold text-2xl mt-12" :class="{ 'text-white': !light_theme }">Qu’est ce qu’un
+                DNS menteur ?</p>
+            <p class="mt-4 ml-4 max-w-4xl text-[#424242] font-medium" :class="{ 'text-[#DBDBDB]': !light_theme }">
+                Le DNS menteur est une pratique utilisée par les fournisseurs d'accès à Internet (FAI) pour restreindre
+                l'accès à certains sites web. Cette technique consiste à manipuler les réponses DNS afin de rediriger
+                vos requêtes vers une adresse IP différente de celle attendue pour accéder au site censuré. Cette
+                redirection peut être effectuée vers une page d'erreur standard ou vers un message indiquant que le site
+                est inaccessible ou inexistant.
+                <br/><br/>
+                L'utilisation du DNS menteur est souvent mise en place par les FAI en réponse à des obligations légales
+                ou des pressions gouvernementales. Dans le cas mentionné, l'État français impose cette pratique aux FAI
+                dans le but de bloquer l'accès à certains sites web qu'il juge inappropriés, illégaux.
+            </p>
+        </section>
+
+
+        <section class="mx-auto w-11/12 md:w-3/4 pt-8 mt-24">
             <!-- selection de la plateforme-->
             <div class="block md:flex">
-                <p class="mr-3 text-xl text-[#2E2E2E] my-auto" :class="{ 'text-[#FFFFFF]': !light_theme }">Je veux
-                    changer de DNS sur :</p>
+                <p class="mr-3 text-xl text-[#2E2E2E] my-auto" :class="{ 'text-[#FFFFFF]': !light_theme }">Je veux changer de DNS sur </p>
                 <div class="border-solid border-2 border-[#8B8B8B] px-2 py-1 rounded-md w-fit"
                      :class="{ 'border-[#CFCFCF]': !light_theme }">
                     <select class="text-[#8B8B8B] text-xl outline-none bg-transparent" id="plateform-select"
@@ -416,44 +456,6 @@ export default {
                     </table>
                 </div>
             </div>
-
-            <p class="text-[#1C1C1C] font-bold text-2xl mt-24" :class="{ 'text-white': !light_theme }">Qu’est ce qu’un
-                Domain Name Server (DNS) ?</p>
-            <p class="mt-4 ml-4 max-w-4xl text-[#424242] font-medium" :class="{ 'text-[#DBDBDB]': !light_theme }">
-                Un Domain Name Server (DNS) est un système informatique qui permet de traduire les noms de domaines en
-                adresses IP.
-                <br/>
-                <br/>
-                Lorsque vous accédez à un site Web, vous tapez généralement son nom de domaine dans votre navigateur
-                (par exemple, www.google.com). Le DNS est responsable de prendre ce nom de domaine et de le traduire en
-                adresse IP, qui est l'adresse numérique unique qui identifie le serveur Web sur lequel se trouve le site
-                Web.
-                <br/>
-                <br/>
-                Sans le DNS, vous auriez dû entrer l'adresse IP numérique pour accéder à chaque site Web que vous voulez
-                visiter, ce qui serait beaucoup plus difficile à mémoriser et à utiliser. En bref, le DNS est une sorte
-                de traducteur qui permet à votre navigateur de trouver les sites Web que vous cherchez en utilisant
-                leurs noms de domaines faciles à retenir.
-            </p>
-
-            <img class="min-[2000px]:absolute min-[2000px]:-translate-y-2/3 relative mx-auto mt-12 right-0 w-4/6 min-w-[19rem] max-w-lg"
-                 :src="shema_black" v-if="light_theme"/>
-            <img class="min-[2000px]:absolute min-[2000px]:-translate-y-2/3 relative mx-auto mt-12 right-0 w-4/6 min-w-[19rem] max-w-lg"
-                 :src="shema_white" v-else/>
-
-            <p class="text-[#1C1C1C] font-bold text-2xl mt-12" :class="{ 'text-white': !light_theme }">Qu’est ce qu’un
-                DNS menteur ?</p>
-            <p class="mt-4 ml-4 max-w-4xl text-[#424242] font-medium" :class="{ 'text-[#DBDBDB]': !light_theme }">
-                Le DNS menteur est une pratique utilisée par les fournisseurs d'accès à Internet (FAI) pour restreindre
-                l'accès à certains sites web. Cette technique consiste à manipuler les réponses DNS afin de rediriger
-                vos requêtes vers une adresse IP différente de celle attendue pour accéder au site censuré. Cette
-                redirection peut être effectuée vers une page d'erreur standard ou vers un message indiquant que le site
-                est inaccessible ou inexistant.
-                <br/><br/>
-                L'utilisation du DNS menteur est souvent mise en place par les FAI en réponse à des obligations légales
-                ou des pressions gouvernementales. Dans le cas mentionné, l'État français impose cette pratique aux FAI
-                dans le but de bloquer l'accès à certains sites web qu'il juge inappropriés, illégaux.
-            </p>
         </section>
 
         <section>
