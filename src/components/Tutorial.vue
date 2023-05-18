@@ -1,4 +1,5 @@
 <script setup>
+
 </script>
 
 <script>
@@ -15,7 +16,7 @@ export default {
 
 <template>
   <div>
-    <section class="p-6" v-if="plateforme == 'w-10'">
+    <section class="p-6" v-if="plateforme === 'w-10'">
       <p class="text-[#2E2E2E] text-4xl font-bold" :class="{ 'text-[#FFFFFF]': !theme }">Changez les DNS sur Windows 10</p>
 
       <ol class="list-decimal px-4 text-[#2E2E2E] mt-12 mx-4" :class="{ 'text-[#FFFFFF]': !theme }">
@@ -39,18 +40,20 @@ export default {
           <img class="w-auto mx-auto my-10 object-contain" src="@/assets/window10/IPV4.png" @click="emitClick($event)"/>
         </li> 
         <li class="mt-10">
-          Séléctionné <span class="italic underline">Utiliser l’adresse de serveur DNS suivante</span> et entrez l'adresse IPv4 du DNS que vous souhaitez utiliser (ici les adresse IPv4 du DNS de Cloudflare, soit 1.1.1.1 et 1.0.0.1).
+          Séléctionné <span class="italic underline">Utiliser l’adresse de serveur DNS suivante</span> et entrez l'adresse <span class="font-bold underline">IPv4</span> du DNS que vous souhaitez utiliser
+            (par exemple pour cloudflare 1.1.1.1 et 1.0.0.1).
           <img class="w-auto mx-auto my-10 object-contain" src="@/assets/window10/dns.png" @click="emitClick($event)"/>
         </li> 
         <li class="mt-10">
           Enfin, cliquez sur <span class="italic underline">OK</span>.
         </li> 
         <li class="mt-10">
-          Il est maintenant temps de configurer les adresses IPv6 du DNS, pour cela cliquez sur <span class="italic underline">Protocole Internet version 6 (TCP/IP v6)</span> puis sur <span class="italic underline">Propriétés</span>.
+          Vous avez maintenant la possibilité de configurer les adresses IPv6 du DNS, pour cela cliquez sur <span class="italic underline">Protocole Internet version 6 (TCP/IP v6)</span> puis sur <span class="italic underline">Propriétés</span>.
           <img class="w-auto mx-auto my-10 object-contain" src="@/assets/window10/IPV6.png" @click="emitClick($event)"/>
         </li> 
         <li class="mt-10">
-          Pour terminer, Séléctionnez <span class="italic underline">Utiliser l’adresse de serveur DNS suivante :</span> et entrez les deux adresse IPv6 du DNS que vous souhaitez utiliser (pour Cloudflare "2606:4700:4700::1111" et "2606:4700:4700::1001").
+          Pour terminer, Séléctionnez <span class="italic underline">Utiliser l’adresse de serveur DNS suivante :</span> et entrez les deux adresse<span class="font-bold underline">IPv6</span> du DNS que vous souhaitez utiliser
+            (par exemple pour cloudflare 2606:4700:4700::1111 et 2606:4700:4700::1001).
           <img class="w-auto mx-auto my-10 object-contain" src="@/assets/window10/dnsV6.png" @click="emitClick($event)"/>
         </li> 
         <li>
@@ -59,7 +62,7 @@ export default {
       </ol>
     </section>
 
-    <section class="p-6" v-if="plateforme == 'w-11'">
+    <section class="p-6" v-if="plateforme === 'w-11'">
       <p class="text-[#2E2E2E] text-4xl font-bold" :class="{ 'text-[#FFFFFF]': !theme }">Changez les DNS sur Windows 11</p>
 
       <ol class="list-decimal px-4 text-[#2E2E2E] mt-12 mx-4" :class="{ 'text-[#FFFFFF]': !theme }">
@@ -78,7 +81,7 @@ export default {
       </ol>
     </section>
     
-    <section class="p-6" v-if="plateforme == 'mac'">
+    <section class="p-6" v-if="plateforme === 'mac'">
       <p class="text-[#2E2E2E] text-4xl font-bold" :class="{ 'text-[#FFFFFF]': !theme }">Changez les DNS sur macOS</p>
 
       <ol class="list-decimal px-4 text-[#2E2E2E] mt-12 mx-4" :class="{ 'text-[#FFFFFF]': !theme }">
@@ -106,7 +109,7 @@ export default {
       </ol>
     </section>
 
-    <section class="p-6" v-if="plateforme == 'android-old'">
+    <section class="p-6" v-if="plateforme === 'android-old'">
       <p class="text-[#2E2E2E] text-4xl font-bold" :class="{ 'text-[#FFFFFF]': !theme }">Changez les DNS sur Android</p>
 
       <ol class="list-decimal px-4 text-[#2E2E2E] mt-12 mx-4" :class="{ 'text-[#FFFFFF]': !theme }">
@@ -135,7 +138,7 @@ export default {
     </section>
 
 
-    <section class="p-6" v-if="plateforme == 'ios'">
+    <section class="p-6" v-if="plateforme === 'ios'">
       <p class="text-[#2E2E2E] text-4xl font-bold" :class="{ 'text-[#FFFFFF]': !theme }">Changez les DNS sur Android</p>
 
       <ol class="list-decimal px-4 text-[#2E2E2E] mt-12 mx-4" :class="{ 'text-[#FFFFFF]': !theme }">
@@ -161,9 +164,6 @@ export default {
 
     <p class="text-[#2E2E2E] text-xl p-6 font-medium" :class="{ 'text-[#FFFFFF]': !theme }">
       Après avoir effectué la modification de vos DNS, il est nécessaire de procéder à une déconnexion suivie d'une reconnexion à Internet pour que les changements prennent effet. Vous pouvez cliquer sur le bouton situé en haut du site afin de vérifier si vous êtes toujours exposé aux risques des DNS menteurs !
-      <br />
-      <br />
-      Nous vous recommandons d'utiliser Cloudflare comme DNS en raison de sa rapidité et de sa fiabilité, ou FDN pour bénéficier d'une transparence totale et d'une absence de censure.
     </p>
 
   </div>
