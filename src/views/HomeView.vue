@@ -244,7 +244,7 @@ export default {
                 </div>
             </div>
 
-            <div class="w-full rounded rounded-lg bg-[#C8D7E0] p-4 mt-8 overflow-x-auto shadow-none shadow-[#18191A]"
+            <div class="w-full rounded rounded-lg bg-[#C8D7E0] p-4 mt-2 overflow-x-auto shadow-none shadow-[#18191A]"
                  :class="{ 'shadow-md bg-[#1F2126]': !light_theme }">
                 <Tutorial :plateforme="selectedPlatform" :theme="light_theme" @show_image="show_image"/>
             </div>
