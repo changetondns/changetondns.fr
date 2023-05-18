@@ -399,7 +399,7 @@ export default {
                             </td>
                             <td class="pl-2 max-w-lg py-4 border-t border-x border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
-                                Un DNS fiable bloquer de pub.
+                                AdGuard DNS est un service populaire sur iOS pour bloquer les publicités et les traqueurs. Il garantit la confidentialité en ne conservant pas les données de navigation.
                             </td>
                         </tr>
 
