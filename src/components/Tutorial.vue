@@ -106,12 +106,30 @@ export default {
       </ol>
     </section>
 
-    <section class="p-6" v-if="plateforme == 'android'">
-      <p class="text-[#2E2E2E] text-4xl font-bold" :class="{ 'text-[#FFFFFF]': !theme }">Changez les DNS sur IOS</p>
+    <section class="p-6" v-if="plateforme == 'android-old'">
+      <p class="text-[#2E2E2E] text-4xl font-bold" :class="{ 'text-[#FFFFFF]': !theme }">Changez les DNS sur Android</p>
 
       <ol class="list-decimal px-4 text-[#2E2E2E] mt-12 mx-4" :class="{ 'text-[#FFFFFF]': !theme }">
         <li class="mt-10">
-          Ouvrez l'application <span class="italic underline">Parametre</span> > <span class="italic underline">Wi-Fi</span>, si le Wi-Fi est éteint allumez le.
+          Ouvrez l'application <span class="italic underline">Paramètres</span> puis cliquez sur l'onglet <span class="italic underline">Wi-Fi</span>.
+        </li>
+        <li class="mt-10">
+          Appuyez et maintenez enfoncé le nom du réseau auquel vous êtes actuellement connecté. Sélectionnez <span class="italic underline">Modifier le réseau</span>.
+        </li>
+        <li class="mt-10">
+          Cochez la case <span class="italic underline">Afficher les options avancées</span>.
+          <img class="w-auto mx-auto my-10 object-contain" src="@/assets/android_old/advanced_option.png" @click="emitClick($event)"/>
+        </li>
+        <li class="mt-10">
+          Changez les paramètres IP en Statique.
+          <img class="w-auto mx-auto my-10 object-contain" src="@/assets/android_old/ip_static.png" @click="emitClick($event)"/>
+        </li>
+        <li class="mt-10">
+          AJoutez l’addresse IPv4 du DNS que vous souhaitez et cliquez sur <span class="italic underline">Enregistrez</span>. Vous venez de changez vos DNS !
+          <img class="w-auto mx-auto my-10 object-contain" src="@/assets/android_old/dns.png" @click="emitClick($event)"/>
+        </li>
+        <li class="mt-10">
+          Fermez l'application <span class="italic underline">Paramètre</span>, Vous venez de changez vos DNS !
         </li>
       </ol>
     </section>
