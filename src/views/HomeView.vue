@@ -27,8 +27,6 @@ export default {
             loading: false,
             error: '',
             image: '',
-
-            latest_open: 0,
         }
     },
 
@@ -76,16 +74,6 @@ export default {
                     this.dns();
                 }, 20);
             }
-        },
-
-        check_before() {
-            let allow = true
-
-            if ((Date.now() - this.latest_open) < 75) {
-                allow = false
-            }
-     
-            return allow
         },
 
         dns() {
@@ -138,7 +126,7 @@ export default {
 </style>
 
 <template>
-    <ImageViewer :theme="light_theme" :image="image" @hidden="image = '', latest_open = Date.now();" v-if="image != '' && check_before()" />
+    <ImageViewer :theme="light_theme" :image="image" @hidden="image = '', latest_open = Date.now();" v-if="image != ''" />
 
     <main class="" :class="{ 'bg-[#161818]': !light_theme, 'bg-transition': true }">
         <section class="h-auto md:h-screen min-h-[800px] relative grid grid-cols-1 gap-1">
