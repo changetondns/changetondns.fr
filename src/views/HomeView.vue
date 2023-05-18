@@ -92,42 +92,14 @@ export default {
         },
 
         dns() {
-            let hash = this.genHash(40)
+            let randomNum = Math.floor(Math.random() * 9000000) + 1000000;
 
-            axios.get(`https://${hash}-1.ipleak.net/dnsdetection/`)
-                .then((res) => {
-                    let ips = Object.keys(res.data.ip);
-                    if (ips.length === 0) {
-                        this.loading = false;
-                        this.dns_user = null;
-                        this.error = "Votre DNS est inconnu, si vous n'avez jamais changé de DNS alors vous devez être vulnérable."
-                        return
-                    }
-                    let ip = ips[ips.length - 1];
-                    axios.get(`https://ipleak.net/json/${ip}`, {timeout: 10_000})
-                        .then((res) => {
-                            if ('error' in res.data) {
-                                this.loading = false;
-                                this.dns_user = null;
-                                this.error = "Votre DNS est inconnu, si vous n'avez jamais changé de DNS alors vous devez être vulnérable."
-                            } else {
-                                if (res.data.isp_name.includes("SFR")) {
-                                    res.data.isp_name = "SFR"
-                                }
-                                this.dns_user = {
-                                    'name': res.data.isp_name,
-                                    'ip': res.data.ip,
-                                };
-                                this.loading = false;
-                            }
-                        }).catch(err => console.log(err))
-                })
-                .catch((err) => {
-                    this.loading = false;
-                    this.dns_user = null;
-                    this.error = "L'api est offline ou vous n'avez plus de connexion. Veuillez retenter dans quelques secondes."
-                    console.log(err)
-                });
+            axios.get(`https://1.${randomNum}.bash.ws`, { timeout: 10_000 }).catch(() => {
+                axios.get(`https://bash.ws/dnsleak/test/${randomNum}?json`)
+                    .then((res) => {
+                       console.log(res.data)
+                    })
+            });
         }
     }
 }
@@ -227,8 +199,7 @@ export default {
                     <p class="absolute text-white text-8xl right-0 -translate-y-[70%] translate-x-[10px] rotate-12 select-none border-alert-1"
                     :class="{ 'border-alert-2': !light_theme }">!</p>
                     <p class="text-white text-center text-2xl">
-                        En changeant vos DNS, vous pouvez contourner les blocages de sites web imposés par la police via les
-                        DNS par défaut fournis  par les fournisseurs d'accès internet, et ainsi gagner en liberté sur internet.
+                        En modifiant vos serveurs DNS, vous pouvez contourner les blocages de certains sites web imposés par votre fournisseur d'accès Internet. En évitant d'utiliser les DNS par défaut fournis par votre FAI, vous pouvez accéder librement à Internet et profiter d'une plus grande liberté en ligne.
                     </p>
                 </div>
             </div>
@@ -269,8 +240,7 @@ export default {
                 redirection peut être effectuée vers une page d'erreur standard ou vers un message indiquant que le site
                 est inaccessible ou inexistant.
                 <br/><br/>
-                L'utilisation du DNS menteur est souvent mise en place par les FAI en réponse à des obligations légales
-                ou des pressions gouvernementales. Dans le cas mentionné, l'État français impose cette pratique aux FAI
+                L'utilisation du DNS menteur est souvent mise en place par les FAI en réponse à des obligations légales. Dans le cas mentionné, l'État français impose cette pratique aux FAI
                 dans le but de bloquer l'accès à certains sites web qu'il juge inappropriés, illégaux.
             </p>
         </section>
