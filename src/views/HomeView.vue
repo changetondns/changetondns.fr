@@ -132,11 +132,18 @@ export default {
 }
 </script>
 
+<style>
+.custom-select option {
+    background-color: #25292c !important;
+    color: #e0e0e0 !important;
+}
+</style>
+
 <template>
     <ImageViewer :theme="light_theme" :image="image" @hidden="image = ''" v-if="image != ''" />
 
     <main class="" :class="{ 'bg-[#161818]': !light_theme, 'bg-transition': true }">
-        <section class="mx-4 h-auto md:h-screen min-h-[800px] relative grid grid-cols-1 gap-1">
+        <section class="h-auto md:h-screen min-h-[800px] relative grid grid-cols-1 gap-1">
             <div class="p-4 w-full h-18" @click="light_theme = !light_theme">
                 <img class="w-8 h-8 ml-auto" :src="moon" v-if="light_theme"/>
                 <img class="w-8 h-8 ml-auto" :src="sun" v-else/>
@@ -159,7 +166,7 @@ export default {
             <!-- DNS check -->
             <div>
                 <div class="w-fit mx-auto mt-14">
-                    <button type="button" class="text-white bg-[#345BC1] rounded px-4 py-3 text-2xl"
+                    <button type="button" class="text-white bg-[#345BC1] rounded px-4 py-3 mx-2 text-2xl"
                             style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" @click="startDns">
                         Cliquez ici pour vérifier votre DNS
                     </button>
@@ -213,14 +220,16 @@ export default {
             </div>
 
             <!-- bulle d'info-->
-            <div class="max-w-3xl bg-[#2E2D39] p-4 rounded-lg mx-auto relative h-fit mt-12"
-                 :class="{ 'bg-[#8591FA]': !light_theme }">
-                <p class="absolute text-white text-8xl right-0 -translate-y-[70%] translate-x-[10px] rotate-12 select-none border-alert-1"
-                   :class="{ 'border-alert-2': !light_theme }">!</p>
-                <p class="text-white text-center text-2xl">
-                    En changeant vos DNS, vous pouvez contourner les blocages de sites web imposés par la police via les
-                    DNS par défaut fournis  par les fournisseurs d'accès internet, et ainsi gagner en liberté sur le web.
-                </p>
+            <div class="mx-4">
+                <div class="max-w-3xl bg-[#2E2D39] p-4 rounded-lg mx-auto relative h-fit mt-12"
+                    :class="{ 'bg-[#8591FA]': !light_theme }">
+                    <p class="absolute text-white text-8xl right-0 -translate-y-[70%] translate-x-[10px] rotate-12 select-none border-alert-1"
+                    :class="{ 'border-alert-2': !light_theme }">!</p>
+                    <p class="text-white text-center text-2xl">
+                        En changeant vos DNS, vous pouvez contourner les blocages de sites web imposés par la police via les
+                        DNS par défaut fournis  par les fournisseurs d'accès internet, et ainsi gagner en liberté sur internet.
+                    </p>
+                </div>
             </div>
 
         </section>
@@ -233,8 +242,8 @@ export default {
                 <div class="border-solid border-2 border-[#8B8B8B] px-2 py-1 rounded-md w-fit"
                      :class="{ 'border-[#CFCFCF]': !light_theme }">
                     <select class="text-[#8B8B8B] text-xl outline-none bg-transparent" id="plateform-select"
-                            :class="{ 'text-[#CFCFCF]': !light_theme }" v-model="selectedPlatform">
-                        <option value="w-11">Windows 11</option>
+                            :class="{ 'text-[#CFCFCF] custom-select': !light_theme }" v-model="selectedPlatform">
+                        <option selected value="w-11">Windows 11</option>
                         <option value="w-10">Windows 10</option>
                         <option value="mac">macOS</option>
                         <option value="android-new">Android 9.0 Pie ou +</option>
@@ -244,14 +253,13 @@ export default {
                 </div>
             </div>
 
-            <div class="w-full rounded rounded-lg bg-[#C8D7E0] p-4 mt-2 overflow-x-auto shadow-none shadow-[#18191A]"
-                 :class="{ 'shadow-md bg-[#1F2126]': !light_theme }">
+            <div class="w-full rounded rounded-lg p-4 mt-2 overflow-x-auto shadow-none shadow-[#18191A]" :class="{ 'shadow-md bg-[#1F2126]': !light_theme , 'bg-[#C8D7E0]': light_theme }">
                 <Tutorial :plateforme="selectedPlatform" :theme="light_theme" @show_image="show_image"/>
             </div>
 
             <div class="w-11/12 mt-8 mx-auto">
-                <div class="rounded-t bg-[#e2e2e2] px-2 py-4 border-x border-t border-[#d0d0d0]"
-                     :class="{ 'bg-[#1C1E1E]  border-black': !light_theme }">
+                <div class="rounded-t px-2 py-4 border-x border-t border-[#d0d0d0]"
+                     :class="{ 'bg-[#1C1E1E]  border-black': !light_theme, 'bg-[#e2e2e2]': light_theme }">
                     <p class="text-lg text-[#161818] font-bold px-2" :class="{ 'text-[#F1F1F1]': !light_theme }">Liste
                         de serveur DNS</p>
                 </div>
@@ -259,7 +267,7 @@ export default {
                 <div class="overflow-x-auto rounded-b-lg border-b border-[#d0d0d0]"
                      :class="{ 'border-black': !light_theme }">
                     <table class="table-auto overflow-scroll w-full min-w-[800px]">
-                        <thead class="text-[#161818] bg-[#e2e2e2]" :class="{ 'text-white bg-[#1C1E1E]': !light_theme }">
+                        <thead class="text-[#161818]" :class="{ 'text-white bg-[#1C1E1E]': !light_theme, 'bg-[#e2e2e2]': light_theme }">
                         <tr>
                             <th class="text-left pl-4 py-2 border border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">Nom
@@ -275,8 +283,8 @@ export default {
                             </th>
                         </tr>
                         </thead>
-                        <tbody class="text-xl text-black" :class="{ 'text-[#FFFFFF]': !light_theme }">
-                        <tr class="hover:bg-[#E3E3E3]" :class="{ 'hover:bg-[#1C1E1E]': !light_theme }">
+                        <tbody class="text-xl" :class="{ 'text-[#FFFFFF]': !light_theme, 'text-black': light_theme }">
+                        <tr :class="{ 'hover:bg-[#1C1E1E]': !light_theme, 'hover:bg-[#E3E3E3]': light_theme }">
                             <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
                                 <a href="https://developers.cloudflare.com/1.1.1.1/setup/" target="_blank" class="text-blue-400">Cloudflare</a>
@@ -297,7 +305,7 @@ export default {
                             </td>
                         </tr>
 
-                        <tr class="hover:bg-[#E3E3E3]" :class="{ 'hover:bg-[#1C1E1E]': !light_theme }">
+                        <tr :class="{ 'hover:bg-[#1C1E1E]': !light_theme, 'hover:bg-[#E3E3E3]': light_theme }">
                             <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
                                 <a href="https://developers.google.com/speed/public-dns/docs/using?hl=fr" target="_blank" class="text-blue-400">Google DNS</a>
@@ -319,7 +327,7 @@ export default {
                             </td>
                         </tr>
 
-                        <tr class="hover:bg-[#E3E3E3]" :class="{ 'hover:bg-[#1C1E1E]': !light_theme }">
+                        <tr :class="{ 'hover:bg-[#1C1E1E]': !light_theme, 'hover:bg-[#E3E3E3]': light_theme }">
                             <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
                                 <a href="https://www.quad9.net/fr/" target="_blank" class="text-blue-400">Quad9</a>
@@ -341,7 +349,7 @@ export default {
                             </td>
                         </tr>
 
-                        <tr class="hover:bg-[#E3E3E3]" :class="{ 'hover:bg-[#1C1E1E]': !light_theme }">
+                        <tr :class="{ 'hover:bg-[#1C1E1E]': !light_theme, 'hover:bg-[#E3E3E3]': light_theme }">
                             <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
                                 <a href="https://www.fdn.fr/actions/dns/" target="_blank" class="text-blue-400">FDN</a>
@@ -362,7 +370,7 @@ export default {
                             </td>
                         </tr>
 
-                        <tr class="hover:bg-[#E3E3E3]" :class="{ 'hover:bg-[#1C1E1E]': !light_theme }">
+                        <tr :class="{ 'hover:bg-[#1C1E1E]': !light_theme, 'hover:bg-[#E3E3E3]': light_theme }">
                             <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
                                 <a href="https://www.opendns.com/" target="_blank" class="text-blue-400">Open DNS</a>
@@ -383,7 +391,7 @@ export default {
                             </td>
                         </tr>
                         
-                        <tr class="hover:bg-[#E3E3E3]" :class="{ 'hover:bg-[#1C1E1E]': !light_theme }">
+                        <tr :class="{ 'hover:bg-[#1C1E1E]': !light_theme, 'hover:bg-[#E3E3E3]': light_theme }">
                             <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
                                 <a href="https://adguard-dns.io/fr/welcome.html" target="_blank" class="text-blue-400">AdGuard</a>
