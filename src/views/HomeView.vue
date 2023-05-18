@@ -381,6 +381,27 @@ export default {
                                 Réputé pour sa rapidité et son absence de censure.
                             </td>
                         </tr>
+                        
+                        <tr class="hover:bg-[#E3E3E3]" :class="{ 'hover:bg-[#1C1E1E]': !light_theme }">
+                            <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
+                                :class="{ 'border-black': !light_theme }">
+                                AdGuard
+                            </td>
+                            <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
+                                :class="{ 'border-black': !light_theme }">
+                                94.140.14.14<br/>
+                                94.140.15.15
+                            </td>
+                            <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
+                                :class="{ 'border-black': !light_theme }">
+                                2620:119:35::35<br/>
+                                2a10:50c0::ad2:ff
+                            </td>
+                            <td class="pl-2 max-w-lg py-4 border-t border-x border-[#d0d0d0]"
+                                :class="{ 'border-black': !light_theme }">
+                                Un DNS fiable bloquer de pub.
+                            </td>
+                        </tr>
 
                         </tbody>
                     </table>

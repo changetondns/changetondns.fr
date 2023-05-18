@@ -106,8 +106,19 @@ export default {
       </ol>
     </section>
 
-    <section class="p-6" v-if="plateforme == 'ios'">
+    <section class="p-6" v-if="plateforme == 'android'">
       <p class="text-[#2E2E2E] text-4xl font-bold" :class="{ 'text-[#FFFFFF]': !theme }">Changez les DNS sur IOS</p>
+
+      <ol class="list-decimal px-4 text-[#2E2E2E] mt-12 mx-4" :class="{ 'text-[#FFFFFF]': !theme }">
+        <li class="mt-10">
+          Ouvrez l'application <span class="italic underline">Parametre</span> > <span class="italic underline">Wi-Fi</span>, si le Wi-Fi est éteint allumez le.
+        </li>
+      </ol>
+    </section>
+
+
+    <section class="p-6" v-if="plateforme == 'ios'">
+      <p class="text-[#2E2E2E] text-4xl font-bold" :class="{ 'text-[#FFFFFF]': !theme }">Changez les DNS sur Android</p>
 
       <ol class="list-decimal px-4 text-[#2E2E2E] mt-12 mx-4" :class="{ 'text-[#FFFFFF]': !theme }">
         <li class="mt-10">
