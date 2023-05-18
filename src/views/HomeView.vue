@@ -144,9 +144,9 @@ export default {
 
     <main class="" :class="{ 'bg-[#161818]': !light_theme, 'bg-transition': true }">
         <section class="h-auto md:h-screen min-h-[800px] relative grid grid-cols-1 gap-1">
-            <div class="p-4 w-full h-18" @click="light_theme = !light_theme">
-                <img class="w-8 h-8 ml-auto" :src="moon" v-if="light_theme"/>
-                <img class="w-8 h-8 ml-auto" :src="sun" v-else/>
+            <div class="p-4 w-full h-18">
+                <img class="w-8 h-8 ml-auto" :src="moon" v-if="light_theme" @click="light_theme = !light_theme" />
+                <img class="w-8 h-8 ml-auto" :src="sun" v-else @click="light_theme = !light_theme" />
             </div>
 
             <!-- Titre -->
