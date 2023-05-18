@@ -92,14 +92,41 @@ export default {
         },
 
         dns() {
-            let randomNum = Math.floor(Math.random() * 9000000) + 1000000;
-
-            axios.get(`https://1.${randomNum}.bash.ws`, { timeout: 10_000 }).catch(() => {
-                axios.get(`https://bash.ws/dnsleak/test/${randomNum}?json`)
-                    .then((res) => {
-                       console.log(res.data)
-                    })
-            });
+            let hash = this.genHash(40)
+            axios.get(`https://${hash}-1.ipleak.net/dnsdetection/`)
+                .then((res) => {
+                    let ips = Object.keys(res.data.ip);
+                    if (ips.length === 0) {
+                        this.loading = false;
+                        this.dns_user = null;
+                        this.error = "Votre DNS est inconnu, si vous n'avez jamais changé de DNS alors vous devez être vulnérable."
+                        return
+                    }
+                    let ip = ips[ips.length - 1];
+                    axios.get(`https://ipleak.net/json/${ip}`, {timeout: 10_000})
+                        .then((res) => {
+                            if ('error' in res.data) {
+                                this.loading = false;
+                                this.dns_user = null;
+                                this.error = "Votre DNS est inconnu, si vous n'avez jamais changé de DNS alors vous devez être vulnérable."
+                            } else {
+                                if (res.data.isp_name.includes("SFR")) {
+                                    res.data.isp_name = "SFR"
+                                }
+                                this.dns_user = {
+                                    'name': res.data.isp_name,
+                                    'ip': res.data.ip,
+                                };
+                                this.loading = false;
+                            }
+                        }).catch(err => console.log(err))
+                })
+                .catch((err) => {
+                    this.loading = false;
+                    this.dns_user = null;
+                    this.error = "L'api est offline ou vous n'avez plus de connexion. Veuillez retenter dans quelques secondes."
+                    console.log(err)
+                });
         }
     }
 }
