@@ -234,7 +234,7 @@ export default {
 
         </section>
 
-        <section class="mx-auto w-3/4 pt-8 md:mt-0">
+        <section class="mx-auto w-11/12 md:w-3/4 pt-8 md:mt-0">
             <!-- selection de la plateforme-->
             <div class="block md:flex">
                 <p class="mr-3 text-xl text-[#2E2E2E] my-auto" :class="{ 'text-[#FFFFFF]': !light_theme }">Je veux
@@ -253,7 +253,7 @@ export default {
                 </div>
             </div>
 
-            <div class="w-full rounded rounded-lg p-4 mt-2 overflow-x-auto shadow-none shadow-[#18191A]" :class="{ 'shadow-md bg-[#1F2126]': !light_theme , 'bg-[#C8D7E0]': light_theme }">
+            <div class="w-full rounded rounded-lg p xl:p-4 mt-2 overflow-x-auto shadow-none shadow-[#18191A]" :class="{ 'shadow-md bg-[#1F2126]': !light_theme , 'bg-[#C8D7E0]': light_theme }">
                 <Tutorial :plateforme="selectedPlatform" :theme="light_theme" @show_image="show_image"/>
             </div>
 

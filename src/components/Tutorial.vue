@@ -15,11 +15,11 @@ export default {
 </script>
 
 <template>
-  <div>
-    <section class="p-6" v-if="plateforme === 'w-10'">
+  <div class="p-4 md:p-6">
+    <section v-if="plateforme === 'w-10'">
       <p class="text-[#2E2E2E] text-4xl font-bold" :class="{ 'text-[#FFFFFF]': !theme }">Changez les DNS sur Windows 10</p>
 
-      <ol class="list-decimal px-4 text-[#2E2E2E] mt-12 mx-4" :class="{ 'text-[#FFFFFF]': !theme }">
+      <ol class="list-decimal text-[#2E2E2E] mt-12 mx-2 md:mx-8" :class="{ 'text-[#FFFFFF]': !theme }">
         <li class="mt-10">
           Rendez-vous dans les paramètres de votre système (touche Windows + i) puis cliquez sur <span class="italic underline">Réseau et Internet</span>.
           <img class="w-auto mx-auto my-10 object-contain" src="/window10/reseau_internet.png" @click="emitClick($event)"/>
@@ -62,10 +62,10 @@ export default {
       </ol>
     </section>
 
-    <section class="p-6" v-if="plateforme === 'w-11'">
+    <section v-if="plateforme === 'w-11'">
       <p class="text-[#2E2E2E] text-4xl font-bold" :class="{ 'text-[#FFFFFF]': !theme }">Changez les DNS sur Windows 11</p>
 
-      <ol class="list-decimal px-4 text-[#2E2E2E] mt-12 mx-4" :class="{ 'text-[#FFFFFF]': !theme }">
+      <ol class="list-decimal text-[#2E2E2E] mt-12 mx-2 md:mx-8" :class="{ 'text-[#FFFFFF]': !theme }">
         <li class="mt-10">
           Rendez-vous dans les paramètres de votre système (touche Windows + i) puis cliquez sur <span class="italic underline">Réseau et Internet</span>.
           <img class="w-auto mx-auto my-10 object-contain" :src="'/window11/reseau_internet.png'" @click="emitClick($event)"/>
@@ -101,10 +101,10 @@ export default {
       </ol>
     </section>
 
-    <section class="p-6" v-if="plateforme === 'android-new'">
+    <section v-if="plateforme === 'android-new'">
       <p class="text-[#2E2E2E] text-4xl font-bold" :class="{ 'text-[#FFFFFF]': !theme }">Changez les DNS sur Android 9.0 Pie ou +</p>
 
-      <ol class="list-decimal px-4 text-[#2E2E2E] mt-12 mx-4" :class="{ 'text-[#FFFFFF]': !theme }">
+      <ol class="list-decimal text-[#2E2E2E] mt-12 mx-2 md:mx-8" :class="{ 'text-[#FFFFFF]': !theme }">
         <li class="mt-10">
           Allez dans l'application <span class="italic underline">Paramètres</span> puis dans <span class="italic underline">Connexion & Partage</span>.<br /><br />
           <span class="font-bold">Attention</span> : la manipulation change selon la version d'Android, vous pouvez utiliser <a href="https://play.google.com/store/apps/details?id=com.frostnerd.dnschanger" target="_blank" class="text-blue-400"> cette application pour une manipulation universelle</a>.
@@ -136,10 +136,10 @@ export default {
       </ol>
     </section>
 
-    <section class="p-6" v-if="plateforme === 'mac'">
+    <section v-if="plateforme === 'mac'">
       <p class="text-[#2E2E2E] text-4xl font-bold" :class="{ 'text-[#FFFFFF]': !theme }">Changez les DNS sur macOS</p>
 
-      <ol class="list-decimal px-4 text-[#2E2E2E] mt-12 mx-4" :class="{ 'text-[#FFFFFF]': !theme }">
+      <ol class="list-decimal text-[#2E2E2E] mt-12 mx-2 md:mx-8" :class="{ 'text-[#FFFFFF]': !theme }">
         <li class="mt-10">
           Cliquez sur le menu <span class="italic underline">Pomme</span> puis sur <span class="italic underline">Réglages Système</span>.
         </li>
@@ -164,10 +164,10 @@ export default {
       </ol>
     </section>
 
-    <section class="p-6" v-if="plateforme === 'android-old'">
+    <section v-if="plateforme === 'android-old'">
       <p class="text-[#2E2E2E] text-4xl font-bold" :class="{ 'text-[#FFFFFF]': !theme }">Changez les DNS sur Android</p>
 
-      <ol class="list-decimal px-4 text-[#2E2E2E] mt-12 mx-4" :class="{ 'text-[#FFFFFF]': !theme }">
+      <ol class="list-decimal text-[#2E2E2E] mt-12 mx-2 md:mx-8" :class="{ 'text-[#FFFFFF]': !theme }">
         <li class="mt-10">
           Ouvrez l'application <span class="italic underline">Paramètres</span> puis cliquez sur l'onglet <span class="italic underline">Wi-Fi</span>.<br /><br />
             <span class="font-bold">Attention</span>: la manipulation change selon la version d'Android, vous pouvez utiliser <a href="https://play.google.com/store/apps/details?id=com.frostnerd.dnschanger" target="_blank" class="text-blue-400"> cette application pour une manipulation universelle</a>.
@@ -194,10 +194,10 @@ export default {
     </section>
 
 
-    <section class="p-6" v-if="plateforme === 'ios'">
+    <section v-if="plateforme === 'ios'">
       <p class="text-[#2E2E2E] text-4xl font-bold" :class="{ 'text-[#FFFFFF]': !theme }">Changez les DNS sur Android</p>
 
-      <ol class="list-decimal px-4 text-[#2E2E2E] mt-12 mx-4" :class="{ 'text-[#FFFFFF]': !theme }">
+      <ol class="list-decimal text-[#2E2E2E] mt-12 mx-2 md:mx-8" :class="{ 'text-[#FFFFFF]': !theme }">
         <li class="mt-10">
           Ouvrez l'application <span class="italic underline">Paramètre</span> > <span class="italic underline">Wi-Fi</span>, si le Wi-Fi est éteint allumez-le.
         </li>
