@@ -81,6 +81,41 @@ export default {
       </ol>
     </section>
     
+    <section class="p-6" v-if="plateforme === 'android-new'">
+      <p class="text-[#2E2E2E] text-4xl font-bold" :class="{ 'text-[#FFFFFF]': !theme }">Changez les DNS sur Android 9.0 Pie ou +</p>
+
+      <ol class="list-decimal px-4 text-[#2E2E2E] mt-12 mx-4" :class="{ 'text-[#FFFFFF]': !theme }">
+        <li class="mt-10">
+          Allez dans l'application <span class="italic underline">Paramètres</span> puis dans <span class="italic underline">Connexion & Partage</span>.<br /><br />
+          Attention : La manipulation change selon la version d'Android, vous pouvez utilisez cette application pour une manipulation universel : https://play.google.com/store/apps/details?id=com.frostnerd.dnschanger
+          <img class="w-auto mx-auto my-10 object-contain max-h-[46rem]" src="@/assets/android new/main_settings.png" @click="emitClick($event)"/>
+        </li>
+        
+        <li class="mt-10">
+          Séléctionnez <span class="italic underline">DNS privé</span>.
+          <img class="w-auto mx-auto my-10 object-contain max-h-[46rem]" src="@/assets/android new/dns_settings.png" @click="emitClick($event)"/>
+        </li>
+
+        <li class="mt-10">
+          Séléctionnez ensuite <span class="italic underline">Nom d’hote du fournisseur de DNS privé</span>.
+          <img class="w-auto mx-auto my-10 object-contain max-h-[46rem]" src="@/assets/android new/dns.png" @click="emitClick($event)"/>
+        </li>
+
+        <li class="mt-10">
+          Entrez le nom d'hôte du DNS,voici une liste de nom d'hôte correspond au fournisseur DNS du tableau :<br /><br />
+          Cloudflare : 1dot1dot1dot1.cloudflare-dns.com<br />
+          Quad9 : dns.quad9.net<br />
+          FDN : ns1.fdn.fr<br />
+          Google DNS : dns.google<br />
+          AdGuard: dns.adguard.com<br />
+        </li>
+
+        <li class="mt-10">
+          Appuyez sur <span class="italic underline">Enregistrer</span>. Vous venez de changer vos DNS !
+        </li>
+      </ol>
+    </section>
+
     <section class="p-6" v-if="plateforme === 'mac'">
       <p class="text-[#2E2E2E] text-4xl font-bold" :class="{ 'text-[#FFFFFF]': !theme }">Changez les DNS sur macOS</p>
 
