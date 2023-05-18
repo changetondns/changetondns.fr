@@ -25,8 +25,8 @@ export default {
     <div class="fixed top-0 left-0 right-0 z-20 w-full h-screen">
         <div class="absolute w-full z-50">
             <div class="flex items-center justify-center h-screen">
-                <div class="m-8 h-3/4 m-auto relative">
-                    <img class=" h-full object-contain" :src="image" v-click-outside="onClickOutside"/>     
+                <div class="max-h-screen p-8 overflow-hidden overflow-y-auto">
+                    <img class="object-cover my-auto" :src="image" v-click-outside="onClickOutside"/>   
                 </div>
             </div>
         </div>
