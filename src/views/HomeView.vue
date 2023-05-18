@@ -78,6 +78,16 @@ export default {
             }
         },
 
+        check_before() {
+            let allow = true
+
+            if ((Date.now() - this.latest_open) < 75) {
+                allow = false
+            }
+     
+            return allow
+        },
+
         dns() {
             let hash = this.genHash(40)
 
@@ -94,23 +104,9 @@ export default {
                     axios.get(`https://ipleak.net/json/${ip}`, {timeout: 10_000})
                         .then((res) => {
                             if ('error' in res.data) {
-                                axios.get(`http://ip-api.com/json/${ip}`, {timeout: 10_000})
-                                    .then((res) => {
-                                        if (res.data.ips === '') {
-                                            this.loading = false;
-                                            this.dns_user = null;
-                                            this.error = "Votre DNS est inconnu, si vous n'avez jamais changé de DNS alors vous devez être vulnérable."
-                                        } else {
-                                            if (res.data.isp.includes("SFR")) {
-                                                res.data.isp = "SFR"
-                                            }
-                                            this.dns_user = {
-                                                'name': res.data.isp,
-                                                'ip': res.data.query,
-                                            };
-                                            this.loading = false;
-                                        }
-                                    }).catch(err => console.log(err))
+                                this.loading = false;
+                                this.dns_user = null;
+                                this.error = "Votre DNS est inconnu, si vous n'avez jamais changé de DNS alors vous devez être vulnérable."
                             } else {
                                 if (res.data.isp_name.includes("SFR")) {
                                     res.data.isp_name = "SFR"
@@ -142,7 +138,7 @@ export default {
 </style>
 
 <template>
-    <ImageViewer :theme="light_theme" :image="image" @hidden="image = '', latest_open = new Date().getTime();" v-if="image != '' && new Date().getTime() - latest_open > 100" />
+    <ImageViewer :theme="light_theme" :image="image" @hidden="image = '', latest_open = Date.now();" v-if="image != '' && check_before()" />
 
     <main class="" :class="{ 'bg-[#161818]': !light_theme, 'bg-transition': true }">
         <section class="h-auto md:h-screen min-h-[800px] relative grid grid-cols-1 gap-1">
