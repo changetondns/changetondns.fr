@@ -27,14 +27,19 @@ export default {
             loading: false,
             error: '',
             image: '',
-
+            large_image: false,
             latest_open: 0,
         }
     },
 
     methods: {
         show_image(image) {
+            if (this.large_image){
+                this.image = '';
+                return
+            }
             this.image = image
+            this.large_image = true
         },
 
         genHash(longueur) {
@@ -138,7 +143,7 @@ export default {
 </style>
 
 <template>
-    <ImageViewer :theme="light_theme" :image="image" @hidden="image = '', latest_open = Date.now();" v-if="image != '' && check_before()" />
+    <ImageViewer :theme="light_theme" :image="image" :large="large_image" @hidden="image = '', latest_open = Date.now();" v-if="image != '' && check_before()" />
 
     <main class="" :class="{ 'bg-[#161818]': !light_theme, 'bg-transition': true }">
         <section class="h-auto md:h-screen min-h-[800px] relative grid grid-cols-1 gap-1">

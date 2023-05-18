@@ -2,7 +2,7 @@
 import vClickOutside from 'click-outside-vue3'
 
 export default {
-    props: ['theme', 'image'],
+    props: ['theme', 'image', 'large'],
 
     directives: {
       clickOutside: vClickOutside.directive
@@ -11,6 +11,9 @@ export default {
     methods: {
         onClickOutside (event) {
             this.$emit('hidden')
+             setTimeout(() => {
+                    this.$props.large = false
+                }, 200);
         },
     }
 }
