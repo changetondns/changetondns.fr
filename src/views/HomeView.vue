@@ -117,7 +117,7 @@ export default {
 </style>
 
 <template>
-    <ImageViewer :theme="light_theme" :image="image" @hidden="hid" v-if="image != ''"/>
+    <ImageViewer :theme="light_theme" :image="image" @hidden="hid" v-if="image !== ''"/>
 
     <main class="" :class="{ 'bg-[#161818]': !light_theme, 'bg-transition': true }">
         <section class="h-auto md:h-screen min-h-[800px] relative grid grid-cols-1 gap-1">
@@ -136,8 +136,7 @@ export default {
                     </div>
                 </div>
 
-                <p class="text-[#5E5E5E] text-lg text-center mt-2" :class="{ 'text-[#F9F9F9]': !light_theme }">Évitons
-                    la censure !</p>
+                <p class="text-[#5E5E5E] text-lg text-center mt-2" :class="{ 'text-[#F9F9F9]': !light_theme }">Évitons la censure !</p>
 
             </div>
 
@@ -152,7 +151,7 @@ export default {
 
                 <div class="min-h-[200px] mt-8">
                     <p class="text-[#5E5E5E] text-center text-2xl max-w-2xl mx-auto"
-                       :class="{ 'text-[#F9F9F9]': !light_theme }" v-if="dns_user == null && !loading && error == ''">
+                       :class="{ 'text-[#F9F9F9]': !light_theme }" v-if="dns_user == null && !loading && error === ''">
                         En cliquant sur le bouton, vous pourrez vérifier votre DNS et savoir si vous êtes soumis à la
                         censure d'internet.
                     </p>
@@ -163,11 +162,11 @@ export default {
                     </div>
 
                     <p class="text-[#5E5E5E] text-center text-2xl max-w-2xl mx-auto"
-                       :class="{ 'text-[#F9F9F9]': !light_theme }" v-if="error != ''">
+                       :class="{ 'text-[#F9F9F9]': !light_theme }" v-if="error !== ''">
                         {{ error }}
                     </p>
 
-                    <div v-show="dns_user && !loading && error == ''">
+                    <div v-show="dns_user && !loading && error === ''">
                         <div class="flex flex-nowrap max-w-xl mx-auto">
                             <div class="mx-auto">
                                 <p class="text-[#1E1E1E] text-center text-2xl font-bold"
@@ -204,10 +203,8 @@ export default {
                     <p class="absolute text-white text-8xl right-0 -translate-y-[70%] translate-x-[10px] rotate-12 select-none border-alert-1"
                        :class="{ 'border-alert-2': !light_theme }">!</p>
                     <p class="text-white text-center text-2xl">
-                        En changeant vos DNS, vous pouvez contourner les blocages de sites web imposés par la police via
-                        les
-                        DNS par défaut fournis par les fournisseurs d'accès internet, et ainsi gagner en liberté sur
-                        internet.
+                        En modifiant vos serveurs DNS, vous pouvez contourner les blocages de certains sites web imposés par votre fournisseur d'accès Internet (FAI).
+                        En évitant d'utiliser les DNS par défaut fournis par votre FAI, vous pouvez accéder librement à Internet et profiter d'une plus grande liberté en ligne.
                     </p>
                 </div>
             </div>
@@ -248,9 +245,9 @@ export default {
                 redirection peut être effectuée vers une page d'erreur standard ou vers un message indiquant que le site
                 est inaccessible ou inexistant.
                 <br/><br/>
-                L'utilisation du DNS menteur est souvent mise en place par les FAI en réponse à des obligations légales
-                ou des pressions gouvernementales. Dans le cas mentionné, l'État français impose cette pratique aux FAI
-                dans le but de bloquer l'accès à certains sites web qu'il juge inappropriés, illégaux.
+                L'utilisation du DNS menteur est souvent mise en place par les FAI en réponse à des obligations légales ou judiciaires.
+                En revanche, ces obligations sont beaucoup plus rarement appliquées aux DNS privés.
+                C'est pourquoi dans un tel contexte il est recommandé d'utiliser des DNS privés pour garder un maximum de liberté sur Internet.
             </p>
         </section>
 
@@ -258,8 +255,7 @@ export default {
         <section class="mx-auto w-11/12 md:w-3/4 pt-8 mt-24">
             <!-- selection de la plateforme-->
             <div class="block md:flex">
-                <p class="mr-3 text-xl text-[#2E2E2E] my-auto" :class="{ 'text-[#FFFFFF]': !light_theme }">Je veux
-                    changer de DNS sur</p>
+                <p class="mr-3 text-xl text-[#2E2E2E] my-auto" :class="{ 'text-[#FFFFFF]': !light_theme }">Je veux changer de DNS sur</p>
                 <div class="border-solid border-2 border-[#8B8B8B] px-2 py-1 rounded-md w-fit"
                      :class="{ 'border-[#CFCFCF]': !light_theme }">
                     <select class="text-[#8B8B8B] text-xl outline-none bg-transparent" id="plateform-select"
