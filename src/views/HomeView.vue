@@ -35,40 +35,32 @@ export default {
 
     methods: {
         show_image(image) {
-            if (this.large_image){
+            if (this.large_image) {
                 this.image = '';
-                return
+                return;
             }
-            this.image = image
-            this.large_image = true
+            this.image = image;
+            this.large_image = true;
         },
+
+
+        sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        },   
 
         async hid() {
-            this.image = ''
-            const delay = ms => new Promise(res => setTimeout(res, ms));
-            await delay(500);
+            this.image = '';
+            await this.sleep(500);
             this.large_image = false;
-        },
-
-        genHash(longueur) {
-            let caracteres = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-            let texte = '';
-
-            for (let i = 0; i < longueur; i++) {
-                let caractereAleatoire = caracteres.charAt(Math.floor(Math.random() * caracteres.length));
-                texte += caractereAleatoire;
-            }
-
-            return texte;
         },
 
         getFai() {
             if (this.dns_user == null) {
-                return false
+                return false;
             }
 
-            let is_fai = false
-            let searchString = this.dns_user.name.toLowerCase();
+            let is_fai = false;
+            let searchString = this.dns_user.dns.toLowerCase();
             let keywords = ['bouygues', 'free sas', 'sfr', 'orange'];
 
             for (let i = 0; i < keywords.length; i++) {
@@ -78,55 +70,47 @@ export default {
                 }
             }
 
-            return is_fai
+            return is_fai;
         },
 
         startDns() {
-            this.error = ''
+            this.error = '';
             if (!this.loading) {
-                this.loading = true
+                this.loading = true;
                 setTimeout(() => {
                     this.dns();
                 }, 20);
             }
         },
 
+        formatData(data) {
+            data = data.split(' ').slice(1).join(' ');
+            if(data.includes('SFR')) {
+                data = "SFR";
+            }
+            return data;
+        },
+
         dns() {
-            let hash = this.genHash(40)
-            axios.get(`https://${hash}-1.ipleak.net/dnsdetection/`)
-                .then((res) => {
-                    let ips = Object.keys(res.data.ip);
-                    if (ips.length === 0) {
-                        this.loading = false;
-                        this.dns_user = null;
-                        this.error = "Votre DNS est inconnu, si vous n'avez jamais changé de DNS alors vous devez être vulnérable."
-                        return
-                    }
-                    let ip = ips[ips.length - 1];
-                    axios.get(`https://ipleak.net/json/${ip}`, {timeout: 10_000})
-                        .then((res) => {
-                            if ('error' in res.data) {
-                                this.loading = false;
-                                this.dns_user = null;
-                                this.error = "Votre DNS est inconnu, si vous n'avez jamais changé de DNS alors vous devez être vulnérable."
-                            } else {
-                                if (res.data.isp_name.includes("SFR")) {
-                                    res.data.isp_name = "SFR"
-                                }
-                                this.dns_user = {
-                                    'name': res.data.isp_name,
-                                    'ip': res.data.ip,
-                                };
-                                this.loading = false;
-                            }
-                        }).catch(err => console.log(err))
-                })
-                .catch((err) => {
-                    this.loading = false;
-                    this.dns_user = null;
-                    this.error = "L'api est offline ou vous n'avez plus de connexion. Veuillez retenter dans quelques secondes."
-                    console.log(err)
-                });
+            let randomNum = Math.floor(Math.random() * 9000000) + 1000000;
+            axios.get(`https://1.${randomNum}.bash.ws`, {timeout: 10_000}).catch(() => {
+                axios.get(`https://bash.ws/dnsleak/test/${randomNum}?json`)
+                    .then((res) => {
+                        if ('No DNS' in res.data) {
+                            this.loading = false;
+                            this.dns_user = null;
+                            this.error = "Votre DNS est inconnu, si vous n'avez jamais changé de DNS alors vous devez être vulnérable.";
+                        } else {
+                            res.data[0].asn = this.formatData(res.data[0].asn);
+                            res.data[1].asn = this.formatData(res.data[1].asn);
+                            this.dns_user = {
+                                'fai': res.data[0].asn,
+                                'dns': res.data[1].asn,
+                            };
+                            this.loading = false;
+                        }
+                    })
+            });
         }
     }
 }
@@ -140,13 +124,13 @@ export default {
 </style>
 
 <template>
-    <ImageViewer :theme="light_theme" :image="image" @hidden="hid" v-if="image != ''" />
+    <ImageViewer :theme="light_theme" :image="image" @hidden="hid" v-if="image !== ''"/>
 
     <main class="" :class="{ 'bg-[#161818]': !light_theme, 'bg-transition': true }">
         <section class="h-auto md:h-screen min-h-[800px] relative grid grid-cols-1 gap-1">
             <div class="p-4 w-full h-18">
-                <img class="w-8 h-8 ml-auto" :src="moon" v-if="light_theme" @click="light_theme = !light_theme" />
-                <img class="w-8 h-8 ml-auto" :src="sun" v-else @click="light_theme = !light_theme" />
+                <img class="w-8 h-8 ml-auto" :src="moon" v-if="light_theme" @click="light_theme = !light_theme"/>
+                <img class="w-8 h-8 ml-auto" :src="sun" v-else @click="light_theme = !light_theme"/>
             </div>
 
             <!-- Titre -->
@@ -167,14 +151,14 @@ export default {
             <div>
                 <div class="w-fit mx-auto mt-14">
                     <button type="button" class="text-white bg-[#345BC1] rounded px-4 py-3 mx-2 text-2xl"
-                            style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" @click="startDns">
+                            style="box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);" @click="startDns">
                         Cliquez ici pour vérifier votre DNS
                     </button>
                 </div>
 
                 <div class="min-h-[200px] mt-8">
                     <p class="text-[#5E5E5E] text-center text-2xl max-w-2xl mx-auto"
-                       :class="{ 'text-[#F9F9F9]': !light_theme }" v-if="dns_user == null && !loading && error == ''">
+                       :class="{ 'text-[#F9F9F9]': !light_theme }" v-if="dns_user == null && !loading && error === ''">
                         En cliquant sur le bouton, vous pourrez vérifier votre DNS et savoir si vous êtes soumis à la
                         censure d'internet.
                     </p>
@@ -185,23 +169,17 @@ export default {
                     </div>
 
                     <p class="text-[#5E5E5E] text-center text-2xl max-w-2xl mx-auto"
-                       :class="{ 'text-[#F9F9F9]': !light_theme }" v-if="error != ''">
+                       :class="{ 'text-[#F9F9F9]': !light_theme }" v-if="error !== ''">
                         {{ error }}
                     </p>
 
-                    <div v-show="dns_user && !loading && error == ''">
+                    <div v-show="dns_user && !loading && error === ''">
                         <div class="flex flex-nowrap max-w-xl mx-auto">
                             <div class="mx-auto">
                                 <p class="text-[#1E1E1E] text-center text-2xl font-bold"
-                                   :class="{ 'text-white': !light_theme}">Fournisseur</p>
-                                <p class="text-[#686868] text-center text-xl font-medium overflow-hidden truncate max-w-[200px]"
-                                   :class="{ 'text-[#9A9A9A]': !light_theme }">{{ dns_user ? dns_user.name : '' }}</p>
-                            </div>
-                            <div class="mx-auto">
-                                <p class="text-[#1E1E1E] text-center text-2xl font-bold"
                                    :class="{ 'text-white': !light_theme }">Serveur DNS</p>
-                                <p class="text-[#686868] text-center text-xl font-medium overflow-hidden truncate max-w-[200px]"
-                                   :class="{ 'text-[#9A9A9A]': !light_theme }">{{ dns_user ? dns_user.ip : '' }}</p>
+                                <p class="text-[#686868] text-center text-xl font-medium overflow-hidden truncate max-w-[150px]"
+                                   :class="{ 'text-[#9A9A9A]': !light_theme }">{{ dns_user ? dns_user.dns : '' }}</p>
                             </div>
                         </div>
 
@@ -222,11 +200,12 @@ export default {
             <!-- bulle d'info-->
             <div class="mx-4">
                 <div class="max-w-3xl bg-[#2E2D39] p-4 rounded-lg mx-auto relative h-fit mt-12"
-                    :class="{ 'bg-[#8591FA]': !light_theme }">
+                     :class="{ 'bg-[#8591FA]': !light_theme }">
                     <p class="absolute text-white text-8xl right-0 -translate-y-[70%] translate-x-[10px] rotate-12 select-none border-alert-1"
-                    :class="{ 'border-alert-2': !light_theme }">!</p>
+                       :class="{ 'border-alert-2': !light_theme }">!</p>
                     <p class="text-white text-center text-2xl">
-                        En modifiant vos serveurs DNS, vous pouvez contourner les blocages de certains sites web imposés par votre fournisseur d'accès Internet. En évitant d'utiliser les DNS par défaut fournis par votre FAI, vous pouvez accéder librement à Internet et profiter d'une plus grande liberté en ligne.
+                        En modifiant vos serveurs DNS, vous pouvez contourner les blocages de certains sites web imposés par votre fournisseur d'accès Internet (FAI).
+                        En évitant d'utiliser les DNS par défaut fournis par votre FAI, vous pouvez accéder librement à Internet et profiter d'une plus grande liberté en ligne.
                     </p>
                 </div>
             </div>
@@ -267,7 +246,11 @@ export default {
                 redirection peut être effectuée vers une page d'erreur standard ou vers un message indiquant que le site
                 est inaccessible ou inexistant.
                 <br/><br/>
-                L'utilisation du DNS menteur est souvent mise en place par les FAI en réponse à des obligations légales.
+                L'utilisation du DNS menteur est souvent mise en place par les FAI en réponse à des obligations légales ou judiciaires.
+                <br/>
+                En revanche, ces obligations sont beaucoup plus rarement appliquées aux DNS privés.
+                <br/>
+                C'est pourquoi dans un tel contexte il est recommandé d'utiliser des DNS privés pour garder un maximum de liberté sur Internet.
             </p>
         </section>
 
@@ -290,7 +273,8 @@ export default {
                 </div>
             </div>
 
-            <div class="w-full rounded rounded-lg p xl:p-4 mt-2 overflow-x-auto shadow-none shadow-[#18191A]" :class="{ 'shadow-md bg-[#1F2126]': !light_theme , 'bg-[#C8D7E0]': light_theme }">
+            <div class="w-full rounded rounded-lg p xl:p-4 mt-2 overflow-x-auto shadow-none shadow-[#18191A]"
+                 :class="{ 'shadow-md bg-[#1F2126]': !light_theme , 'bg-[#C8D7E0]': light_theme }">
                 <Tutorial :plateforme="selectedPlatform" :theme="light_theme" @show_image="show_image"/>
             </div>
 
@@ -304,7 +288,8 @@ export default {
                 <div class="overflow-x-auto rounded-b-lg border-b border-[#d0d0d0]"
                      :class="{ 'border-black': !light_theme }">
                     <table class="table-auto overflow-scroll w-full min-w-[800px]">
-                        <thead class="text-[#161818]" :class="{ 'text-white bg-[#1C1E1E]': !light_theme, 'bg-[#e2e2e2]': light_theme }">
+                        <thead class="text-[#161818]"
+                               :class="{ 'text-white bg-[#1C1E1E]': !light_theme, 'bg-[#e2e2e2]': light_theme }">
                         <tr>
                             <th class="text-left pl-4 py-2 border border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">Nom
@@ -324,7 +309,8 @@ export default {
                         <tr :class="{ 'hover:bg-[#1C1E1E]': !light_theme, 'hover:bg-[#E3E3E3]': light_theme }">
                             <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
-                                <a href="https://developers.cloudflare.com/1.1.1.1/setup/" target="_blank" class="text-blue-400">Cloudflare</a>
+                                <a href="https://developers.cloudflare.com/1.1.1.1/setup/" target="_blank"
+                                   class="text-blue-400">Cloudflare</a>
                             </td>
                             <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
@@ -345,7 +331,8 @@ export default {
                         <tr :class="{ 'hover:bg-[#1C1E1E]': !light_theme, 'hover:bg-[#E3E3E3]': light_theme }">
                             <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
-                                <a href="https://developers.google.com/speed/public-dns/docs/using?hl=fr" target="_blank" class="text-blue-400">Google DNS</a>
+                                <a href="https://developers.google.com/speed/public-dns/docs/using?hl=fr"
+                                   target="_blank" class="text-blue-400">Google DNS</a>
                             </td>
                             <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
@@ -427,7 +414,7 @@ export default {
                                 Réputé pour sa rapidité et son absence de censure.
                             </td>
                         </tr>
-                        
+
                         <tr :class="{ 'hover:bg-[#1C1E1E]': !light_theme, 'hover:bg-[#E3E3E3]': light_theme }">
                             <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
@@ -445,7 +432,9 @@ export default {
                             </td>
                             <td class="pl-2 max-w-lg py-4 border-t border-x border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
-                                AdGuard DNS est un service populaire sur iOS pour bloquer les publicités et les traqueurs. Il garantit la confidentialité en ne conservant pas les données de navigation.
+                                AdGuard DNS est un service populaire sur iOS pour bloquer les publicités et les
+                                traqueurs. Il garantit la confidentialité en ne conservant pas les données de
+                                navigation.
                             </td>
                         </tr>
 
@@ -457,7 +446,7 @@ export default {
 
         <section>
             <button class="flex w-fit mx-auto my-24 bg-[#345BC1] px-4 py-2 rounded-lg"
-                    style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"
+                    style="box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);"
                     onclick="window.location.href='https://twitter.com/intent/tweet?hashtags=changetondns'">
                 <img :src="twitter" class="w-8 mr-2"/>
                 <span class="text-white text-xl my-auto">Partage ce site</span>

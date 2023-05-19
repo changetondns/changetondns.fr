@@ -9,7 +9,7 @@ export default {
     },
 
     methods: {
-        onClickOutside(event) {
+        onClickOutside() {
             this.$emit('hidden')
         },
     }
@@ -19,7 +19,7 @@ export default {
 </script>
 
 <template>
-    <div class="bg-black fixed top-0 left-0 right-0 z-20 w-full h-screen opacity-75">
+    <div class="bg-black fixed top-0 left-0 right-0 bottom-0 z-20 w-full h-full opacity-75">
     </div>
 
     <div class="fixed top-0 left-0 right-0 z-20 w-full h-screen">
