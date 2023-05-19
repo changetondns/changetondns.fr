@@ -46,7 +46,7 @@ export default {
 
         sleep(ms) {
             return new Promise(resolve => setTimeout(resolve, ms));
-        },   
+        },
 
         async hid() {
             this.image = '';
@@ -266,6 +266,7 @@ export default {
                         <option selected value="w-11">Windows 11</option>
                         <option value="w-10">Windows 10</option>
                         <option value="mac">macOS</option>
+                        <option value="ubuntu">Ubuntu</option>
                         <option value="android-new">Android 9.0 Pie ou +</option>
                         <option value="android-old">Android</option>
                         <option value="ios">IOS</option>
