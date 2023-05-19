@@ -59,7 +59,7 @@ export default {
             }
 
             let is_fai = false
-            let searchString = this.dns_user.name.toLowerCase();
+            let searchString = this.dns_user.dns.toLowerCase();
             let keywords = ['bouygues', 'free sas', 'sfr', 'orange'];
 
             for (let i = 0; i < keywords.length; i++) {
@@ -82,6 +82,14 @@ export default {
             }
         },
 
+        formatData(data) {
+            data = data.split(' ').slice(1).join(' ')
+            if(data.includes('SFR')) {
+                data = "SFR"
+            }
+            return data
+        },
+
         dns() {
             let randomNum = Math.floor(Math.random() * 9000000) + 1000000;
             axios.get(`https://1.${randomNum}.bash.ws`, {timeout: 10_000}).catch(() => {
@@ -92,12 +100,11 @@ export default {
                             this.dns_user = null;
                             this.error = "Votre DNS est inconnu, si vous n'avez jamais changé de DNS alors vous devez être vulnérable."
                         } else {
-                            if (res.data[1].asn.includes("SFR")) {
-                                res.data[1].asn = "SFR"
-                            }
+                            res.data[0].asn = this.formatData(res.data[0].asn);
+                            res.data[1].asn = this.formatData(res.data[1].asn);
                             this.dns_user = {
-                                'name': res.data[1].asn,
-                                'ip': res.data[1].ip,
+                                'fai': res.data[0].asn,
+                                'dns': res.data[1].asn,
                             };
                             this.loading = false;
                         }
@@ -172,13 +179,13 @@ export default {
                                 <p class="text-[#1E1E1E] text-center text-2xl font-bold"
                                    :class="{ 'text-white': !light_theme}">Fournisseur</p>
                                 <p class="text-[#686868] text-center text-xl font-medium overflow-hidden truncate max-w-[200px]"
-                                   :class="{ 'text-[#9A9A9A]': !light_theme }">{{ dns_user ? dns_user.name : '' }}</p>
+                                   :class="{ 'text-[#9A9A9A]': !light_theme }">{{ dns_user ? dns_user.fai : '' }}</p>
                             </div>
                             <div class="mx-auto">
                                 <p class="text-[#1E1E1E] text-center text-2xl font-bold"
                                    :class="{ 'text-white': !light_theme }">Serveur DNS</p>
                                 <p class="text-[#686868] text-center text-xl font-medium overflow-hidden truncate max-w-[200px]"
-                                   :class="{ 'text-[#9A9A9A]': !light_theme }">{{ dns_user ? dns_user.ip : '' }}</p>
+                                   :class="{ 'text-[#9A9A9A]': !light_theme }">{{ dns_user ? dns_user.dns : '' }}</p>
                             </div>
                         </div>
 
@@ -247,6 +254,7 @@ export default {
                 <br/><br/>
                 L'utilisation du DNS menteur est souvent mise en place par les FAI en réponse à des obligations légales ou judiciaires.
                 En revanche, ces obligations sont beaucoup plus rarement appliquées aux DNS privés.
+                <br/>
                 C'est pourquoi dans un tel contexte il est recommandé d'utiliser des DNS privés pour garder un maximum de liberté sur Internet.
             </p>
         </section>
