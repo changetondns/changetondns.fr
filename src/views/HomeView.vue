@@ -43,13 +43,14 @@ export default {
             this.large_image = true;
         },
 
+
         sleep(ms) {
             return new Promise(resolve => setTimeout(resolve, ms));
-        },
+        },   
 
         async hid() {
             this.image = '';
-            await this.sleep(100);
+            await this.sleep(500);
             this.large_image = false;
         },
 
@@ -174,12 +175,6 @@ export default {
 
                     <div v-show="dns_user && !loading && error === ''">
                         <div class="flex flex-nowrap max-w-xl mx-auto">
-<!--                            <div class="mx-auto">-->
-<!--                                <p class="text-[#1E1E1E] text-center text-2xl font-bold"-->
-<!--                                   :class="{ 'text-white': !light_theme}">Fournisseur</p>-->
-<!--                                <p class="text-[#686868] text-center text-xl font-medium overflow-hidden truncate max-w-[150px]"-->
-<!--                                   :class="{ 'text-[#9A9A9A]': !light_theme }">{{ dns_user ? dns_user.fai : '' }}</p>-->
-<!--                            </div>-->
                             <div class="mx-auto">
                                 <p class="text-[#1E1E1E] text-center text-2xl font-bold"
                                    :class="{ 'text-white': !light_theme }">Serveur DNS</p>
