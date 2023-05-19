@@ -37,10 +37,10 @@ export default {
         show_image(image) {
             if (this.large_image) {
                 this.image = '';
-                return
+                return;
             }
-            this.image = image
-            this.large_image = true
+            this.image = image;
+            this.large_image = true;
         },
 
         sleep(ms) {
@@ -48,17 +48,17 @@ export default {
         },
 
         async hid() {
-            this.image = ''
+            this.image = '';
             await this.sleep(100);
             this.large_image = false;
         },
 
         getFai() {
             if (this.dns_user == null) {
-                return false
+                return false;
             }
 
-            let is_fai = false
+            let is_fai = false;
             let searchString = this.dns_user.dns.toLowerCase();
             let keywords = ['bouygues', 'free sas', 'sfr', 'orange'];
 
@@ -69,13 +69,13 @@ export default {
                 }
             }
 
-            return is_fai
+            return is_fai;
         },
 
         startDns() {
-            this.error = ''
+            this.error = '';
             if (!this.loading) {
-                this.loading = true
+                this.loading = true;
                 setTimeout(() => {
                     this.dns();
                 }, 20);
@@ -83,11 +83,11 @@ export default {
         },
 
         formatData(data) {
-            data = data.split(' ').slice(1).join(' ')
-            // if(data.includes('SFR')) {
-            //     data = "SFR"
-            // }
-            return data
+            data = data.split(' ').slice(1).join(' ');
+            if(data.includes('SFR')) {
+                data = "SFR";
+            }
+            return data;
         },
 
         dns() {
@@ -98,7 +98,7 @@ export default {
                         if ('No DNS' in res.data) {
                             this.loading = false;
                             this.dns_user = null;
-                            this.error = "Votre DNS est inconnu, si vous n'avez jamais changé de DNS alors vous devez être vulnérable."
+                            this.error = "Votre DNS est inconnu, si vous n'avez jamais changé de DNS alors vous devez être vulnérable.";
                         } else {
                             res.data[0].asn = this.formatData(res.data[0].asn);
                             res.data[1].asn = this.formatData(res.data[1].asn);
@@ -108,7 +108,6 @@ export default {
                             };
                             this.loading = false;
                         }
-                        console.log(res.data)
                     })
             });
         }
@@ -151,7 +150,7 @@ export default {
             <div>
                 <div class="w-fit mx-auto mt-14">
                     <button type="button" class="text-white bg-[#345BC1] rounded px-4 py-3 mx-2 text-2xl"
-                            style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" @click="startDns">
+                            style="box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);" @click="startDns">
                         Cliquez ici pour vérifier votre DNS
                     </button>
                 </div>
@@ -253,6 +252,7 @@ export default {
                 est inaccessible ou inexistant.
                 <br/><br/>
                 L'utilisation du DNS menteur est souvent mise en place par les FAI en réponse à des obligations légales ou judiciaires.
+                <br/>
                 En revanche, ces obligations sont beaucoup plus rarement appliquées aux DNS privés.
                 <br/>
                 C'est pourquoi dans un tel contexte il est recommandé d'utiliser des DNS privés pour garder un maximum de liberté sur Internet.
@@ -451,7 +451,7 @@ export default {
 
         <section>
             <button class="flex w-fit mx-auto my-24 bg-[#345BC1] px-4 py-2 rounded-lg"
-                    style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"
+                    style="box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);"
                     onclick="window.location.href='https://twitter.com/intent/tweet?hashtags=changetondns'">
                 <img :src="twitter" class="w-8 mr-2"/>
                 <span class="text-white text-xl my-auto">Partage ce site</span>
