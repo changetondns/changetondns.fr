@@ -58,6 +58,9 @@ export default {
             if (this.dns_user == null) {
                 return false;
             }
+            if (this.dns_user.user_ip === this.dns_user.dns_ip) {
+                return false;
+            }
 
             let is_fai = false;
             let searchString = this.dns_user.dns.toLowerCase();
@@ -104,7 +107,9 @@ export default {
                             res.data[0].asn = this.formatData(res.data[0].asn);
                             res.data[1].asn = this.formatData(res.data[1].asn);
                             this.dns_user = {
+                                'user_ip': res.data[0].ip,
                                 'fai': res.data[0].asn,
+                                'dns_ip': res.data[1].ip,
                                 'dns': res.data[1].asn,
                             };
                             this.loading = false;
