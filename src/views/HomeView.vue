@@ -220,9 +220,9 @@ export default {
 
         <section class="mx-auto w-11/12 md:w-3/4 pt-8 md:mt-0">
             <p class="text-[#1C1C1C] font-bold text-2xl mt-24" :class="{ 'text-white': !light_theme }">Qu’est ce qu’un
-                Domain Name Server (DNS) ?</p>
+                Domain Name System (DNS) ?</p>
             <p class="mt-4 ml-4 max-w-4xl text-[#424242] font-medium" :class="{ 'text-[#DBDBDB]': !light_theme }">
-                Un Domain Name Server (DNS) est un système informatique qui permet de traduire les noms de domaines en
+                Un Domain Name System (DNS) est un système informatique qui permet de traduire les noms de domaines en
                 adresses IP.
                 <br/>
                 <br/>
