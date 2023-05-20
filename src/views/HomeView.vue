@@ -221,7 +221,7 @@ export default {
                 <br/>
                 <br/>
                 Lorsque vous accédez à un site Web, vous tapez généralement son nom de domaine dans votre navigateur
-                (par exemple, www.google.com). Le DNS est responsable de prendre ce nom de domaine et de le traduire en
+                (par exemple, example.net). Le DNS est responsable de prendre ce nom de domaine et de le traduire en
                 adresse IP, qui est l'adresse numérique unique qui identifie le serveur Web sur lequel se trouve le site
                 Web.
                 <br/>
