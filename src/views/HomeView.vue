@@ -117,6 +117,12 @@ export default {
                         console.log(res.data);
                     })
             });
+            if (this.dns_user != null && this.dns_user.user_ip != null && this.dns_user.dns_ip != null) {
+                if (this.dns_user.user_ip.includes(':') && this.dns_user.dns_ip.includes('.') ||
+                this.dns_user.dns_ip.includes(':') && this.dns_user.user_ip.includes('.')) {
+                            this.dns();
+                }
+            }
         }
     }
 }
