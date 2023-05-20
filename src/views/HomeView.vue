@@ -109,6 +109,7 @@ export default {
                             };
                             this.loading = false;
                         }
+                        console.log(res.data);
                     })
             });
         }
@@ -438,7 +439,28 @@ export default {
                                 navigation.
                             </td>
                         </tr>
-
+                         <tr :class="{ 'hover:bg-[#1C1E1E]': !light_theme, 'hover:bg-[#E3E3E3]': light_theme }">
+                            <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
+                                :class="{ 'border-black': !light_theme }">
+                                <a href="https://www.dns0.eu/" target="_blank" class="text-blue-400">dns0.eu</a>
+                            </td>
+                            <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
+                                :class="{ 'border-black': !light_theme }">
+                                193.110.81.0<br/>
+                                185.253.5.0
+                            </td>
+                            <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
+                                :class="{ 'border-black': !light_theme }">
+                                2a0f:fc80::<br/>
+                                2a0f:fc81::
+                            </td>
+                            <td class="pl-2 max-w-lg py-4 border-t border-x border-[#d0d0d0]"
+                                :class="{ 'border-black': !light_theme }">
+                                dns0.eu est une association française à but non lucratif fondée en 2022
+                                par les co-fondateurs de NextDNS. Les serveurs
+                                sont localisés dans des pays de l'Union européenne.
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
