@@ -282,6 +282,7 @@ export default {
                         <option value="android-new">Android 9.0 Pie ou +</option>
                         <option value="android-old">Android</option>
                         <option value="ios">IOS</option>
+                        <option value="freeboxos">Freebox OS</option>
                     </select>
                 </div>
             </div>
