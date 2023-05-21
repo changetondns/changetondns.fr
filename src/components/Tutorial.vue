@@ -289,6 +289,48 @@ export default {
         </li>
       </ol>
     </section>
+    <section v-if="plateforme === 'firefox-doh'">
+      <p class="text-[#2E2E2E] text-4xl font-bold" :class="{ 'text-[#FFFFFF]': !theme }">Changez les DNS sur Firefox</p>
+      <p class="text-[#2E2E2E] text-l p-6" :class="{ 'text-[#FFFFFF]': !theme }">
+        En configurant Firefox de cette manière, en plus d'utiliser un serveur de résolution DNS autre que celui de votre FAI, la communication entre vous et le serveur DNS sera chiffré (via HTTPS). L'opération reste donc intéressant même si le système est déjà configuré pour utiliser un DNS non-menteur. Cette configuration n'aura d'incidence que sur Firefox.
+      </p>
+      <ol class="list-decimal text-[#2E2E2E] mt-12 mx-2 md:mx-8" :class="{ 'text-[#FFFFFF]': !theme }">
+        <li class="mt-10">
+          Lancez Firefox puis ouvrez les paramètres de celui-ci.
+          <img class="w-auto rounded-xl mx-auto my-10 object-contain" :src="'/firefox_doh/goto_settings.png'" @click="emitClick($event)"/>
+        </li>
+        <li class="mt-10">
+          A la fin de la catégorie "General" ("Network Settings"), cliquez sur le bouton "Settings..."
+          <img class="w-auto rounded-xl mx-auto my-10 object-contain" :src="'/firefox_doh/goto_network_settings.png'" @click="emitClick($event)"/>
+        </li>
+        <li class="mt-10">
+          Cochez "Enable DNS over HTTPS", puis sélectionnez le fournisseur que vous souhaitez, si aucun ne vous convient, sélectionnez "Custom", puis entrez son adresse DoH dans le champ. Enregistrez les modifications avec le bouton "OK". 
+          <img class="w-auto rounded-xl mx-auto my-10 object-contain" :src="'/firefox_doh/network_settings.png'" @click="emitClick($event)"/>
+        </li>
+        <li class="mt-10">
+          Vous venez de changer le serveur DNS utilisé par Firefox !
+        </li>
+      </ol>
+    </section>
+    <section v-if="plateforme === 'edge-doh'">
+      <p class="text-[#2E2E2E] text-4xl font-bold" :class="{ 'text-[#FFFFFF]': !theme }">Changez les DNS sur Microsoft Edge</p>
+      <p class="text-[#2E2E2E] text-l p-6" :class="{ 'text-[#FFFFFF]': !theme }">
+        En configurant Edge de cette manière, en plus d'utiliser un serveur de résolution DNS autre que celui de votre FAI, la communication entre vous et le serveur DNS sera chiffré (via HTTPS). L'opération reste donc intéressant même si le système est déjà configuré pour utiliser un DNS non-menteur. Cette configuration n'aura d'incidence que sur Edge.
+      </p>
+      <ol class="list-decimal text-[#2E2E2E] mt-12 mx-2 md:mx-8" :class="{ 'text-[#FFFFFF]': !theme }">
+        <li class="mt-10">
+          Lancez Edge puis ouvrez les paramètres de celui-ci.
+          <img class="w-auto rounded-xl mx-auto my-10 object-contain" :src="'/edge_doh/goto_settings.png'" @click="emitClick($event)"/>
+        </li>
+        <li class="mt-10">
+          Dans la catégorie "Privacy, search and services", cherchez "Use secure DNS to specify how to lookup the network address for websites". Cochez "Choose a service provider"", puis sélectionnez le fournisseur que vous souhaitez, si aucun ne vous convient, entrez l'adresse DoH manuellement dans le champ en ajoutant "{?dns}" à la fin. Enregistrez les modifications avec le bouton "OK". 
+          <img class="w-auto rounded-xl mx-auto my-10 object-contain" :src="'/edge_doh/doh_settings.png'" @click="emitClick($event)"/>
+        </li>
+        <li class="mt-10">
+          Vous venez de changer le serveur DNS utilisé par Edge !
+        </li>
+      </ol>
+    </section>
 
     <p class="text-[#2E2E2E] text-xl p-6 font-medium" :class="{ 'text-[#FFFFFF]': !theme }">
       Après avoir effectué la modification de vos DNS, il est nécessaire de procéder à une déconnexion suivie d'une reconnexion à Internet pour que les changements prennent effet. Vous pouvez cliquer sur le bouton situé en haut du site afin de vérifier si vous êtes toujours exposé aux risques des DNS menteurs !
