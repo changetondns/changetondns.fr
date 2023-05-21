@@ -58,6 +58,9 @@ export default {
             if (this.dns_user == null) {
                 return false;
             }
+            if (this.dns_user.user_ip === this.dns_user.dns_ip) {
+                return false;
+            }
 
             let is_fai = false;
             let searchString = this.dns_user.dns.toLowerCase();
@@ -104,13 +107,22 @@ export default {
                             res.data[0].asn = this.formatData(res.data[0].asn);
                             res.data[1].asn = this.formatData(res.data[1].asn);
                             this.dns_user = {
+                                'user_ip': res.data[0].ip,
                                 'fai': res.data[0].asn,
+                                'dns_ip': res.data[1].ip,
                                 'dns': res.data[1].asn,
                             };
                             this.loading = false;
                         }
+                        console.log(res.data);
                     })
             });
+            if (this.dns_user != null && this.dns_user.user_ip != null && this.dns_user.dns_ip != null) {
+                if (this.dns_user.user_ip.includes(':') && this.dns_user.dns_ip.includes('.') ||
+                this.dns_user.dns_ip.includes(':') && this.dns_user.user_ip.includes('.')) {
+                            this.dns();
+                }
+            }
         }
     }
 }
@@ -214,9 +226,9 @@ export default {
 
         <section class="mx-auto w-11/12 md:w-3/4 pt-8 md:mt-0">
             <p class="text-[#1C1C1C] font-bold text-2xl mt-24" :class="{ 'text-white': !light_theme }">Qu’est ce qu’un
-                Domain Name Server (DNS) ?</p>
+                Domain Name System (DNS) ?</p>
             <p class="mt-4 ml-4 max-w-4xl text-[#424242] font-medium" :class="{ 'text-[#DBDBDB]': !light_theme }">
-                Un Domain Name Server (DNS) est un système informatique qui permet de traduire les noms de domaines en
+                Un Domain Name System (DNS) est un système informatique qui permet de traduire les noms de domaines en
                 adresses IP.
                 <br/>
                 <br/>
@@ -270,6 +282,7 @@ export default {
                         <option value="android-new">Android 9.0 Pie ou +</option>
                         <option value="android-old">Android</option>
                         <option value="ios">IOS</option>
+                        <option value="freeboxos">Freebox OS</option>
                     </select>
                 </div>
             </div>
@@ -438,7 +451,28 @@ export default {
                                 navigation.
                             </td>
                         </tr>
-
+                         <tr :class="{ 'hover:bg-[#1C1E1E]': !light_theme, 'hover:bg-[#E3E3E3]': light_theme }">
+                            <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
+                                :class="{ 'border-black': !light_theme }">
+                                <a href="https://www.dns0.eu/" target="_blank" class="text-blue-400">dns0.eu</a>
+                            </td>
+                            <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
+                                :class="{ 'border-black': !light_theme }">
+                                193.110.81.0<br/>
+                                185.253.5.0
+                            </td>
+                            <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
+                                :class="{ 'border-black': !light_theme }">
+                                2a0f:fc80::<br/>
+                                2a0f:fc81::
+                            </td>
+                            <td class="pl-2 max-w-lg py-4 border-t border-x border-[#d0d0d0]"
+                                :class="{ 'border-black': !light_theme }">
+                                dns0.eu est une association française à but non lucratif fondée en 2022
+                                par les co-fondateurs de NextDNS. Les serveurs
+                                sont localisés dans des pays de l'Union européenne.
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
