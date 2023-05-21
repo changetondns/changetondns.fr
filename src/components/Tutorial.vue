@@ -248,11 +248,11 @@ export default {
     <section v-if="plateforme === 'freeboxos'">
       <p class="text-[#2E2E2E] text-4xl font-bold" :class="{ 'text-[#FFFFFF]': !theme }">Changez les DNS sur FreeboxOS</p>
       <p class="text-[#2E2E2E] text-l p-6" :class="{ 'text-[#FFFFFF]': !theme }">
-        Cette méthode a l'avantage de configurer le serveur de résolution DNS pour tous les appareils du réseau qui suivent les directives données par le serveur DHCP.
+        Cette méthode présente l'avantage de permettre la configuration automatique du serveur DNS sur tous vos appareils utilisant cette Box, à moins que le DNS de l'appareil a été configuré manuellement.
       </p>
       <ol class="list-decimal text-[#2E2E2E] mt-12 mx-2 md:mx-8" :class="{ 'text-[#FFFFFF]': !theme }">
         <li class="mt-10">
-          Rendez vous sur la page de configuration de la passerelle: <a class="italic underline" href="http://mafreebox.freebox.fr" target="about:blank">mafreebox.freebox.fr</a> ou via son addresse IP.
+          Rendez vous sur la page de configuration de la passerelle: <a class="italic underline" href="http://mafreebox.freebox.fr" target="about:blank">mafreebox.freebox.fr</a> ou via son addresse IP (<span class="italic">92.168.1.254</span> par defaut).
         </li>
         <li class="mt-10">
           Vous atteignez la page de connexion. Utilisez votre mot de passe FreeboxOS. Si vous ne le connaissez pas, suivez la procédure "J'ai perdu mon mot de passe".
@@ -285,7 +285,7 @@ export default {
           Enregistrez les modifications en cliquant sur le bouton "OK".
         </li>
         <li class="mt-10">
-          Les appareils du réseau seront automatiquement configurés via DHCP et RDNSS dès le prochain renouvellement du bail DHCP. Certains appareils renouvellent celui-ci immédiatement lors d'un redémarrage.
+          Les appareils du réseau seront automatiquement configurés avec ces nouveaux serveurs DNS dès qu'ils récupéreront à nouveau leur adresse IP auprès de la Freebox. Cela peut prendre plusieurs heures. Souvent un redémarrage des appareils accélère le processus.
         </li>
       </ol>
     </section>
