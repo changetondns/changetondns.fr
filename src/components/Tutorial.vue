@@ -204,17 +204,17 @@ export default {
 
         <li class="mt-10">
           Choisissez le réseau Wi-Fi dans lequel vous êtes connecté et appuyez sur l’icône "i" en bleue.
-          <img class="w-auto mx-auto my-10 object-contain" :src="'/IOS/step-1.jpg'" @click="emitClick($event)"/>
+          <img class="w-auto mx-auto my-10 object-contain" :src="'/ios/step-1.jpg'" @click="emitClick($event)"/>
         </li>
         
         <li class="mt-10">
           Descendez jusqu'à voir la catégorie DNS.
-          <img class="w-auto mx-auto my-10 object-contain" :src="'/IOS/step-2.jpg'" @click="emitClick($event)"/>
+          <img class="w-auto mx-auto my-10 object-contain" :src="'/ios/step-2.jpg'" @click="emitClick($event)"/>
         </li>
         
         <li class="mt-10">
           Descendez et sélectionnez <span class="italic underline">Configurer un DNS</span>, enfin appuyez sur <span class="italic underline">Ajouter un serveur</span>.
-          <img class="w-auto mx-auto my-10 object-contain" :src="'/IOS/step-3.jpg'" @click="emitClick($event)"/>
+          <img class="w-auto mx-auto my-10 object-contain" :src="'/ios/step-3.jpg'" @click="emitClick($event)"/>
         </li>
 
         <li class="mt-10">
