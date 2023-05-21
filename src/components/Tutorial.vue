@@ -252,7 +252,7 @@ export default {
       </p>
       <ol class="list-decimal text-[#2E2E2E] mt-12 mx-2 md:mx-8" :class="{ 'text-[#FFFFFF]': !theme }">
         <li class="mt-10">
-          Rendez vous sur la page de configuration de la passerelle: <a class="italic underline" href="http://mafreebox.freebox.fr" target="about:blank">mafreebox.freebox.fr</a> ou via son addresse IP (<span class="italic">92.168.1.254</span> par defaut).
+          Rendez vous sur la page de configuration de la passerelle: <a class="italic underline" href="http://mafreebox.freebox.fr" target="about:blank">mafreebox.freebox.fr</a> ou via son addresse IP (<span class="italic">192.168.1.254</span> par défaut).
         </li>
         <li class="mt-10">
           Vous atteignez la page de connexion. Utilisez votre mot de passe FreeboxOS. Si vous ne le connaissez pas, suivez la procédure "J'ai perdu mon mot de passe".
