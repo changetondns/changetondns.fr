@@ -343,7 +343,7 @@ export default {
                             </td>
                             <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
-                                https://1.1.1.1/dns-query
+                                https://1.1.1.1/dns-query<br/>
                                 https://1.0.0.1/dns-query
                             </td>
                             <td class="pl-2 max-w-lg py-4 border-x border-t border-[#d0d0d0]"
