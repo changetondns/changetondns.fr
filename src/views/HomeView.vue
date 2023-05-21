@@ -283,6 +283,8 @@ export default {
                         <option value="android-old">Android</option>
                         <option value="ios">IOS</option>
                         <option value="freeboxos">Freebox OS</option>
+                        <option value="firefox-doh">Firefox (DoH)</option>
+                        <option value="edge-doh">Microsoft Edge (DoH)</option>
                     </select>
                 </div>
             </div>
@@ -315,6 +317,9 @@ export default {
                                 :class="{ 'border-black': !light_theme }">Adresses IPv6
                             </th>
                             <th class="text-left pl-4 border border-[#d0d0d0]"
+                                :class="{ 'border-black': !light_theme }">Adresse DNS over HTTPS
+                            </th>
+                            <th class="text-left pl-4 border border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">Description
                             </th>
                         </tr>
@@ -333,8 +338,13 @@ export default {
                             </td>
                             <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
-                                2606:4700:4700::1111<br/>
+                                2606:4700:4700::1111&nbsp;<br/>
                                 2606:4700:4700::1001
+                            </td>
+                            <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
+                                :class="{ 'border-black': !light_theme }">
+                                https://1.1.1.1/dns-query
+                                https://1.0.0.1/dns-query
                             </td>
                             <td class="pl-2 max-w-lg py-4 border-x border-t border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
@@ -358,6 +368,10 @@ export default {
                                 2001:4860:4860::8888<br/>
                                 2001:4860:4860::8844
                             </td>
+                            <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
+                                :class="{ 'border-black': !light_theme }">
+                                https://dns.google/dns-query
+                            </td>
                             <td class="pl-2 max-w-lg py-4 border-t border-x border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
                                 Réputé pour sa fiabilité et ses performances, bien que le respect de la vie privée
@@ -379,6 +393,10 @@ export default {
                                 :class="{ 'border-black': !light_theme }">
                                 2620:fe::fe<br/>
                                 2620:fe::9
+                            </td>
+                            <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
+                                :class="{ 'border-black': !light_theme }">
+                                https://dns.quad9.net/dns-query
                             </td>
                             <td class="pl-2 max-w-lg py-4 border-t border-x border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
@@ -402,6 +420,11 @@ export default {
                                 2001:910:800::12<br/>
                                 2001:910:800::40
                             </td>
+                            <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
+                                :class="{ 'border-black': !light_theme }">
+                                https://ns0.fdn.fr/dns-query <br />
+                                https://ns1.fdn.fr/dns-query
+                            </td>
                             <td class="pl-2 max-w-lg py-4 border-t border-x border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
                                 Créé par une association française dans le but de lutter contre la censure sur internet.
@@ -422,6 +445,10 @@ export default {
                                 :class="{ 'border-black': !light_theme }">
                                 2620:119:35::35<br/>
                                 2620:119:53::53
+                            </td>
+                            <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
+                                :class="{ 'border-black': !light_theme }">
+                                https://doh.opendns.com/dns-query
                             </td>
                             <td class="pl-2 max-w-lg py-4 border-t border-x border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
@@ -444,6 +471,10 @@ export default {
                                 2620:119:35::35<br/>
                                 2a10:50c0::ad2:ff
                             </td>
+                            <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
+                                :class="{ 'border-black': !light_theme }">
+                                https://dns.adguard.com/dns-query
+                            </td>
                             <td class="pl-2 max-w-lg py-4 border-t border-x border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
                                 AdGuard DNS est un service populaire sur iOS pour bloquer les publicités et les
@@ -465,6 +496,10 @@ export default {
                                 :class="{ 'border-black': !light_theme }">
                                 2a0f:fc80::<br/>
                                 2a0f:fc81::
+                            </td>
+                            <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
+                                :class="{ 'border-black': !light_theme }">
+                                https://dns0.eu/
                             </td>
                             <td class="pl-2 max-w-lg py-4 border-t border-x border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
