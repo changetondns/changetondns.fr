@@ -311,13 +311,10 @@ export default {
                                 :class="{ 'border-black': !light_theme }">Nom
                             </th>
                             <th class="text-left pl-4 border border-[#d0d0d0]"
-                                :class="{ 'border-black': !light_theme }">Adresses IPv4
+                                :class="{ 'border-black': !light_theme }">Adresses
                             </th>
                             <th class="text-left pl-4 border border-[#d0d0d0]"
-                                :class="{ 'border-black': !light_theme }">Adresses IPv6
-                            </th>
-                            <th class="text-left pl-4 border border-[#d0d0d0]"
-                                :class="{ 'border-black': !light_theme }">Adresse DNS over HTTPS
+                                :class="{ 'border-black': !light_theme }">Commercial<span class="text-slate-500">*</span>
                             </th>
                             <th class="text-left pl-4 border border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">Description
@@ -333,18 +330,19 @@ export default {
                             </td>
                             <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
-                                1.1.1.1<br/>
-                                1.0.0.1
+                                <i class="text-slate-500">IPv4 :</i>
+                                1.1.1.1<span class="text-slate-500">,</span>
+                                1.0.0.1<br/>
+                                <i class="text-slate-500">IPv6 :</i>
+                                2606:4700:4700::1111<span class="text-slate-500">,</span>
+                                2606:4700:4700::1001<br/>
+                                <i class="text-slate-500">DoH :</i>
+                                https://cloudflare-dns.com/dns-query
                             </td>
                             <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
-                                2606:4700:4700::1111&nbsp;<br/>
-                                2606:4700:4700::1001
-                            </td>
-                            <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
-                                :class="{ 'border-black': !light_theme }">
-                                https://1.1.1.1/dns-query<br/>
-                                https://1.0.0.1/dns-query
+                                Oui<br />
+                                <span class="text-slate-500">(Cloudflare Inc.)</span>
                             </td>
                             <td class="pl-2 max-w-lg py-4 border-x border-t border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
@@ -360,17 +358,20 @@ export default {
                             </td>
                             <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
-                                8.8.8.8<br/>
-                                8.8.4.4
-                            </td>
-                            <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
-                                :class="{ 'border-black': !light_theme }">
-                                2001:4860:4860::8888<br/>
-                                2001:4860:4860::8844
-                            </td>
-                            <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
-                                :class="{ 'border-black': !light_theme }">
+                                <i class="text-slate-500">IPv4 :</i>
+                                8.8.8.8<span class="text-slate-500">,</span>
+                                8.8.4.4<br/>
+                                <i class="text-slate-500">IPv6 :</i>
+                                2001:4860:4860::8888<span class="text-slate-500">,</span>
+                                2001:4860:4860::8844<br/>
+                                <i class="text-slate-500">DoH :</i>
                                 https://dns.google/dns-query
+
+                            </td>
+                            <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
+                                :class="{ 'border-black': !light_theme }">
+                                Oui<br />
+                                <span class="text-slate-500">(Google Ireland Ltd.)</span>
                             </td>
                             <td class="pl-2 max-w-lg py-4 border-t border-x border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
@@ -386,17 +387,18 @@ export default {
                             </td>
                             <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
-                                9.9.9.9<br/>
-                                149.112.112.112
-                            </td>
-                            <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
-                                :class="{ 'border-black': !light_theme }">
+                                <i class="text-slate-500">IPv4 :</i>
+                                9.9.9.9<span class="text-slate-500">,</span>
+                                149.112.112.112<br/>
+                                <i class="text-slate-500">IPv6 :</i>
+                                2620:fe::9<span class="text-slate-500">,</span>
                                 2620:fe::fe<br/>
-                                2620:fe::9
+                                <i class="text-slate-500">DoH :</i>
+                                https://dns.quad9.net/dns-query
                             </td>
                             <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
-                                https://dns.quad9.net/dns-query
+                                Non
                             </td>
                             <td class="pl-2 max-w-lg py-4 border-t border-x border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
@@ -412,18 +414,20 @@ export default {
                             </td>
                             <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
-                                80.67.169.12<br/>
-                                80.67.169.40
-                            </td>
-                            <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
-                                :class="{ 'border-black': !light_theme }">
+                                <i class="text-slate-500">IPv4 :</i>
+                                80.67.169.12<span class="text-slate-500">,</span>
+                                80.67.169.40<br/>
+                                <i class="text-slate-500">IPv6 :</i>
+                                2001:910:800::40<span class="text-slate-500">,</span>
                                 2001:910:800::12<br/>
-                                2001:910:800::40
+                                <i class="text-slate-500">DoH :</i>
+                                https://ns0.fdn.fr/dns-query<span class="text-slate-500">,</span>
+                                https://ns1.fdn.fr/dns-query
+
                             </td>
                             <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
-                                https://ns0.fdn.fr/dns-query <br />
-                                https://ns1.fdn.fr/dns-query
+                                Non
                             </td>
                             <td class="pl-2 max-w-lg py-4 border-t border-x border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
@@ -438,17 +442,19 @@ export default {
                             </td>
                             <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
-                                208.67.222.222<br/>
-                                208.67.220.220
-                            </td>
-                            <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
-                                :class="{ 'border-black': !light_theme }">
-                                2620:119:35::35<br/>
-                                2620:119:53::53
-                            </td>
-                            <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
-                                :class="{ 'border-black': !light_theme }">
+                                <i class="text-slate-500">IPv4 :</i>
+                                208.67.222.222<span class="text-slate-500">,</span>
+                                208.67.220.220<br/>
+                                <i class="text-slate-500">IPv6 :</i>
+                                2620:119:35::35<span class="text-slate-500">,</span>
+                                2620:119:53::53<br/>
+                                <i class="text-slate-500">DoH :</i>
                                 https://doh.opendns.com/dns-query
+                            </td>
+                            <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
+                                :class="{ 'border-black': !light_theme }">
+                                Oui<br />
+                                <span class="text-slate-500">(Cisco Systems, Inc.)</span>
                             </td>
                             <td class="pl-2 max-w-lg py-4 border-t border-x border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
@@ -463,17 +469,19 @@ export default {
                             </td>
                             <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
-                                94.140.14.14<br/>
-                                94.140.15.15
-                            </td>
-                            <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
-                                :class="{ 'border-black': !light_theme }">
-                                2620:119:35::35<br/>
-                                2a10:50c0::ad2:ff
-                            </td>
-                            <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
-                                :class="{ 'border-black': !light_theme }">
+                                <i class="text-slate-500">IPv4 :</i>
+                                94.140.14.14<span class="text-slate-500">,</span>
+                                94.140.15.15<br/>
+                                <i class="text-slate-500">IPv6 :</i>
+                                2620:119:35::35<span class="text-slate-500">,</span>
+                                2a10:50c0::ad2:ff<br/>
+                                <i class="text-slate-500">DoH :</i>
                                 https://dns.adguard.com/dns-query
+                            </td>
+                            <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
+                                :class="{ 'border-black': !light_theme }">
+                                Oui<br />
+                                <span class="text-slate-500">(Adguard software ltd.)</span>
                             </td>
                             <td class="pl-2 max-w-lg py-4 border-t border-x border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
@@ -489,17 +497,18 @@ export default {
                             </td>
                             <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
-                                193.110.81.0<br/>
-                                185.253.5.0
-                            </td>
-                            <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
-                                :class="{ 'border-black': !light_theme }">
-                                2a0f:fc80::<br/>
-                                2a0f:fc81::
-                            </td>
-                            <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
-                                :class="{ 'border-black': !light_theme }">
+                                <i class="text-slate-500">IPv4 :</i>
+                                193.110.81.0<span class="text-slate-500">,</span>
+                                185.253.5.0<br/>
+                                <i class="text-slate-500">IPv6 :</i>
+                                2a0f:fc80::<span class="text-slate-500">,</span>
+                                2a0f:fc81::<br/>
+                                <i class="text-slate-500">DoH :</i>
                                 https://dns0.eu/
+                            </td>
+                            <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
+                                :class="{ 'border-black': !light_theme }">
+                                Non
                             </td>
                             <td class="pl-2 max-w-lg py-4 border-t border-x border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
@@ -511,6 +520,9 @@ export default {
                         </tbody>
                     </table>
                 </div>
+                <p class="mt-4 ml-4 max-w-4xl text-slate-500 font-medium">
+                    * Est considérée comme non commerciale toute structure officiellement déclarée à "but non lucratif".
+                </p>
             </div>
         </section>
 
