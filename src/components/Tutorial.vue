@@ -400,6 +400,38 @@ export default {
         </li>
       </ol>
     </section>
+    <section v-if="plateforme === 'thunderbird-doh'">
+      <p class="text-[#2E2E2E] text-4xl font-bold" :class="{ 'text-[#FFFFFF]': !theme }">Changez les DNS sur Thunderbird</p>
+      <p class="text-[#2E2E2E] text-l p-6" :class="{ 'text-[#FFFFFF]': !theme }">
+        En configurant Thunderbird de cette manière, en plus d'utiliser un serveur de résolution DNS autre que celui de votre FAI, la communication entre vous et le serveur DNS sera chiffré (via HTTPS). L'opération reste donc intéressant même si le système est déjà configuré pour utiliser un DNS non-menteur. Cette configuration n'aura d'incidence que sur Thunderbird.
+      </p>
+      <ol class="list-decimal text-[#2E2E2E] mt-12 mx-2 md:mx-8" :class="{ 'text-[#FFFFFF]': !theme }">
+        <li class="mt-10 ">
+          Lancez Thunderbird puis ouvrez les paramètres de celui-ci.
+          <div class="max-w-4xl mx-auto my-10">
+            <div class="max-w-4xl mx-auto my-10">
+              <img class="mx-auto" :src="'/thunderbird_doh/goto_settings.png'" @click="emitClick($event)"/>
+            </div>
+          </div>
+          
+        </li>
+        <li class="mt-10">
+          Dans la catégorie "Général" ("Réseau et espace disque"), cliquez sur le bouton "Paramètres..."
+          <div class="max-w-4xl mx-auto my-10">
+            <img class="mx-auto" :src="'/thunderbird_doh/goto_network_settings.png'" @click="emitClick($event)"/>
+          </div>
+        </li>
+        <li class="mt-10">
+          Cochez "Activer le DNS via HTTPS", puis entrez l'adresse DoH dans le champ. Enregistrez les modifications avec le bouton "OK". 
+          <div class="max-w-4xl mx-auto my-10">
+            <img class="mx-auto" :src="'/thunderbird_doh/network_settings.png'" @click="emitClick($event)"/>
+          </div>
+        </li>
+        <li class="mt-10">
+          Vous venez de changer le serveur DNS utilisé par Thunderbird !
+        </li>
+      </ol>
+    </section>
     <section v-if="plateforme === 'edge-doh'">
       <p class="text-[#2E2E2E] text-4xl font-bold" :class="{ 'text-[#FFFFFF]': !theme }">Changez les DNS sur Microsoft Edge</p>
       <p class="text-[#2E2E2E] text-l p-6" :class="{ 'text-[#FFFFFF]': !theme }">

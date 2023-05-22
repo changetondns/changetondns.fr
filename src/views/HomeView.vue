@@ -284,6 +284,7 @@ export default {
                         <option value="ios">IOS</option>
                         <option value="freeboxos">Freebox OS</option>
                         <option value="firefox-doh">Firefox (DoH)</option>
+                        <option value="thunderbird-doh">Thunderbird (DoH)</option>
                         <option value="edge-doh">Microsoft Edge (DoH)</option>
                     </select>
                 </div>
