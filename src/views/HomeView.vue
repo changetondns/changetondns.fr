@@ -226,9 +226,25 @@ export default {
 
         <section class="mx-auto w-11/12 md:w-3/4 pt-8 md:mt-0">
             <p class="text-[#1C1C1C] font-bold text-2xl mt-24" :class="{ 'text-white': !light_theme }">Qu’est ce qu’un
-                Domain Name System (DNS) ?</p>
+                résolveur de Domain Name System (DNS) ?</p>
             <p class="mt-4 ml-4 max-w-4xl text-[#424242] font-medium" :class="{ 'text-[#DBDBDB]': !light_theme }">
-                Un Domain Name System (DNS) est un système informatique qui permet de traduire les noms de domaines en
+             Lorsque vous voulez communiquer avec une personne dont vous ne connaissez que le nom
+              mais pas son adresse vous êtes obligé de passer par un annuaire pour obtenir son adresse et
+              pourvoir rentrer en communication.
+              <br/>
+              Un résolveur de DNS joue ce rôle. <br/>
+              C'est un service proposé par de nombreuses entreprises et par défaut proposé par votre opérateur. <br/>
+              Contrairement à ce qu'on peut penser notre ordinateur ne garde pas en mémoire l'adresse pour communiquer.<br/>
+              Il est obligé de redemander au résolveur de DNS l'adresse IP correspondant au nom de domaine.
+              En effectuant cette requête, ce service à la possibilité de garder en mémoire qui demande quel adresse.<br/>
+              Par exemple si vous demander l'adresse de exemple.net, le résolveur DNS peut stocker cette information et
+              créer ainsi des données sur les utilisateurs.<br/>
+              Il se peut également que cette annuaire soit incomplet ou mente sur la destination réel de votre destinataire.
+              <br/>
+              <br/>
+            </p>
+            <p class="mt-4 ml-4 max-w-4xl text-[#424242] font-medium" :class="{ 'text-[#DBDBDB]': !light_theme }">
+                En clair un résolveur Domain Name System (DNS) est un système informatique qui permet de traduire les noms de domaines en
                 adresses IP.
                 <br/>
                 <br/>
@@ -315,7 +331,7 @@ export default {
                                 :class="{ 'border-black': !light_theme }">Adresses
                             </th>
                             <th class="text-left pl-4 border border-[#d0d0d0]"
-                                :class="{ 'border-black': !light_theme }">Commercial<span class="text-slate-500">*</span>
+                                :class="{ 'border-black': !light_theme }">Caractéristique
                             </th>
                             <th class="text-left pl-4 border border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">Description
@@ -326,61 +342,33 @@ export default {
                         <tr :class="{ 'hover:bg-[#1C1E1E]': !light_theme, 'hover:bg-[#E3E3E3]': light_theme }">
                             <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
-                                <a href="https://developers.cloudflare.com/1.1.1.1/setup/" target="_blank"
-                                   class="text-blue-400">Cloudflare</a>
+                                <a href="https://www.dns0.eu/" target="_blank" class="text-blue-400">dns0.eu</a>
                             </td>
                             <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
                                 <i class="text-slate-500">IPv4 :</i>
-                                1.1.1.1<span class="text-slate-500">,</span>
-                                1.0.0.1<br/>
+                                193.110.81.0<span class="text-slate-500">,</span>
+                                185.253.5.0<br/>
                                 <i class="text-slate-500">IPv6 :</i>
-                                2606:4700:4700::1111<span class="text-slate-500">,</span>
-                                2606:4700:4700::1001<br/>
+                                2a0f:fc80::<span class="text-slate-500">,</span>
+                                2a0f:fc81::<br/>
                                 <i class="text-slate-500">DoH :</i>
-                                https://cloudflare-dns.com/dns-query
+                                https://dns0.eu/
                             </td>
                             <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
-                                Oui<br />
-                                <span class="text-slate-500">(Cloudflare Inc.)</span>
-                            </td>
-                            <td class="pl-2 max-w-lg py-4 border-x border-t border-[#d0d0d0]"
-                                :class="{ 'border-black': !light_theme }">
-                                Connu pour être un DNS très fiable, performant et respectueux de la vie privée.
-                            </td>
-                        </tr>
-
-                        <tr :class="{ 'hover:bg-[#1C1E1E]': !light_theme, 'hover:bg-[#E3E3E3]': light_theme }">
-                            <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
-                                :class="{ 'border-black': !light_theme }">
-                                <a href="https://developers.google.com/speed/public-dns/docs/using?hl=fr"
-                                   target="_blank" class="text-blue-400">Google DNS</a>
-                            </td>
-                            <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
-                                :class="{ 'border-black': !light_theme }">
-                                <i class="text-slate-500">IPv4 :</i>
-                                8.8.8.8<span class="text-slate-500">,</span>
-                                8.8.4.4<br/>
-                                <i class="text-slate-500">IPv6 :</i>
-                                2001:4860:4860::8888<span class="text-slate-500">,</span>
-                                2001:4860:4860::8844<br/>
-                                <i class="text-slate-500">DoH :</i>
-                                https://dns.google/dns-query
-
-                            </td>
-                            <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
-                                :class="{ 'border-black': !light_theme }">
-                                Oui<br />
-                                <span class="text-slate-500">(Google Ireland Ltd.)</span>
+                                Non <br/>
+                                Stock les données: Aucune donnée identifiable<br/>
+                                Blocage de site malveillant: Oui<br/>
+                                Nationalité : Française<br />
                             </td>
                             <td class="pl-2 max-w-lg py-4 border-t border-x border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
-                                Réputé pour sa fiabilité et ses performances, bien que le respect de la vie privée
-                                puisse être remis en question.
+                                dns0.eu est une association française à but non lucratif fondée en 2022
+                                par les co-fondateurs de NextDNS. Les serveurs
+                                sont localisés dans des pays de l'Union européenne.
                             </td>
                         </tr>
-
                         <tr :class="{ 'hover:bg-[#1C1E1E]': !light_theme, 'hover:bg-[#E3E3E3]': light_theme }">
                             <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
@@ -399,7 +387,10 @@ export default {
                             </td>
                             <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
-                                Non
+                                Entreprise: Non <br/>
+                                Stock les données: Aucune donnée contenant votre adresse IP<br/>
+                                Blocage de site malveillant: Oui<br/>
+                                Nationalité : Suisse<br />
                             </td>
                             <td class="pl-2 max-w-lg py-4 border-t border-x border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
@@ -428,11 +419,110 @@ export default {
                             </td>
                             <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
-                                Non
+                                Entreprise: Non <br/>
+                                Stock les données: Aucune information trouvée<br/>
+                                Blocage de site malveillant: Aucune information trouvée<br/>
+                                Nationalité : Française<br />
                             </td>
                             <td class="pl-2 max-w-lg py-4 border-t border-x border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
                                 Créé par une association française dans le but de lutter contre la censure sur internet.
+                            </td>
+                        </tr>
+
+                        <tr :class="{ 'hover:bg-[#1C1E1E]': !light_theme, 'hover:bg-[#E3E3E3]': light_theme }">
+                            <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
+                                :class="{ 'border-black': !light_theme }">
+                                <a href="https://developers.cloudflare.com/1.1.1.1/setup/" target="_blank"
+                                   class="text-blue-400">Cloudflare</a>
+                            </td>
+                            <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
+                                :class="{ 'border-black': !light_theme }">
+                                <i class="text-slate-500">IPv4 :</i>
+                                1.1.1.1<span class="text-slate-500">,</span>
+                                1.0.0.1<br/>
+                                <i class="text-slate-500">IPv6 :</i>
+                                2606:4700:4700::1111<span class="text-slate-500">,</span>
+                                2606:4700:4700::1001<br/>
+                                <i class="text-slate-500">DoH :</i>
+                                https://cloudflare-dns.com/dns-query
+                            </td>
+                            <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
+                                :class="{ 'border-black': !light_theme }">
+                                Entreprise: Oui<br />
+                                <span class="text-slate-500">(Cloudflare Inc.)</span>
+                                Stock les données: Oui mais ne vend pas les données<br />
+                                Blocage de site malveillant: Non<br />
+                                Nationalité : Américaine<br />
+                            </td>
+                            <td class="pl-2 max-w-lg py-4 border-x border-t border-[#d0d0d0]"
+                                :class="{ 'border-black': !light_theme }">
+                                Connu pour être un DNS très fiable, performant et respectueux de la vie privée.
+                            </td>
+                        </tr>
+
+                         <tr :class="{ 'hover:bg-[#1C1E1E]': !light_theme, 'hover:bg-[#E3E3E3]': light_theme }">
+                            <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
+                                :class="{ 'border-black': !light_theme }">
+                                <a href="https://adguard-dns.io/fr/welcome.html" target="_blank" class="text-blue-400">AdGuard</a>
+                            </td>
+                            <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
+                                :class="{ 'border-black': !light_theme }">
+                                <i class="text-slate-500">IPv4 :</i>
+                                94.140.14.14<span class="text-slate-500">,</span>
+                                94.140.15.15<br/>
+                                <i class="text-slate-500">IPv6 :</i>
+                                2620:119:35::35<span class="text-slate-500">,</span>
+                                2a10:50c0::ad2:ff<br/>
+                                <i class="text-slate-500">DoH :</i>
+                                https://dns.adguard.com/dns-query
+                            </td>
+                            <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
+                                :class="{ 'border-black': !light_theme }">
+                                Entreprise: Oui<br />
+                                <span class="text-slate-500">(Adguard software ltd.)</span><br/>
+                                Stock les données: Oui<br/>
+                                Blocage de site malveillant: Oui<br/>
+                                Nationalité : Chypre<br />
+                            </td>
+                            <td class="pl-2 max-w-lg py-4 border-t border-x border-[#d0d0d0]"
+                                :class="{ 'border-black': !light_theme }">
+                                AdGuard DNS est un service populaire sur iOS pour bloquer les publicités et les
+                                traqueurs. Il garantit la confidentialité en ne conservant pas les données de
+                                navigation.
+                            </td>
+                        </tr>
+
+                        <tr :class="{ 'hover:bg-[#1C1E1E]': !light_theme, 'hover:bg-[#E3E3E3]': light_theme }">
+                            <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
+                                :class="{ 'border-black': !light_theme }">
+                                <a href="https://developers.google.com/speed/public-dns/docs/using?hl=fr"
+                                   target="_blank" class="text-blue-400">Google DNS</a>
+                            </td>
+                            <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
+                                :class="{ 'border-black': !light_theme }">
+                                <i class="text-slate-500">IPv4 :</i>
+                                8.8.8.8<span class="text-slate-500">,</span>
+                                8.8.4.4<br/>
+                                <i class="text-slate-500">IPv6 :</i>
+                                2001:4860:4860::8888<span class="text-slate-500">,</span>
+                                2001:4860:4860::8844<br/>
+                                <i class="text-slate-500">DoH :</i>
+                                https://dns.google/dns-query
+
+                            </td>
+                            <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
+                                :class="{ 'border-black': !light_theme }">
+                                Oui<br />
+                                <span class="text-slate-500">(Google Ireland Ltd.)</span><br />
+                                Stock les données: Aucune information trouvé<br />
+                                Blocage de site malveillant: Possible<br />
+                                Nationalité : Américaine<br />
+                            </td>
+                            <td class="pl-2 max-w-lg py-4 border-t border-x border-[#d0d0d0]"
+                                :class="{ 'border-black': !light_theme }">
+                                Réputé pour sa fiabilité et ses performances, bien que le respect de la vie privée
+                                puisse être remis en question.
                             </td>
                         </tr>
 
@@ -454,8 +544,11 @@ export default {
                             </td>
                             <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
-                                Oui<br />
-                                <span class="text-slate-500">(Cisco Systems, Inc.)</span>
+                                Entreprise: Oui<br />
+                                <span class="text-slate-500">(Cisco Systems, Inc.)</span><br/>
+                                Stock les données: Aucune information trouvée<br/>
+                                Blocage de site malveillant: Payant<br/>
+                                Nationalité : Américaine<br />
                             </td>
                             <td class="pl-2 max-w-lg py-4 border-t border-x border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
@@ -463,67 +556,9 @@ export default {
                             </td>
                         </tr>
 
-                        <tr :class="{ 'hover:bg-[#1C1E1E]': !light_theme, 'hover:bg-[#E3E3E3]': light_theme }">
-                            <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
-                                :class="{ 'border-black': !light_theme }">
-                                <a href="https://adguard-dns.io/fr/welcome.html" target="_blank" class="text-blue-400">AdGuard</a>
-                            </td>
-                            <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
-                                :class="{ 'border-black': !light_theme }">
-                                <i class="text-slate-500">IPv4 :</i>
-                                94.140.14.14<span class="text-slate-500">,</span>
-                                94.140.15.15<br/>
-                                <i class="text-slate-500">IPv6 :</i>
-                                2620:119:35::35<span class="text-slate-500">,</span>
-                                2a10:50c0::ad2:ff<br/>
-                                <i class="text-slate-500">DoH :</i>
-                                https://dns.adguard.com/dns-query
-                            </td>
-                            <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
-                                :class="{ 'border-black': !light_theme }">
-                                Oui<br />
-                                <span class="text-slate-500">(Adguard software ltd.)</span>
-                            </td>
-                            <td class="pl-2 max-w-lg py-4 border-t border-x border-[#d0d0d0]"
-                                :class="{ 'border-black': !light_theme }">
-                                AdGuard DNS est un service populaire sur iOS pour bloquer les publicités et les
-                                traqueurs. Il garantit la confidentialité en ne conservant pas les données de
-                                navigation.
-                            </td>
-                        </tr>
-                         <tr :class="{ 'hover:bg-[#1C1E1E]': !light_theme, 'hover:bg-[#E3E3E3]': light_theme }">
-                            <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
-                                :class="{ 'border-black': !light_theme }">
-                                <a href="https://www.dns0.eu/" target="_blank" class="text-blue-400">dns0.eu</a>
-                            </td>
-                            <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
-                                :class="{ 'border-black': !light_theme }">
-                                <i class="text-slate-500">IPv4 :</i>
-                                193.110.81.0<span class="text-slate-500">,</span>
-                                185.253.5.0<br/>
-                                <i class="text-slate-500">IPv6 :</i>
-                                2a0f:fc80::<span class="text-slate-500">,</span>
-                                2a0f:fc81::<br/>
-                                <i class="text-slate-500">DoH :</i>
-                                https://dns0.eu/
-                            </td>
-                            <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
-                                :class="{ 'border-black': !light_theme }">
-                                Non
-                            </td>
-                            <td class="pl-2 max-w-lg py-4 border-t border-x border-[#d0d0d0]"
-                                :class="{ 'border-black': !light_theme }">
-                                dns0.eu est une association française à but non lucratif fondée en 2022
-                                par les co-fondateurs de NextDNS. Les serveurs
-                                sont localisés dans des pays de l'Union européenne.
-                            </td>
-                        </tr>
                         </tbody>
                     </table>
                 </div>
-                <p class="mt-4 ml-4 max-w-4xl text-slate-500 font-medium">
-                    * Est considérée comme non commerciale toute structure officiellement déclarée à "but non lucratif".
-                </p>
             </div>
         </section>
 
