@@ -8,7 +8,7 @@ Vous pouvez mettre une star si le concept vous plait!
 <li>- [x] DoH (DNS over https) </li>
 <li>- [x] Améliorer le tableau qui liste les DNS </li>
 <li>- [ ] Ajouter un tuto pour les routeurs </li>
-<li>- [ ] Verifier les informations écrites </li>
+<li>- [x] Verifier les informations écrites </li>
 
 
 # Contribution
