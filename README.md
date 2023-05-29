@@ -5,9 +5,9 @@ Vous pouvez mettre une star si le concept vous plait!
 
 # TODO
 
-<li>- [ ] DoH (DNS over https) </li>
-<li>- [ ] Améliorer le tableau qui listes les DNS </li>
-<li>- [ ] Ajouter un tuto pour les routeur </li>
+<li>- [x] DoH (DNS over https) </li>
+<li>- [x] Améliorer le tableau qui liste les DNS </li>
+<li>- [ ] Ajouter un tuto pour les routeurs </li>
 <li>- [ ] Verifier les informations écrites </li>
 
 
