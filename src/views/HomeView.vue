@@ -360,8 +360,8 @@ export default {
                             </td>
                             <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
-                                Non <br/>
-                                Stock les données: Aucune donnée identifiable<br/>
+                                Entreprise : Non <br/>
+                                Stock les données : Aucune donnée identifiable<br/>
                                 Blocage de site malveillant: Oui<br/>
                                 Nationalité : Française<br />
                             </td>
@@ -453,7 +453,7 @@ export default {
                             <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
                                 Entreprise: Oui<br />
-                                <span class="text-slate-500">(Cloudflare Inc.)</span>
+                                <span class="text-slate-500">(Cloudflare Inc.)</span><br />
                                 Stock les données: Oui mais ne vend pas les données<br />
                                 Blocage de site malveillant: Non<br />
                                 Nationalité : Américaine<br />
@@ -516,7 +516,7 @@ export default {
                             </td>
                             <td class="pl-2 py-4 border-x border-t border-[#d0d0d0]"
                                 :class="{ 'border-black': !light_theme }">
-                                Oui<br />
+                                Entreprise : Oui<br />
                                 <span class="text-slate-500">(Google Ireland Ltd.)</span><br />
                                 Stock les données: Aucune information trouvé<br />
                                 Blocage de site malveillant: Possible<br />
