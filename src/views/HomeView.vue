@@ -59,8 +59,8 @@ export default {
                 return false;
             }
             let same_ip = false;
-            axios.get(`http://ip-api.com/json/?fields=8192`).then((res) => {
-                if (res.data.query === this.dns_user.dns_ip) {
+            axios.get(`https://ipleak.net/json/${this.dns_user.user_ip}`).then((res) => {
+                if (res.data.ip === this.dns_user.dns_ip) {
                     same_ip = true;
                 }
             })
