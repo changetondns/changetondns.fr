@@ -58,7 +58,17 @@ export default {
             if (this.dns_user == null) {
                 return false;
             }
+            let same_ip = false;
+            axios.get(`http://ip-api.com/json/?fields=8192`).then((res) => {
+                if (res.data.query === this.dns_user.dns_ip) {
+                    same_ip = true;
+                }
+            })
+
             if (this.dns_user.user_ip === this.dns_user.dns_ip) {
+                same_ip = true;
+            }
+            if (same_ip) {
                 return false;
             }
 
@@ -114,15 +124,8 @@ export default {
                             };
                             this.loading = false;
                         }
-                        console.log(res.data);
                     })
             });
-            if (this.dns_user != null && this.dns_user.user_ip != null && this.dns_user.dns_ip != null) {
-                if (this.dns_user.user_ip.includes(':') && this.dns_user.dns_ip.includes('.') ||
-                this.dns_user.dns_ip.includes(':') && this.dns_user.user_ip.includes('.')) {
-                            this.dns();
-                }
-            }
         }
     }
 }
