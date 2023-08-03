@@ -315,7 +315,7 @@ export default {
     <section v-if="plateforme === 'freeboxos'">
       <p class="text-[#2E2E2E] text-4xl font-bold" :class="{ 'text-[#FFFFFF]': !theme }">Changez les DNS sur FreeboxOS</p>
       <p class="text-[#2E2E2E] text-l p-6" :class="{ 'text-[#FFFFFF]': !theme }">
-        Cette méthode présente l'avantage de permettre la configuration automatique du serveur DNS sur tous vos appareils utilisant cette Box, à moins que le DNS de l'appareil a été configuré manuellement.
+        Cette méthode présente l'avantage de permettre la configuration automatique du serveur DNS sur tous vos appareils utilisant cette Box, à moins que le DNS de l'appareil ait été configuré manuellement.
       </p>
       <ol class="list-decimal text-[#2E2E2E] mt-12 mx-2 md:mx-8" :class="{ 'text-[#FFFFFF]': !theme }">
         <li class="mt-10">
@@ -368,10 +368,47 @@ export default {
         </li>
       </ol>
     </section>
+    <section v-if="plateforme === 'sfrbox'">
+      <p class="text-[#2E2E2E] text-4xl font-bold" :class="{ 'text-[#FFFFFF]': !theme }">Changez les DNS sur SFRboxOS</p>
+      <p class="text-[#2E2E2E] text-l p-6" :class="{ 'text-[#FFFFFF]': !theme }">
+        Cette méthode présente l'avantage de permettre la configuration automatique du serveur DNS sur tous vos appareils utilisant cette Box, à moins que le DNS de l'appareil ait été configuré manuellement.
+      </p>
+      <ol class="list-decimal text-[#2E2E2E] mt-12 mx-2 md:mx-8" :class="{ 'text-[#FFFFFF]': !theme }">
+        <li class="mt-10">
+          Avec un appareil conecté à la box rendez vous sur la page de configuration de la passerelle: <a class="italic underline" href="http://192.168.1.1/" target="about:blank">http://192.168.1.1/</a> ou <a class="italic underline" href="http://192.168.0.1/" target="about:blank">http://192.168.0.1/</a> .
+        </li>
+        <li class="mt-10">
+          Cliquer sur 'Configurer mon modem' ou sur Réseau v4 puis DNS pour les box les plus récentes
+          <br/>
+          Vous atteignez la page de connexion. Utilisez votre mot de passe SFR.
+          <div class="max-w-4xl w-full mx-auto my-10 items-center">
+            <img class="rounded-xl mx-auto my-10 object-contain" :src="'/sfrboxos/authv1.jpg'" @click="emitClick($event)"/>
+            <span class="my-2">Pour les box les plus récentes:</span>
+            <img class="rounded-xl mx-auto my-10 object-contain" :src="'/sfrboxos/authv2.png'" @click="emitClick($event)"/>
+          </div>
+        </li>
+        <li class="mt-10">
+          Cliquez sur modifier et supprimez les valeurs par défaut de la catégorie "Vos DNS" si nécessaire, puis ajoutez les 2 serveurs de résolution.
+          <div class="max-w-4xl mx-auto my-10">
+            <img class="w-auto rounded-xl mx-auto my-10 object-contain" :src="'/sfrboxos/dns.jpg'" @click="emitClick($event)"/>
+          </div>
+        </li>
+        <li class="mt-10">
+          Enregistrez les modifications en cliquant sur le bouton "Appliquer les modifications".
+        </li>
+        <li class="mt-10">
+          Vous pouvez faire de même avec l'ip v6 si vous le souhaitez.
+        </li>
+        <li class="mt-10">
+          Les appareils du réseau seront automatiquement configurés avec ces nouveaux serveurs DNS dès qu'ils récupéreront à nouveau leur adresse IP auprès de la box. Cela peut prendre plusieurs heures. Souvent un redémarrage des appareils accélère le processus.
+        </li>
+      </ol>
+    </section>
+
     <section v-if="plateforme === 'firefox-doh'">
       <p class="text-[#2E2E2E] text-4xl font-bold" :class="{ 'text-[#FFFFFF]': !theme }">Changez les DNS sur Firefox</p>
       <p class="text-[#2E2E2E] text-l p-6" :class="{ 'text-[#FFFFFF]': !theme }">
-        En configurant Firefox de cette manière, en plus d'utiliser un serveur de résolution DNS autre que celui de votre FAI, la communication entre vous et le serveur DNS sera chiffré (via HTTPS). L'opération reste donc intéressant même si le système est déjà configuré pour utiliser un DNS non-menteur. Cette configuration n'aura d'incidence que sur Firefox.
+        En configurant Firefox de cette manière, en plus d'utiliser un serveur de résolution DNS autre que celui de votre FAI, la communication entre vous et le serveur DNS sera chiffrée (via HTTPS). L'opération reste donc intéressante même si le système est déjà configuré pour utiliser un DNS non-menteur. Cette configuration n'aura d'incidence que sur Firefox.
       </p>
       <ol class="list-decimal text-[#2E2E2E] mt-12 mx-2 md:mx-8" :class="{ 'text-[#FFFFFF]': !theme }">
         <li class="mt-10 ">
@@ -381,7 +418,23 @@ export default {
               <img class="mx-auto" :src="'/firefox_doh/goto_settings.png'" @click="emitClick($event)"/>
             </div>
           </div>
-          
+        </li>
+        <li class="mt-10">
+          Pour les nouvelles versions de firefox suivez ce point, et pour les anciennes passez directement au point 3.
+          <br/>
+          1 Aller dans Vie privée et sécurité
+          <br/>
+          2 Cliquer sur protection maximale
+          <br/>
+          3 Dans choisir le fournisseur mettre "Personnalisé"
+          <br/>
+          4 Enfin entrer une adresse DOH de votre choix.
+          <br/>
+          5 Et c'est tout!
+          <div class="max-w-4xl mx-auto my-10">
+            <img class="mx-auto" :src="'/firefox_doh/dohv2.png'" @click="emitClick($event)"/>
+          </div>
+
         </li>
         <li class="mt-10">
           A la fin de la catégorie "General" ("Network Settings"), cliquez sur le bouton "Settings..."

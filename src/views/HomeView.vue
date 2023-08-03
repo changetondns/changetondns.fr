@@ -302,6 +302,7 @@ export default {
                         <option value="android-old">Android</option>
                         <option value="ios">IOS</option>
                         <option value="freeboxos">Freebox OS</option>
+                        <option value="sfrbox">SFR Box OS</option>
                         <option value="firefox-doh">Firefox (DoH)</option>
                         <option value="thunderbird-doh">Thunderbird (DoH)</option>
                         <option value="edge-doh">Microsoft Edge (DoH)</option>
