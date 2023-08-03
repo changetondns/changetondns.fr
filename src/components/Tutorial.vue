@@ -388,13 +388,16 @@ export default {
           </div>
         </li>
         <li class="mt-10">
-          Cliquez sur modifier et supprimez les valeurs par défaut de la catégorie "Vos DNS" si nécessaire, puis ajoutez les 2 serveurs de résolution.
+          Cliquez sur modifier et supprimez les valeurs par défaut de la catégorie "Vos DNS" si nécessaire.
           <div class="max-w-4xl mx-auto my-10">
             <img class="w-auto rounded-xl mx-auto my-10 object-contain" :src="'/sfrboxos/dns.jpg'" @click="emitClick($event)"/>
           </div>
         </li>
         <li class="mt-10">
-          Enregistrez les modifications en cliquant sur le bouton "Appliquer les modifications".
+          Puis ajoutez les 2 serveurs de résolution et enregistrez les modifications en cliquant sur le bouton "Appliquer".
+          <div class="max-w-4xl mx-auto my-10">
+            <img class="w-auto rounded-xl mx-auto my-10 object-contain" :src="'/sfrboxos/dns2.jpg'" @click="emitClick($event)"/>
+          </div>
         </li>
         <li class="mt-10">
           Vous pouvez faire de même avec l'ip v6 si vous le souhaitez.
