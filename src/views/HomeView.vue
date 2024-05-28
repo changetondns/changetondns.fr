@@ -220,7 +220,7 @@ export default {
                        :class="{ 'border-alert-2': !light_theme }">!</p>
                     <p class="text-white text-center text-2xl">
                         En modifiant vos serveurs DNS, vous pouvez contourner les blocages de certains sites web imposés par votre fournisseur d'accès Internet (FAI).
-                        En évitant d'utiliser les DNS par défaut fournis par votre FAI, vous pouvez accéder librement à Internet et profiter d'une plus grande liberté en ligne.
+                        En évitant d'utiliser les DNS par défaut fournis par votre FAI, vous pouvez donc profiter d'une plus grande liberté en ligne.
                     </p>
                 </div>
             </div>
