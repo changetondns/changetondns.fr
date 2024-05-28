@@ -1,0 +1,5 @@
+# Hello robot, you're welcome here
+#
+
+User-agent: *
+Allow: /
