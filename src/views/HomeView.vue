@@ -218,7 +218,7 @@ export default {
                     <p class="absolute text-white text-8xl right-0 -translate-y-[70%] translate-x-[10px] rotate-12 select-none border-alert-1"
                        :class="{ 'border-alert-2': !light_theme }">!</p>
                     <p class="text-white text-center text-2xl">
-                        En modifiant vos serveurs DNS, vous pouvez éviter les blocages de certains sites web imposés par votre fournisseur d'accès Internet (FAI) et profiter d'une navigation plus libre en ligne.
+                        En modifiant vos serveurs DNS, vous pouvez éviter les blocages de certains sites web imposés par votre fournisseur d'accès Internet (FAI) et donc profiter d'une navigation plus libre.
                     </p>
                 </div>
             </div>
