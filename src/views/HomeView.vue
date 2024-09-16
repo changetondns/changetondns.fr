@@ -22,6 +22,8 @@ export default {
             twitter,
             shema_white,
             shema_black,
+            showPopup: false,
+            is_fai: false,
             light_theme: true,
             selectedPlatform: 'w-11',
             dns_user: null,
@@ -69,21 +71,19 @@ export default {
                 same_ip = true;
             }
             if (same_ip) {
-                return false;
+              this.is_fai = false;
             }
 
-            let is_fai = false;
             let searchString = this.dns_user.dns.toLowerCase();
             let keywords = ['bouygues', 'free sas', 'sfr', 'orange'];
 
             for (let i = 0; i < keywords.length; i++) {
                 if (searchString.includes(keywords[i])) {
-                    is_fai = true;
+                    this.is_fai = true;
                     break;
                 }
             }
-
-            return is_fai;
+            this.showPopupTemporarily();
         },
 
         startDns() {
@@ -123,11 +123,18 @@ export default {
                                 'dns': res.data[1].asn,
                             };
                             this.loading = false;
+                            this.getFai();
                         }
                     })
             });
-        }
-    }
+        },
+        showPopupTemporarily() {
+          this.showPopup = !this.is_fai;
+          setTimeout(() => {
+            this.showPopup = false;
+          }, 3000); // Pop-up will disappear after 3 seconds
+        },
+    },
 }
 </script>
 
@@ -174,8 +181,7 @@ export default {
                 <div class="min-h-[200px] mt-8">
                     <p class="text-[#5E5E5E] text-center text-2xl max-w-2xl mx-auto"
                        :class="{ 'text-[#F9F9F9]': !light_theme }" v-if="dns_user == null && !loading && error === ''">
-                        En cliquant sur le bouton, vous pourrez vérifier votre DNS et savoir si vous êtes soumis à la
-                        censure d'internet.
+                       En cliquant sur ce bouton, vous pouvez vérifier votre DNS et savoir si vous êtes soumis à des restrictions sur Internet.
                     </p>
                     <div class="lds-facebook mx-auto relative" v-if="loading">
                         <div></div>
@@ -197,16 +203,22 @@ export default {
                                    :class="{ 'text-[#9A9A9A]': !light_theme }">{{ dns_user ? dns_user.dns : '' }}</p>
                             </div>
                         </div>
-
-                        <p class="text-[#EC0000] text-center text-2xl max-w-2xl mx-auto font-medium mt-4"
-                           :class="{ 'text-[#F55C5C]': !light_theme }" v-if="getFai()">
-                            Vulnérable
-                        </p>
-                        <p class="text-[#21FF1D] text-center text-2xl max-w-2xl mx-auto font-medium mt-4"
-                           :class="{ 'text-[#85FC82]': !light_theme }" v-else>
-                            Non Vulnérable
-                        </p>
-
+                          <p class="text-[#EC0000] text-center text-2xl max-w-2xl mx-auto font-medium mt-4"
+                             :class="{ 'text-[#F55C5C]': !light_theme }" v-if="is_fai">
+                              Vulnérable
+                          </p>
+                        <div v-else>
+                          <p class="text-[#21FF1D] text-center text-2xl max-w-2xl mx-auto font-medium mt-4"
+                             :class="{ 'text-[#85FC82]': !light_theme }">
+                              Non Vulnérable
+                          </p>
+                          <div v-show="showPopup"
+                               class="fixed inset-0 flex items-center justify-center z-50">
+                            <div class=" p-4 rounded-lg mt-4 shadow-lg2" :class="{'bg-[#686868] text-[#F9F9F9]': !light_theme, 'bg-[#C8D7E0] text-[#1C1C1C]': light_theme}">
+                              <p>Attention si vous voulez vous connecter à un réseau public <br/>Il faudra retirer les dns privés sur mobile</p>
+                            </div>
+                          </div>
+                        </div>
                     </div>
 
                 </div>
@@ -219,27 +231,24 @@ export default {
                     <p class="absolute text-white text-8xl right-0 -translate-y-[70%] translate-x-[10px] rotate-12 select-none border-alert-1"
                        :class="{ 'border-alert-2': !light_theme }">!</p>
                     <p class="text-white text-center text-2xl">
-                        En modifiant vos serveurs DNS, vous pouvez contourner les blocages de certains sites web imposés par votre fournisseur d'accès Internet (FAI).
-                        En évitant d'utiliser les DNS par défaut fournis par votre FAI, vous pouvez accéder librement à Internet et profiter d'une plus grande liberté en ligne.
+                        En modifiant vos serveurs DNS, vous pouvez contourner les blocages de certains sites web imposés par votre fournisseur d'accès Internet (FAI) et donc profiter d'une navigation plus libre.
                     </p>
                 </div>
             </div>
 
         </section>
 
-        <section class="mx-auto w-11/12 md:w-3/4 pt-8 md:mt-0">
+        <section class="mx-auto w-11/12 md:w-3/4 pt-8 md:mt-0 max-w-screen-xl">
             <p class="text-[#1C1C1C] font-bold text-2xl mt-24" :class="{ 'text-white': !light_theme }">Qu’est ce qu’un
                 résolveur de Domain Name System (DNS) ?</p>
             <p class="mt-4 ml-4 max-w-4xl text-[#424242] font-medium" :class="{ 'text-[#DBDBDB]': !light_theme }">
              Lorsque vous voulez communiquer avec une personne dont vous ne connaissez que le nom
               mais pas son adresse vous êtes obligé de passer par un annuaire pour obtenir son adresse et
-              pourvoir rentrer en communication.
-              <br/>
-              Un résolveur de DNS joue ce rôle. <br/>
+              pourvoir rentrer en communication. Un résolveur de DNS joue ce rôle. <br/><br/>
               C'est un service proposé par de nombreuses entreprises et par défaut proposé par votre opérateur. <br/>
               Contrairement à ce qu'on peut penser notre ordinateur ne garde pas en mémoire l'adresse pour communiquer.<br/>
               Il est obligé de redemander au résolveur de DNS l'adresse IP correspondant au nom de domaine.
-              En effectuant cette requête, ce service à la possibilité de garder en mémoire qui demande quel adresse.<br/>
+              En effectuant cette requête, ce service à la possibilité de garder en mémoire qui demande quel adresse.<br/><br/>
               Par exemple si vous demander l'adresse de exemple.net, le résolveur DNS peut stocker cette information et
               créer ainsi des données sur les utilisateurs.<br/>
               Il se peut également que cette annuaire soit incomplet ou mente sur la destination réel de votre destinataire.
@@ -263,9 +272,9 @@ export default {
                 leurs noms de domaines faciles à retenir.
             </p>
 
-            <img class="min-[2000px]:absolute min-[2000px]:-translate-y-2/3 relative mx-auto mt-12 right-0 w-4/6 min-w-[19rem] max-w-lg"
+            <img class="relative mx-auto mt-12 right-0 w-4/6 min-w-[19rem] max-w-lg"
                  :src="shema_black" v-if="light_theme"/>
-            <img class="min-[2000px]:absolute min-[2000px]:-translate-y-2/3 relative mx-auto mt-12 right-0 w-4/6 min-w-[19rem] max-w-lg"
+            <img class="relative mx-auto mt-12 right-0 w-4/6 min-w-[19rem] max-w-lg"
                  :src="shema_white" v-else/>
 
             <p class="text-[#1C1C1C] font-bold text-2xl mt-12" :class="{ 'text-white': !light_theme }">Qu’est ce qu’un
@@ -278,7 +287,7 @@ export default {
                 est inaccessible ou inexistant.
                 <br/><br/>
                 L'utilisation du DNS menteur est souvent mise en place par les FAI en réponse à des obligations légales ou judiciaires.
-                <br/>
+                <br/><br/>
                 En revanche, ces obligations sont beaucoup plus rarement appliquées aux DNS privés.
                 <br/>
                 C'est pourquoi dans un tel contexte il est recommandé d'utiliser des DNS privés pour garder un maximum de liberté sur Internet.
@@ -286,7 +295,7 @@ export default {
         </section>
 
 
-        <section class="mx-auto w-11/12 md:w-3/4 pt-8 mt-24">
+        <section class="mx-auto w-11/12 md:w-3/4 pt-8 mt-24 max-w-screen-2xl">
             <!-- selection de la plateforme-->
             <div class="block md:flex">
                 <p class="mr-3 text-xl text-[#2E2E2E] my-auto" :class="{ 'text-[#FFFFFF]': !light_theme }">Je veux changer de DNS sur</p>
@@ -310,7 +319,7 @@ export default {
                 </div>
             </div>
 
-            <div class="w-full rounded rounded-lg p xl:p-4 mt-2 overflow-x-auto shadow-none shadow-[#18191A]"
+            <div class="w-full rounded-lg p xl:p-4 mt-2 overflow-x-auto shadow-none shadow-[#18191A]"
                  :class="{ 'shadow-md bg-[#1F2126]': !light_theme , 'bg-[#C8D7E0]': light_theme }">
                 <Tutorial :plateforme="selectedPlatform" :theme="light_theme" @show_image="show_image"/>
             </div>
@@ -577,7 +586,7 @@ export default {
             <footer class="flex w-full bg-gradient-to-r from-[#FF6666] to-[#6070FF] p-3"
                     onclick="window.location.href='https://github.com/changetondns'">
                 <img :src="github" class="w-6 mr-2"/>
-                <p class="text-white text-md my-auto hover:underline underline-offset-1">2023 - Contribuer au code sur
+                <p class="text-white text-md my-auto hover:underline underline-offset-1 cursor-pointer">2023 - Contribuer au code sur
                     github</p>
             </footer>
         </section>
