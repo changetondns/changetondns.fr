@@ -214,7 +214,7 @@ export default {
                           </p>
                           <div v-show="showPopup"
                                class="fixed inset-0 flex items-center justify-center z-50">
-                            <div class="bg-[#C8D7E0] p-4 rounded-lg mt-4 shadow-lg2 text-[#1C1C1C]" :class="{'bg-[#686868]': !light_theme, 'text-[#F9F9F9]': !light_theme}">
+                            <div class=" p-4 rounded-lg mt-4 shadow-lg2" :class="{'bg-[#686868] text-[#F9F9F9]': !light_theme, 'bg-[#C8D7E0] text-[#1C1C1C]': light_theme}">
                               <p>Attention si vous voulez vous connecter à un réseau public <br/>Il faudra retirer les dns privés sur mobile</p>
                             </div>
                           </div>
