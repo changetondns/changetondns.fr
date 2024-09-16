@@ -22,6 +22,8 @@ export default {
             twitter,
             shema_white,
             shema_black,
+            showPopup: false,
+            is_fai: false,
             light_theme: true,
             selectedPlatform: 'w-11',
             dns_user: null,
@@ -69,21 +71,19 @@ export default {
                 same_ip = true;
             }
             if (same_ip) {
-                return false;
+              this.is_fai = false;
             }
 
-            let is_fai = false;
             let searchString = this.dns_user.dns.toLowerCase();
             let keywords = ['bouygues', 'free sas', 'sfr', 'orange'];
 
             for (let i = 0; i < keywords.length; i++) {
                 if (searchString.includes(keywords[i])) {
-                    is_fai = true;
+                    this.is_fai = true;
                     break;
                 }
             }
-
-            return is_fai;
+            this.showPopupTemporarily();
         },
 
         startDns() {
@@ -123,11 +123,18 @@ export default {
                                 'dns': res.data[1].asn,
                             };
                             this.loading = false;
+                            this.getFai();
                         }
                     })
             });
-        }
-    }
+        },
+        showPopupTemporarily() {
+          this.showPopup = !this.is_fai;
+          setTimeout(() => {
+            this.showPopup = false;
+          }, 3000); // Pop-up will disappear after 3 seconds
+        },
+    },
 }
 </script>
 
@@ -158,7 +165,7 @@ export default {
                     </div>
                 </div>
 
-                <p class="text-[#5E5E5E] text-lg text-center mt-2" :class="{ 'text-[#F9F9F9]': !light_theme }">Naviguez librement !</p>
+                <p class="text-[#5E5E5E] text-lg text-center mt-2" :class="{ 'text-[#F9F9F9]': !light_theme }">Évitons la censure !</p>
 
             </div>
 
@@ -196,16 +203,22 @@ export default {
                                    :class="{ 'text-[#9A9A9A]': !light_theme }">{{ dns_user ? dns_user.dns : '' }}</p>
                             </div>
                         </div>
-
-                        <p class="text-[#EC0000] text-center text-2xl max-w-2xl mx-auto font-medium mt-4"
-                           :class="{ 'text-[#F55C5C]': !light_theme }" v-if="getFai()">
-                            Vulnérable
-                        </p>
-                        <p class="text-[#21FF1D] text-center text-2xl max-w-2xl mx-auto font-medium mt-4"
-                           :class="{ 'text-[#85FC82]': !light_theme }" v-else>
-                            Non Vulnérable
-                        </p>
-
+                          <p class="text-[#EC0000] text-center text-2xl max-w-2xl mx-auto font-medium mt-4"
+                             :class="{ 'text-[#F55C5C]': !light_theme }" v-if="is_fai">
+                              Vulnérable
+                          </p>
+                        <div v-else>
+                          <p class="text-[#21FF1D] text-center text-2xl max-w-2xl mx-auto font-medium mt-4"
+                             :class="{ 'text-[#85FC82]': !light_theme }">
+                              Non Vulnérable
+                          </p>
+                          <div v-show="showPopup"
+                               class="fixed inset-0 flex items-center justify-center z-50">
+                            <div class="bg-[#C8D7E0] p-4 rounded-lg mt-4 shadow-lg2 text-[#1C1C1C]" :class="{'bg-[#686868]': !light_theme, 'text-[#F9F9F9]': !light_theme}">
+                              <p>Attention si vous voulez vous connecter à un réseau public <br/>Il faudra retirer les dns privés sur mobile</p>
+                            </div>
+                          </div>
+                        </div>
                     </div>
 
                 </div>
@@ -218,7 +231,7 @@ export default {
                     <p class="absolute text-white text-8xl right-0 -translate-y-[70%] translate-x-[10px] rotate-12 select-none border-alert-1"
                        :class="{ 'border-alert-2': !light_theme }">!</p>
                     <p class="text-white text-center text-2xl">
-                        En modifiant vos serveurs DNS, vous pouvez éviter les blocages de certains sites web imposés par votre fournisseur d'accès Internet (FAI) et donc profiter d'une navigation plus libre.
+                        En modifiant vos serveurs DNS, vous pouvez contourner les blocages de certains sites web imposés par votre fournisseur d'accès Internet (FAI) et donc profiter d'une navigation plus libre.
                     </p>
                 </div>
             </div>
@@ -306,7 +319,7 @@ export default {
                 </div>
             </div>
 
-            <div class="w-full rounded rounded-lg p xl:p-4 mt-2 overflow-x-auto shadow-none shadow-[#18191A]"
+            <div class="w-full rounded-lg p xl:p-4 mt-2 overflow-x-auto shadow-none shadow-[#18191A]"
                  :class="{ 'shadow-md bg-[#1F2126]': !light_theme , 'bg-[#C8D7E0]': light_theme }">
                 <Tutorial :plateforme="selectedPlatform" :theme="light_theme" @show_image="show_image"/>
             </div>
